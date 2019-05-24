@@ -1,0 +1,28 @@
+version: "3"
+services:
+  # ui:
+  #   build: ./client
+  #   restart: always
+  #   ports:
+  #     - "3000:3000"
+  # api:
+  #   build: ./server
+  #   restart: always
+  #   environment:
+  #     - JNA_GOOGLE_CLIENTID=${JNA_GOOGLE_CLIENTID}
+  #     - JNA_GOOGLE_CLIENTSECRET=${JNA_GOOGLE_CLIENTSECRET}
+  #     - JNA_FACEBOOK_CLIENTID=${JNA_FACEBOOK_CLIENTID}
+  #     - JNA_FACEBOOK_CLIENTSECRET=${JNA_FACEBOOK_CLIENTSECRET}
+  #     - JNA_JWT_SIGNING_KEY=${JNA_JWT_SIGNING_KEY}
+  #   ports:
+  #     - "8080:8080"
+  db:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./db/data:/data/db

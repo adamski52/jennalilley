@@ -1,0 +1,40 @@
+{
+  "name": "@adamski52/cms-api",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "author": "Jonathan Adamski",
+  "scripts": {
+    "tsc": "tsc",
+    "start": "ts-node-dev --respawn --transpileOnly ./src/index.ts",
+    "build": "tsc",
+    "prod": "node ./dist/src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.15.3",
+    "mongodb": "^3.2.5",
+    "pg": "^7.11.0"
+  },
+  "devDependencies": {
+    "@types/convict": "^4.2.1",
+    "@types/cookie-parser": "^1.4.1",
+    "@types/express": "^4.16.1",
+    "@types/mongodb": "^3.1.27",
+    "@types/mongoose": "^5.5.1",
+    "@types/passport": "^1.0.0",
+    "@types/passport-facebook": "^2.1.9",
+    "@types/passport-google-oauth": "^1.0.41",
+    "@types/passport-jwt": "^3.0.1",
+    "@types/pg": "^7.4.14",
+    "body-parser": "^1.19.0",
+    "convict": "^5.0.0",
+    "cookie-parser": "^1.4.4",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.5.9",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "passport-google-oauth": "^1.0.0",
+    "passport-jwt": "^4.0.0",
+    "ts-node-dev": "^1.0.0-pre.39",
+    "typescript": "^3.4.5"
+  }
+}
