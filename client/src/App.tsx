@@ -1,7 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {style} from "typestyle";
 import fetch from "cross-fetch";
 import Cookies from 'js-cookie';
+import UserList from './components/UserList';
+
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import "react-datepicker/dist/react-datepicker.css";
+import ScheduleForm from './components/forms/ScheduleForm';
+import ScheduleList from './components/ScheduleList';
 
 export default class App extends React.Component<any, any> {
   private demoClassName = style({
@@ -105,6 +111,18 @@ export default class App extends React.Component<any, any> {
         }} defaultValue={this.state.userId} />
 
         <button onClick={this.doCreateUser}>Create User</button>
+
+        <hr/>
+
+        <UserList/>
+
+        <hr/>
+
+        <ScheduleForm />
+
+        <hr />
+
+        <ScheduleList />
       </div>
     );
   }
