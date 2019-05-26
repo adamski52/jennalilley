@@ -5,14 +5,17 @@ import UserService from "../services/UserService";
 import BlogService from "../services/BlogService";
 
 export default class ScheduleRouter extends BaseRouter {
-    constructor() {
+    private blogService:BlogService;
+    constructor(blogService:BlogService = new BlogService()) {
         super();
+
+        this.blogService = blogService;
         
         //this.router.get("/", passport.authenticate(["jwt"], {
             // session: false
         this.router.get("/", async (req:Request, res:Response) => {
             try {
-                let blogs = await BlogService.getAll();
+                let blogs = await this.blogService.getAll();
                 return res.send(blogs);
             }
             catch(e) {
@@ -24,7 +27,7 @@ export default class ScheduleRouter extends BaseRouter {
             // session: false
         this.router.get("/:id", async (req:Request, res:Response) => {
             try {
-                let blog = BlogService.getById(req.params.id);
+                let blog = this.blogService.getById(req.params.id);
                 return res.send(blog);
             }
             catch(e) {
@@ -42,10 +45,10 @@ export default class ScheduleRouter extends BaseRouter {
 
             let blog;
             try {
-                blog = await BlogService.getById(req.params.id);
+                blog = await this.blogService.getById(req.params.id);
             
                 try {
-                    blog = await BlogService.deleteById(req.params.id);
+                    blog = await this.blogService.deleteById(req.params.id);
                     return res.send(blog);
                 } catch(e) {
                     return res.status(400).send();
@@ -66,7 +69,7 @@ export default class ScheduleRouter extends BaseRouter {
 
             let blog;
             try {
-                blog = await BlogService.update(req.params.id, req.body.title, req.body.startDateTime, req.body.endDateTime, req.body.content);
+                blog = await this.blogService.update(req.params.id, req.body);
                 return res.send(blog);
             }
             catch(e) {
@@ -85,7 +88,7 @@ export default class ScheduleRouter extends BaseRouter {
 
             let blog;
             try {
-                blog = await BlogService.create(req.body.title, req.body.startDateTime, req.body.endDateTime, req.body.content);
+                blog = await this.blogService.create(req.body);
                 return res.send(blog);
             }
             catch(e) {

@@ -5,14 +5,17 @@ import UserService from "../services/UserService";
 import ScheduleService from "../services/ScheduleService";
 
 export default class ScheduleRouter extends BaseRouter {
-    constructor() {
+    private scheduleService:ScheduleService;
+    constructor(scheduleService:ScheduleService = new ScheduleService()) {
         super();
+
+        this.scheduleService = scheduleService;
         
         //this.router.get("/", passport.authenticate(["jwt"], {
             // session: false
         this.router.get("/", async (req:Request, res:Response) => {
             try {
-                let schedules = await ScheduleService.getAll();
+                let schedules = await this.scheduleService.getAll();
                 return res.send(schedules);
             }
             catch(e) {
@@ -24,7 +27,7 @@ export default class ScheduleRouter extends BaseRouter {
             // session: false
         this.router.get("/:id", async (req:Request, res:Response) => {
             try {
-                let schedule = ScheduleService.getById(req.params.id);
+                let schedule = this.scheduleService.getById(req.params.id);
                 return res.send(schedule);
             }
             catch(e) {
@@ -42,10 +45,10 @@ export default class ScheduleRouter extends BaseRouter {
 
             let schedule;
             try {
-                schedule = await ScheduleService.getById(req.params.id);
+                schedule = await this.scheduleService.getById(req.params.id);
             
                 try {
-                    schedule = await ScheduleService.deleteById(req.params.id);
+                    schedule = await this.scheduleService.deleteById(req.params.id);
                     return res.send(schedule);
                 } catch(e) {
                     return res.status(400).send();
@@ -66,7 +69,7 @@ export default class ScheduleRouter extends BaseRouter {
 
             let schedule;
             try {
-                schedule = await ScheduleService.update(req.params.id, req.body.name, req.body.type, req.body.startDateTime, req.body.endDateTime, req.body.capacity, req.body.ageRestrictions, req.body.cost, req.body.location, req.body.description);
+                schedule = await this.scheduleService.update(req.params.id, req.body);
                 return res.send(schedule);
             }
             catch(e) {
@@ -85,7 +88,7 @@ export default class ScheduleRouter extends BaseRouter {
 
             let schedule;
             try {
-                schedule = await ScheduleService.create(req.body.name, req.body.type, req.body.startDateTime, req.body.endDateTime, req.body.capacity, req.body.ageRestrictions, req.body.cost, req.body.location, req.body.description);
+                schedule = await this.scheduleService.create(req.body);
                 return res.send(schedule);
             }
             catch(e) {
