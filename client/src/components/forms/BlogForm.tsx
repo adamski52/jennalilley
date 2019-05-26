@@ -1,10 +1,15 @@
 import React, { FormEvent, RefObject } from 'react';
 import DatePicker from "react-datepicker";
-import {style} from "typestyle";
 import ReactDatePicker from 'react-datepicker';
 import Cookies from 'js-cookie';
+import {style} from "typestyle";
 
-export default class ScheduleForm extends React.Component<any, any> {
+
+export default class BlogForm extends React.Component<any, any> {
+  private titleRef = React.createRef<HTMLInputElement>();
+  private contentRef = React.createRef<HTMLTextAreaElement>();
+  private startDateTimeRef = React.createRef<ReactDatePicker>();
+  private endDateTimeRef = React.createRef<ReactDatePicker>();
 
   private timeClassName = style({
     "$nest": {
@@ -22,16 +27,6 @@ export default class ScheduleForm extends React.Component<any, any> {
         }
     }
   });
-
-  private nameRef = React.createRef<HTMLInputElement>();
-  private typeRef = React.createRef<HTMLInputElement>();
-  private startDateTimeRef = React.createRef<ReactDatePicker>();
-  private endDateTimeRef = React.createRef<ReactDatePicker>();
-  private capacityRef = React.createRef<HTMLInputElement>();
-  private ageRestrictionsRef = React.createRef<HTMLInputElement>();
-  private costRef = React.createRef<HTMLInputElement>();
-  private locationRef = React.createRef<HTMLInputElement>();
-  private descriptionRef = React.createRef<HTMLTextAreaElement>();
   
   constructor(props:any) {
     super(props);
@@ -51,18 +46,11 @@ export default class ScheduleForm extends React.Component<any, any> {
   private onSubmit(e:FormEvent<HTMLFormElement>) {
     e.preventDefault();
     let payload = {
-        name: this.refOrValue(this.nameRef, ""),
-        type: this.refOrValue(this.typeRef, ""),
-        startDateTime: this.state.startDateTime || "",
-        endDateTime: this.state.endDateTime || "",
-        capacity: this.refOrValue(this.capacityRef, ""),
-        ageRestrictions: this.refOrValue(this.ageRestrictionsRef, ""),
-        cost: this.refOrValue(this.costRef, ""),
-        location: this.refOrValue(this.locationRef, ""),
-        description: this.refOrValue(this.descriptionRef, "")
+        title: this.refOrValue(this.titleRef, ""),
+        content: this.refOrValue(this.contentRef, "")
     };
 
-    fetch("/api/schedules", {
+    fetch("/api/blogs", {
         method: "POST",
         headers: {
             "Authorization": "JWT " + Cookies.get("TOKEN"),
@@ -71,8 +59,8 @@ export default class ScheduleForm extends React.Component<any, any> {
         body: JSON.stringify(payload)
     }).then((response:Response) => {
         return response.json();
-    }).then((schedule) => {
-        console.log("created item", schedule);
+    }).then((blog) => {
+        console.log("created item", blog);
     }).catch((e) => {
         console.log("oh no", e);
     });
@@ -83,25 +71,20 @@ export default class ScheduleForm extends React.Component<any, any> {
         <div>
             <form onSubmit={this.onSubmit}>
                 <label>
-                    <span>Event Name</span>
-                    <input defaultValue="aaa" type="text" ref={this.nameRef} placeholder="Event Name" />
-                </label>
-
-                <label>
-                    <span>Event Type (e.g. Hitting, Fielding, etc.)</span>
-                    <input  defaultValue="bbb" type="text" ref={this.typeRef} placeholder="Event Type" />
+                    <span>Blog Title</span>
+                    <input defaultValue="aaa" type="text" ref={this.titleRef} placeholder="Blog Title" />
                 </label>
 
                 <label className={this.timeClassName}>
-                    <span>Start Date</span>
+                    <span>Publish Date</span>
                     <DatePicker
                         ref={this.startDateTimeRef}
                         showTimeSelect
                         timeIntervals={15}
                         minDate={new Date()}
-                        placeholderText="Start Date"
+                        placeholderText="Publish Date"
                         dateFormat="MMMM d, yyyy h:mm aa"
-                        timeCaption="Start Time"
+                        timeCaption="Publish Time"
                         selected={this.state.startDateTime}
                         onChange={(date) => {
                             this.setState({
@@ -112,16 +95,16 @@ export default class ScheduleForm extends React.Component<any, any> {
                 </label>
 
                 <label className={this.timeClassName}>
-                    <span>End Date</span>
+                    <span>Unpublish Date</span>
                     <DatePicker
                         ref={this.endDateTimeRef}
                         showTimeSelect
                         timeIntervals={15}
                         minDate={this.state.startDateTime ? this.state.startDateTime : new Date()}
                         dateFormat="MMMM d, yyyy h:mm aa"
-                        timeCaption="End Time"
-                        placeholderText="End Date"
-                        selected={this.state.endDateTime}
+                        timeCaption="Unpublish Time"
+                        placeholderText="Unpublish Date"
+                        selected={null}
                         onChange={(date) => {
                             this.setState({
                                 endDateTime: date
@@ -131,31 +114,11 @@ export default class ScheduleForm extends React.Component<any, any> {
                 </label>
 
                 <label>
-                    <span>Capacity</span>
-                    <input  defaultValue="ccc" type="text" ref={this.capacityRef} placeholder="Capacity" />
+                    <span>Content</span>
+                    <textarea  defaultValue="ggg" ref={this.contentRef} />
                 </label>
 
-                <label>
-                    <span>Age Restrictions (e.g. 10+, none, etc.)</span>
-                    <input  defaultValue="ddd" type="text" ref={this.ageRestrictionsRef} placeholder="Age Restrictions (e.g. 10+, none, etc.)" />
-                </label>
-
-                <label>
-                    <span>Cost (e.g. $100/person, $100/group, etc.)</span>
-                    <input  defaultValue="eee" type="text" ref={this.costRef} placeholder="Cost (e.g. $100/person, $100/group, etc.)" />
-                </label>
-
-                <label>
-                    <span>Location</span>
-                    <input  defaultValue="fff" type="text" ref={this.locationRef} placeholder="Location" />
-                </label>
-
-                <label>
-                    <span>Description</span>
-                    <textarea  defaultValue="ggg" ref={this.descriptionRef} />
-                </label>
-
-                <button>Save Event</button>
+                <button>Save Blog</button>
             </form>
         </div>
     );

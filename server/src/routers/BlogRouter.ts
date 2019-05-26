@@ -2,7 +2,7 @@ import BaseRouter from "./BaseRouter";
 import { Request, Response } from "express";
 import passport from "passport";
 import UserService from "../services/UserService";
-import ScheduleService from "../services/ScheduleService";
+import BlogService from "../services/BlogService";
 
 export default class ScheduleRouter extends BaseRouter {
     constructor() {
@@ -12,8 +12,8 @@ export default class ScheduleRouter extends BaseRouter {
             // session: false
         this.router.get("/", async (req:Request, res:Response) => {
             try {
-                let schedules = await ScheduleService.getAll();
-                return res.send(schedules);
+                let blogs = await BlogService.getAll();
+                return res.send(blogs);
             }
             catch(e) {
                 return res.status(401).send();
@@ -24,8 +24,8 @@ export default class ScheduleRouter extends BaseRouter {
             // session: false
         this.router.get("/:id", async (req:Request, res:Response) => {
             try {
-                let schedule = ScheduleService.getById(req.params.id);
-                return res.send(schedule);
+                let blog = BlogService.getById(req.params.id);
+                return res.send(blog);
             }
             catch(e) {
                 return res.status(401).send();
@@ -40,13 +40,13 @@ export default class ScheduleRouter extends BaseRouter {
                 // return res.status(401).send();
             // }
 
-            let schedule;
+            let blog;
             try {
-                schedule = await ScheduleService.getById(req.params.id);
+                blog = await BlogService.getById(req.params.id);
             
                 try {
-                    schedule = await ScheduleService.deleteById(req.params.id);
-                    return res.send(schedule);
+                    blog = await BlogService.deleteById(req.params.id);
+                    return res.send(blog);
                 } catch(e) {
                     return res.status(400).send();
                 }
@@ -64,10 +64,10 @@ export default class ScheduleRouter extends BaseRouter {
                 // return res.status(401).send();
             // }
 
-            let schedule;
+            let blog;
             try {
-                schedule = await ScheduleService.update(req.params.id, req.body.name, req.body.type, req.body.startDateTime, req.body.endDateTime, req.body.capacity, req.body.ageRestrictions, req.body.cost, req.body.location, req.body.description);
-                return res.send(schedule);
+                blog = await BlogService.update(req.params.id, req.body.title, req.body.startDateTime, req.body.endDateTime, req.body.content);
+                return res.send(blog);
             }
             catch(e) {
                 return res.status(404).send();
@@ -83,10 +83,10 @@ export default class ScheduleRouter extends BaseRouter {
                 // return res.status(401).send();
             // }
 
-            let schedule;
+            let blog;
             try {
-                schedule = await ScheduleService.create(req.body.name, req.body.type, req.body.startDateTime, req.body.endDateTime, req.body.capacity, req.body.ageRestrictions, req.body.cost, req.body.location, req.body.description);
-                return res.send(schedule);
+                blog = await BlogService.create(req.body.title, req.body.startDateTime, req.body.endDateTime, req.body.content);
+                return res.send(blog);
             }
             catch(e) {
                 return res.status(400).send();

@@ -38,16 +38,20 @@ export default class ScheduleService {
     }
 
     public static async create(name: string, type: string, startDateTime: Date, endDateTime: Date, capacity: string, ageRestrictions: string, cost: string, location: string, description: string) {
-        return await Schedule.create({
-            name,
-            type,
-            startDateTime,
-            endDateTime,
-            capacity,
-            ageRestrictions,
-            cost,
-            location,
-            description
+        let schedule = await Schedule.create({
+            name: name,
+            type: type,
+            startDateTime: startDateTime,
+            endDateTime: endDateTime,
+            capacity: capacity,
+            ageRestrictions: ageRestrictions,
+            cost: cost,
+            location: location,
+            description: description
         });
+
+        console.log(name, type, startDateTime, endDateTime, capacity, ageRestrictions, cost, location, description, schedule);
+
+        return schedule;
     }
 }

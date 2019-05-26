@@ -20,7 +20,7 @@ export default class ScheduleList extends React.Component<any, any> {
     }).then((response:Response) => {
         return response.json();
     }).then((schedules) => {
-      console.log("got schedules", schedules);
+        console.log("got schedules", schedules);
         this.setState({
             schedules: schedules || []
         });
@@ -40,7 +40,7 @@ export default class ScheduleList extends React.Component<any, any> {
 
   private renderItem(schedule:ISchedule) {
       return (
-        <div className="row">
+        <div key={schedule._id} className="row">
             <div className="col-xs-9">
                 <p>{schedule.name}</p>
                 <p>{schedule.type}</p>
@@ -62,7 +62,7 @@ export default class ScheduleList extends React.Component<any, any> {
   }
 
   private renderItems() {
-    console.log(this.state);
+      console.log(this.state);
       return this.state.schedules.map((schedule:ISchedule) => {
         return this.renderItem(schedule);
       });
@@ -71,9 +71,7 @@ export default class ScheduleList extends React.Component<any, any> {
   public render() {
     return (
         <div>
-          <ul>
-              {this.renderItems()}
-          </ul>
+            {this.renderItems()}
         </div>
     );
   }

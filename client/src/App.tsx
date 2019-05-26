@@ -8,6 +8,8 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
 import ScheduleForm from './components/forms/ScheduleForm';
 import ScheduleList from './components/ScheduleList';
+import BlogList from './components/BlogList';
+import BlogForm from "./components/forms/BlogForm";
 
 export default class App extends React.Component<any, any> {
   private demoClassName = style({
@@ -123,6 +125,14 @@ export default class App extends React.Component<any, any> {
         <hr />
 
         <ScheduleList />
+
+        <hr />
+
+        <BlogForm />
+
+        <hr />
+
+        <BlogList />
       </div>
     );
   }

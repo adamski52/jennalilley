@@ -4,6 +4,7 @@ import SecureRouter from "./SecureRouter";
 import BaseRouter from "./BaseRouter";
 import UsersRouter from "./UsersRouter";
 import ScheduleRouter from "./ScheduleRouter";
+import BlogRouter from "./BlogRouter";
 
 export default class APIRouter extends BaseRouter {
     constructor() {
@@ -14,6 +15,7 @@ export default class APIRouter extends BaseRouter {
         this.router.use("/secure", new SecureRouter().getRouter());
         this.router.use("/users", new UsersRouter().getRouter());
         this.router.use("/schedules", new ScheduleRouter().getRouter());
+        this.router.use("/blogs", new BlogRouter().getRouter());
 
     }
 }
