@@ -8,6 +8,7 @@ import { MODE } from '../../../../util/TypeUtils';
 import { BlogFormProps, BlogFormState } from '../../../states/Blogs';
 import ReactQuill from 'react-quill';
 import { RTF_MODULES } from '../../../../util/EditorUtils';
+import RefUtil from '../../../../util/RefUtil';
 
 export default class BlogForm extends React.Component<BlogFormProps, BlogFormState> {
   private titleRef = React.createRef<HTMLInputElement>();
@@ -56,15 +57,11 @@ export default class BlogForm extends React.Component<BlogFormProps, BlogFormSta
     });
 }
 
-  private refOrValue(ref:RefObject<HTMLInputElement | HTMLTextAreaElement | null>, val:string) {
-    return ref.current ? ref.current.value : val;
-  }
-
   private onSubmit(e:FormEvent<HTMLFormElement>) {
     e.preventDefault();
     let payload = {
-        title: this.refOrValue(this.titleRef, ""),
-        content: this.refOrValue(this.contentRef, "")
+        title: RefUtil.getValue(this.titleRef, ""),
+        content: RefUtil.getValue(this.contentRef, "")
     };
 
     if(this.props.mode === MODE.CREATE) {
