@@ -6,6 +6,8 @@ import HttpService from '../../../../util/HttpService';
 import StatusBar, { STATUS } from '../../../StatusBar';
 import { MODE } from '../../../../util/TypeUtils';
 import { BlogFormProps, BlogFormState } from '../../../states/Blogs';
+import ReactQuill from 'react-quill';
+import { RTF_MODULES } from '../../../../util/EditorUtils';
 
 export default class BlogForm extends React.Component<BlogFormProps, BlogFormState> {
   private titleRef = React.createRef<HTMLInputElement>();
@@ -44,8 +46,15 @@ export default class BlogForm extends React.Component<BlogFormProps, BlogFormSta
         }
     };
 
+    this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
+
+  private onChange(value:string) {
+    this.setState({
+        content: value
+    });
+}
 
   private refOrValue(ref:RefObject<HTMLInputElement | HTMLTextAreaElement | null>, val:string) {
     return ref.current ? ref.current.value : val;
@@ -155,7 +164,7 @@ export default class BlogForm extends React.Component<BlogFormProps, BlogFormSta
 
                 <label>
                     <span>Content</span>
-                    <textarea defaultValue="ggg" ref={this.contentRef} />
+                    <ReactQuill modules={RTF_MODULES} value={this.state.content} onChange={this.onChange}/>
                 </label>
 
                 <button>Save Blog</button>

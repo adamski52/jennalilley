@@ -29,15 +29,19 @@ export default class AboutPage extends React.Component<AboutViewProps, AboutView
         });
     }
 
+    private renderItem() {
+        return (
+            <div>
+                {this.state.item}
+            </div>
+        );
+    }
+
     public render() {
-        if(!this.state.item) {
-            return null;
-        }
-        
         return (
             <div>
                 <StatusBar {...this.state.message} />
-                {this.state.item}
+                {this.renderItem()}
             </div>
         );
     }

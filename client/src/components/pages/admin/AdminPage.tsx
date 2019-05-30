@@ -9,10 +9,11 @@ import UserList from "./users/UserList";
 export default class AdminPage extends React.Component<any, any> {
     public render() {
         return (
+            <div>
             <Router>
                 <Link to="/admin/about/">About Form</Link>
                 <Link to="/admin/blogs/">Blogs Form</Link>
-                <Link to="/admin/schedule/">Schedule Form Form</Link>
+                <Link to="/admin/schedule/">Schedule Form</Link>
                 <Link to="/admin/users/">Users Form</Link>
 
 
@@ -23,6 +24,7 @@ export default class AdminPage extends React.Component<any, any> {
                 <Route path="/admin/users/" component={UserList} />
 
             </Router>
+            </div>
         );
     }
 }

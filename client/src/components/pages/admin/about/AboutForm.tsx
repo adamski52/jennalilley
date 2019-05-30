@@ -3,21 +3,10 @@ import ReactQuill from 'react-quill';
 import HttpService from '../../../../util/HttpService';
 import StatusBar, { STATUS } from '../../../StatusBar';
 import { AboutFormProps, AboutFormState } from '../../../states/About';
+import { RTF_MODULES } from '../../../../util/EditorUtils';
 
 export default class AboutForm extends React.Component<AboutFormProps, AboutFormState> {
   private serviceUrl = "/api/about";
-  private rtfModules = {
-    toolbar: [
-        [{"header": [1, 2, 3, 4, 5, 6, false]}],
-        [{"size": ["small", false, "large", "huge"]}],
-        ['bold', 'italic', 'underline', 'strike'],
-        [{"align": []}],
-        [{"list": "ordered"}, {"list": "bullet"}, {"indent": "-1"}, {"indent": "+1"}],
-        ['link', 'image'],
-        [{"script": "super"}, {"script": "sub"}, 'blockquote'],
-        ["clean"]
-    ]
-  };
 
   constructor(props:AboutFormProps) {
     super(props);
@@ -85,7 +74,7 @@ export default class AboutForm extends React.Component<AboutFormProps, AboutForm
         <div>
             <StatusBar {...this.state.message} />
             <form onSubmit={this.onSubmit}>
-                <ReactQuill modules={this.rtfModules} value={this.state.content} onChange={this.onChange}/>
+                <ReactQuill modules={RTF_MODULES} value={this.state.content} onChange={this.onChange}/>
 
                 <button>Save About Page</button>
             </form>

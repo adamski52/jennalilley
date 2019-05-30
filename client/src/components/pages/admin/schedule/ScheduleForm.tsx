@@ -3,6 +3,10 @@ import DatePicker from "react-datepicker";
 import {style} from "typestyle";
 import ReactDatePicker from 'react-datepicker';
 import Cookies from 'js-cookie';
+import HttpService from '../../../../util/HttpService';
+import { STATUS } from '../../../StatusBar';
+import { RTF_MODULES } from '../../../../util/EditorUtils';
+import ReactQuill from 'react-quill';
 
 export default class ScheduleForm extends React.Component<any, any> {
 
@@ -31,17 +35,18 @@ export default class ScheduleForm extends React.Component<any, any> {
   private ageRestrictionsRef = React.createRef<HTMLInputElement>();
   private costRef = React.createRef<HTMLInputElement>();
   private locationRef = React.createRef<HTMLInputElement>();
-  private descriptionRef = React.createRef<HTMLTextAreaElement>();
   
   constructor(props:any) {
     super(props);
 
     this.state = {
+        description: "",
         startDateTime: null,
         endDateTime: null
     };
 
     this.onSubmit = this.onSubmit.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   private refOrValue(ref:RefObject<HTMLInputElement | HTMLTextAreaElement | null>, val:string) {
@@ -59,24 +64,31 @@ export default class ScheduleForm extends React.Component<any, any> {
         ageRestrictions: this.refOrValue(this.ageRestrictionsRef, ""),
         cost: this.refOrValue(this.costRef, ""),
         location: this.refOrValue(this.locationRef, ""),
-        description: this.refOrValue(this.descriptionRef, "")
+        description: this.state.description
     };
 
-    fetch("/api/schedules", {
-        method: "POST",
-        headers: {
-            "Authorization": "JWT " + Cookies.get("TOKEN"),
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
-    }).then((response:Response) => {
-        return response.json();
-    }).then((schedule) => {
-        console.log("created item", schedule);
-    }).catch((e) => {
-        console.log("oh no", e);
+    HttpService.post("/api/schedules", payload).then(() => {
+        this.setState({
+            message: {
+                message: "Successfully created schedule.",
+                type: STATUS.SUCCESS
+            }
+        });
+    }).catch(() => {
+        this.setState({
+            message: {
+                message: "Failed to save schedule.",
+                type: STATUS.ERROR
+            }
+        });
     });
   }
+
+  private onChange(value:string) {
+    this.setState({
+        description: value
+    });
+}
 
   public render() {
     return (
@@ -152,7 +164,7 @@ export default class ScheduleForm extends React.Component<any, any> {
 
                 <label>
                     <span>Description</span>
-                    <textarea  defaultValue="ggg" ref={this.descriptionRef} />
+                    <ReactQuill modules={RTF_MODULES} value={this.state.description} onChange={this.onChange}/>
                 </label>
 
                 <button>Save Event</button>

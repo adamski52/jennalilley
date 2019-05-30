@@ -21,7 +21,7 @@ export default class ScheduleList extends React.Component<any, any> {
       this.setState({
           message: {
               type: STATUS.ERROR,
-              message: "Failed to fetch blogs."
+              message: "Failed to fetch schedule."
           }
       });
     });
@@ -32,7 +32,7 @@ export default class ScheduleList extends React.Component<any, any> {
         this.setState({
             message: {
                 type: STATUS.ERROR,
-                message: "Failed to fetch blogs."
+                message: "Schedule deleted successfully."
             }
         });      
     }).catch(() => {
