@@ -2,7 +2,7 @@ import { IBase } from "../models/Base";
 import { Model } from "mongoose";
 
 export default abstract class BaseService {
-    private model:Model<IBase>;
+    protected model:Model<IBase>;
     
     constructor(model:Model<IBase>) {
         this.model = model;

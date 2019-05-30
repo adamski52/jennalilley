@@ -1,7 +1,7 @@
 import React from 'react';
-import fetch from "cross-fetch";
-import Cookies from 'js-cookie';
-import { IBlog } from "../../../server/src/models/Blog";
+import { IBlog } from "../../../../../server/src/models/Blog";
+import HttpService from '../../../util/HttpService';
+import StatusBar, { STATUS } from '../../StatusBar';
 
 export default class BlogList extends React.Component<any, any> {
   constructor(props:any) {
@@ -10,32 +10,43 @@ export default class BlogList extends React.Component<any, any> {
     this.onDelete = this.onDelete.bind(this);
 
     this.state = {
-        blogs: []
+        blogs: [],
+        message: {
+            type: "",
+            message: ""
+        }
     };
 
-    fetch("/api/blogs", {
-        headers: {
-            "Authorization": "JWT " + Cookies.get("TOKEN")
-        }
-    }).then((response:Response) => {
-        return response.json();
-    }).then((blogs) => {
-        console.log("got blogs", blogs);
+    HttpService.get("/api/blogs").then((blogs) => {
         this.setState({
             blogs: blogs || []
+        });
+    }).catch(() => {
+        this.setState({
+            message: {
+                type: STATUS.ERROR,
+                message: "Failed to fetch blogs."
+            }
         });
     });
   }
 
   private onDelete(blog:IBlog) {
-    fetch("/api/blogs/" + blog._id, {
-        method: "DELETE",
-        headers: {
-          "Authorization": "JWT " + Cookies.get("TOKEN")
-        }
-      }).then((response:Response) => {
-        console.log("delete by id", response);
-      });
+    HttpService.delete("/api/blogs/" + blog._id).then(() => {
+        this.setState({
+            message: {
+                type: STATUS.SUCCESS,
+                message: "Blog deleted successfully."
+            }
+        });
+    }).catch(() => {
+        this.setState({
+            message: {
+                type: STATUS.ERROR,
+                message: "Failed to delete blog."
+            }
+        });
+    });
   }
 
   private renderDate(blog:IBlog) {
@@ -74,6 +85,7 @@ export default class BlogList extends React.Component<any, any> {
   public render() {
     return (
         <div>
+            <StatusBar {...this.state.message} />
             {this.renderItems()}
         </div>
     );

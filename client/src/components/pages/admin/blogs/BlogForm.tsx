@@ -1,11 +1,13 @@
 import React, { FormEvent, RefObject } from 'react';
 import DatePicker from "react-datepicker";
 import ReactDatePicker from 'react-datepicker';
-import Cookies from 'js-cookie';
 import {style} from "typestyle";
+import HttpService from '../../../../util/HttpService';
+import StatusBar, { STATUS } from '../../../StatusBar';
+import { MODE } from '../../../../util/TypeUtils';
+import { BlogFormProps, BlogFormState } from '../../../states/Blogs';
 
-
-export default class BlogForm extends React.Component<any, any> {
+export default class BlogForm extends React.Component<BlogFormProps, BlogFormState> {
   private titleRef = React.createRef<HTMLInputElement>();
   private contentRef = React.createRef<HTMLTextAreaElement>();
   private startDateTimeRef = React.createRef<ReactDatePicker>();
@@ -28,12 +30,18 @@ export default class BlogForm extends React.Component<any, any> {
     }
   });
   
-  constructor(props:any) {
+  constructor(props:BlogFormProps) {
     super(props);
 
     this.state = {
+        content: "",
+        title: "",
         startDateTime: null,
-        endDateTime: null
+        endDateTime: null,
+        message: {
+            message: "",
+            type: ""
+        }
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -50,25 +58,57 @@ export default class BlogForm extends React.Component<any, any> {
         content: this.refOrValue(this.contentRef, "")
     };
 
-    fetch("/api/blogs", {
-        method: "POST",
-        headers: {
-            "Authorization": "JWT " + Cookies.get("TOKEN"),
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
-    }).then((response:Response) => {
-        return response.json();
-    }).then((blog) => {
-        console.log("created item", blog);
-    }).catch((e) => {
-        console.log("oh no", e);
+    if(this.props.mode === MODE.CREATE) {
+        this.createBlog(payload);
+        return;
+    }
+
+    if(this.props.mode === MODE.EDIT) {
+        this.editBlog(payload, this.props.id);
+        return;
+    }
+  }
+
+  private editBlog(payload:any, id:string) {
+    HttpService.put("/api/blogs/" + id, payload).then(() => {
+        this.setState({
+            message: {
+                type: STATUS.SUCCESS,
+                message: "Blog updated."
+            }
+        });
+    }).catch(() => {
+        this.setState({
+            message: {
+                type: STATUS.ERROR,
+                message: "Failed to save blog."
+            }
+        });
+    });
+  }
+
+  private createBlog(payload:any) {
+    HttpService.post("/api/blogs", payload).then(() => {
+        this.setState({
+            message: {
+                type: STATUS.SUCCESS,
+                message: "About section updated."
+            }
+        });
+    }).catch(() => {
+        this.setState({
+            message: {
+                type: STATUS.ERROR,
+                message: "Failed to save content."
+            }
+        });
     });
   }
 
   public render() {
     return (
         <div>
+            <StatusBar {...this.state.message} />
             <form onSubmit={this.onSubmit}>
                 <label>
                     <span>Blog Title</span>
@@ -115,7 +155,7 @@ export default class BlogForm extends React.Component<any, any> {
 
                 <label>
                     <span>Content</span>
-                    <textarea  defaultValue="ggg" ref={this.contentRef} />
+                    <textarea defaultValue="ggg" ref={this.contentRef} />
                 </label>
 
                 <button>Save Blog</button>

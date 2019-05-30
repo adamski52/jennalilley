@@ -5,6 +5,8 @@ import BaseRouter from "./BaseRouter";
 import UsersRouter from "./UsersRouter";
 import ScheduleRouter from "./ScheduleRouter";
 import BlogRouter from "./BlogRouter";
+import AboutRouter from "./AboutRouter";
+import ContactRouter from "./ContactRouter";
 
 export default class APIRouter extends BaseRouter {
     constructor() {
@@ -16,6 +18,7 @@ export default class APIRouter extends BaseRouter {
         this.router.use("/users", new UsersRouter().getRouter());
         this.router.use("/schedules", new ScheduleRouter().getRouter());
         this.router.use("/blogs", new BlogRouter().getRouter());
-
+        this.router.use("/about", new AboutRouter().getRouter());
+        this.router.use("/contact", new ContactRouter().getRouter());
     }
 }

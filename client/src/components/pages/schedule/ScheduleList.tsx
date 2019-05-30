@@ -1,7 +1,7 @@
 import React from 'react';
-import fetch from "cross-fetch";
-import Cookies from 'js-cookie';
-import { ISchedule } from "../../../server/src/models/Schedule";
+import { ISchedule } from "../../../../../server/src/models/Schedule";
+import StatusBar, { STATUS } from '../../StatusBar';
+import HttpService from '../../../util/HttpService';
 
 export default class ScheduleList extends React.Component<any, any> {
   constructor(props:any) {
@@ -13,29 +13,36 @@ export default class ScheduleList extends React.Component<any, any> {
         schedules: []
     };
 
-    fetch("/api/schedules", {
-        headers: {
-            "Authorization": "JWT " + Cookies.get("TOKEN")
-        }
-    }).then((response:Response) => {
-        return response.json();
-    }).then((schedules) => {
-        console.log("got schedules", schedules);
+    HttpService.get("/api/schedules").then((schedules) => {
         this.setState({
             schedules: schedules || []
         });
+    }).catch(() => {
+      this.setState({
+          message: {
+              type: STATUS.ERROR,
+              message: "Failed to fetch blogs."
+          }
+      });
     });
   }
 
   private onDelete(schedule:ISchedule) {
-    fetch("/api/schedules/" + schedule._id, {
-        method: "DELETE",
-        headers: {
-          "Authorization": "JWT " + Cookies.get("TOKEN")
-        }
-      }).then((response:Response) => {
-        console.log("delete by id", response);
-      });
+    HttpService.delete("/api/schedules/" + schedule._id).then(() => {
+        this.setState({
+            message: {
+                type: STATUS.ERROR,
+                message: "Failed to fetch blogs."
+            }
+        });      
+    }).catch(() => {
+        this.setState({
+            message: {
+                type: STATUS.ERROR,
+                message: "Failed to delete schedule."
+            }
+        });
+    });
   }
 
   private renderItem(schedule:ISchedule) {
@@ -62,7 +69,6 @@ export default class ScheduleList extends React.Component<any, any> {
   }
 
   private renderItems() {
-      console.log(this.state);
       return this.state.schedules.map((schedule:ISchedule) => {
         return this.renderItem(schedule);
       });
@@ -71,6 +77,7 @@ export default class ScheduleList extends React.Component<any, any> {
   public render() {
     return (
         <div>
+            <StatusBar {...this.state.message} />
             {this.renderItems()}
         </div>
     );

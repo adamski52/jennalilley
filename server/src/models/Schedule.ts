@@ -12,7 +12,7 @@ export interface ISchedule extends Document {
     description: string
 };
 
-const ScheduleSchema: Schema = new Schema({
+export const ScheduleSchema: Schema = new Schema({
     name: {
         type: String
     },

@@ -3,7 +3,7 @@ import mongoose, {Schema, Document} from "mongoose";
 export interface IBlog extends Document {
     title: string;
     content: string;
-    startDateTime: Date;
+    startDateTime: Date | null;
     endDateTime: Date | null;
 };
 

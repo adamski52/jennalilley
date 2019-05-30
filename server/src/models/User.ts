@@ -9,7 +9,7 @@ export interface IUser extends Document {
     roles: [IRole]
 }
 
-const UserSchema: Schema = new Schema({
+export const UserSchema: Schema = new Schema({
     email: {
         type: String,
         required: true,

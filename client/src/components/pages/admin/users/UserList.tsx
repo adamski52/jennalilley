@@ -1,7 +1,7 @@
 import React from 'react';
 import fetch from "cross-fetch";
 import Cookies from 'js-cookie';
-import { IUser } from "../../../server/src/models/User";
+import { IUser } from "../../../../../../server/src/models/User";
 
 export default class UserList extends React.Component<any, any> {
   constructor(props:any) {
