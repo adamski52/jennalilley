@@ -4,7 +4,7 @@ import TokenService from "../services/TokenService";
 import BaseRouter from "./BaseRouter";
 
 export default class AuthRouter extends BaseRouter {
-    constructor() {
+    constructor(tokenService:TokenService = new TokenService()) {
         super();
 
         this.router.get("/google/start", passport.authenticate("google", {
@@ -17,7 +17,7 @@ export default class AuthRouter extends BaseRouter {
         this.router.get("/google/redirect", passport.authenticate("google", {
             session: false
         }), (req:Request, res:Response) => {
-            res.cookie("TOKEN", TokenService.generateAccessToken(req.user.id));
+            res.cookie("TOKEN", tokenService.generateAccessToken(req.user.id));
             console.log("GOOGLE REDIRECT");
 
             res.redirect("http://localhost:3000");
@@ -33,7 +33,7 @@ export default class AuthRouter extends BaseRouter {
         this.router.get("/facebook/redirect", passport.authenticate("facebook", {
             session: false
         }), (req:Request, res:Response) => {
-            res.cookie("TOKEN", TokenService.generateAccessToken(req.user.id));
+            res.cookie("TOKEN", tokenService.generateAccessToken(req.user.id));
             console.log("FACEBOOK REDIRECT");
             res.redirect("http://localhost:3000");
         });

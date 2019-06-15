@@ -12,23 +12,25 @@ export default class FacebookConfig {
     };
 
     constructor(userService:UserService = new UserService()) {
-        if(this.config.clientID) {
-            passport.use(new passportFacebook.Strategy(this.config, async (_accessToken:string, _refreshToken:string, profile:Profile, done) => {
-                let user = await userService.getUserByExternalId("facebook", profile.id),
-                    email:string = profile.emails === undefined ? "" : profile.emails[0].value;
-
-                if(user) {
-                    user = await userService.updateUser(profile.displayName, "facebook", profile.id, email);
-                    return done(null, user);
-                }
-
-                user = await userService.createUser(profile.displayName, "facebook", profile.id, email);     
-                if(!user) {
-                    return done("Unable to create user", user);
-                }
-                
-                return done(null, user);
-            }));
+        if(!this.config.clientID) {
+            return;
         }
+
+        passport.use(new passportFacebook.Strategy(this.config, async (_accessToken:string, _refreshToken:string, profile:Profile, done) => {
+            let user = await userService.getUserByExternalId("facebook", profile.id),
+                email:string = profile.emails === undefined ? "" : profile.emails[0].value;
+
+            if(user) {
+                user = await userService.updateFromAuth(profile.displayName, "facebook", profile.id, email);
+                return done(null, user);
+            }
+
+            user = await userService.createFromAuth(profile.displayName, "facebook", profile.id, email);     
+            if(!user) {
+                return done("Unable to create user", user);
+            }
+            
+            return done(null, user);
+        }));
     }
 }

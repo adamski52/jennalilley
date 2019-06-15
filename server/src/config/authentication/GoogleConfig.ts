@@ -13,23 +13,25 @@ export default class GoogleConfig {
     };
 
     constructor(userService:UserService = new UserService()) {
-        if (this.config.clientID) {
-            passport.use(new passportGoogle.OAuth2Strategy(this.config, async (_request:Request, _accessToken:string, _refreshToken:string, profile:Profile, done:VerifyFunction) => {
-                let user = await userService.getUserByExternalId("google", profile.id),
-                    email:string = profile.emails === undefined ? "" : profile.emails[0].value;
-
-                if(user) {
-                    user = await userService.updateUser(profile.displayName, "google", profile.id, email);
-                    return done(null, user);
-                }
-
-                user = await userService.createUser(profile.displayName, "google", profile.id, email);     
-                if(!user) {
-                    return done("Unable to create user", user);
-                }
-                
-                return done(null, user);
-            }));
+        if (!this.config.clientID) {
+            return;
         }
+
+        passport.use(new passportGoogle.OAuth2Strategy(this.config, async (_request:Request, _accessToken:string, _refreshToken:string, profile:Profile, done:VerifyFunction) => {
+            let user = await userService.getUserByExternalId("google", profile.id),
+                email:string = profile.emails === undefined ? "" : profile.emails[0].value;
+
+            if(user) {
+                user = await userService.updateFromAuth(profile.displayName, "google", profile.id, email);
+                return done(null, user);
+            }
+
+            user = await userService.createFromAuth(profile.displayName, "google", profile.id, email);     
+            if(!user) {
+                return done("Unable to create user", user);
+            }
+            
+            return done(null, user);
+        }));
     }
 }

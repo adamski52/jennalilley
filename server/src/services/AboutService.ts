@@ -1,21 +1,19 @@
 import About from "../models/About";
 import BaseService from "./BaseService";
 import { IBase } from "../models/Base";
+import { Model } from "mongoose";
 
 export default class AboutService extends BaseService {
-    constructor() {
-        super(About);
+    constructor(model:Model<IBase> = About) {
+        super(model);
     }
 
     public async create(body:IBase) {
-        // delete any which exist and create a new one.  we only want one entry, ever.
-        console.log("delete all then create");
-        let aboutItems = await this.getAll();
-        aboutItems.forEach(async (item) => {
+        let items = await this.getAll();
+        items.forEach(async (item) => {
             await this.deleteById(item._id);
         });
         
-        let item = await this.model.create(body);
-        return item;
+        return await this.model.create(body);
     }
 }

@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import AppConfig from "../config/AppConfig";
 
 export default class TokenService {
-    public static generateAccessToken(userId:number|string) {
+    public generateAccessToken(userId:number|string) {
         const expiresIn = "1 day";
         const audience = AppConfig.getConfig().get("authentication.token.audience");
         const issuer = AppConfig.getConfig().get("authentication.token.issuer");

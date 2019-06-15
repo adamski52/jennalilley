@@ -1,16 +1,14 @@
 import User, { IUser } from "../models/User";
 import RoleService from "./RoleService";
-export default class UserService {
-    public async getUserById(id:string) {
-        return await User.findOne({
-            _id: id
-        });
-    }
+import { IBase } from "../models/Base";
+import BaseService from "./BaseService";
 
-    public async deleteById(id:string) {
-        return await User.deleteOne({
-            _id: id
-        });
+export default class UserService extends BaseService {
+    private roleService:RoleService;
+
+    constructor(roleService:RoleService = new RoleService()) {
+        super(User);
+        this.roleService = roleService;
     }
 
     public isAdmin(user:IUser) {
@@ -23,21 +21,17 @@ export default class UserService {
         return false;
     }
 
-    public async getAll() {
-        return await User.find();
-    }
-
     public async getUserByExternalId(providerName:string, providerId:string) {
-        return await User.findOne({
+        return await this.model.findOne({
             providerName: providerName,
             providerId: providerId
         });
     }
 
-    public async updateUser(name: string, providerName:string, providerId:string, email:string) {
+    public async updateFromAuth(name: string, providerName:string, providerId:string, email:string) {
         let user = await this.getUserByExternalId(providerName, providerId);
         if(!user) {
-            return await this.createUser(name, providerName, providerId, email);
+            return await this.createFromAuth(name, providerName, providerId, email);
         }
 
         user.email = email;
@@ -45,13 +39,13 @@ export default class UserService {
         return await user.save();
     }
 
-    public async createUser(name: string, providerName:string, providerId:string, email: string) {
-        let userRole = await RoleService.getRoleByName("USER");
+    public async createFromAuth(name: string, providerName:string, providerId:string, email: string) {
+        let userRole = await this.roleService.getByName("USER");
         if(!userRole) {
-            userRole = await RoleService.createRole("USER");
+            userRole = await this.roleService.getByName("USER");
         }
 
-        return await User.create({
+        return await this.model.create({
             name: name,
             providerName: providerName,
             providerId: providerId,
@@ -61,9 +55,9 @@ export default class UserService {
     }
 
     public async promoteToAdmin(user:IUser) {
-        let adminRole = await RoleService.getRoleByName("ADMIN");
+        let adminRole = await this.roleService.getByName("ADMIN");
         if(!adminRole) {
-            adminRole = await RoleService.createRole("ADMIN");
+            adminRole = await this.roleService.create("ADMIN");
         }
 
         if(!user.roles.includes(adminRole)) {
@@ -74,9 +68,9 @@ export default class UserService {
     }
 
     public async demoteToUser(user:IUser) {
-        let adminRole = await RoleService.getRoleByName("ADMIN");
+        let adminRole = await this.roleService.getByName("ADMIN");
         if(!adminRole) {
-            adminRole = await RoleService.createRole("ADMIN");
+            adminRole = await this.roleService.create("ADMIN");
         }
 
         let roles = user.roles.filter((role) => {

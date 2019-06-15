@@ -1,20 +1,28 @@
-import Role from "../models/Role";
+import Role, { IRole } from "../models/Role";
+import { Model } from "mongoose";
 
-export default class RoleService {        
-    public static async getRoleByName(name:string) {
-        return await Role.findOne({
+export default class RoleService {
+    protected model:Model<IRole>;
+    
+    constructor(model:Model<IRole> = Role) {
+        this.model = model;
+    }
+
+    public async getByName(name:string) {
+        return await this.model.findOne({
             name: name.toUpperCase()
         });
     }
 
-    public static async createRole(name:string) {
-        let role = await this.getRoleByName(name);
-        if(role) {
-            return role;
+    public async create(name:string) {
+        let item = await this.getByName(name);
+        
+        if(!item) {
+            return await this.model.create({
+                name: name.toUpperCase()
+            });
         }
 
-        return await Role.create({
-            name: name.toUpperCase()
-        });
+        return item;
     }
 }

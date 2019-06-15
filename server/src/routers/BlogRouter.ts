@@ -1,10 +1,8 @@
 import BaseCrudRouter from "./BaseCrudRouter";
-import UserService from "../services/UserService";
-import BlogService from "../services/BlogService";
+import BlogController from "../controllers/BlogController";
 
 export default class BlogRouter extends BaseCrudRouter {
-    constructor(userService:UserService = new UserService(), blogService:BlogService = new BlogService()) {
-        super(userService, blogService);
+    constructor(controller:BlogController = new BlogController()) {
+        super(controller);
     }
 }
-   

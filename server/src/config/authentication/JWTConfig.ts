@@ -13,7 +13,7 @@ export default class JWTConfig {
 
     constructor(userService:UserService = new UserService()) {
         passport.use(new passportJwt.Strategy(this.options, async (payload, done) => {
-            let user = await userService.getUserById(payload.sub);
+            let user = await userService.getById(payload.sub);
             if (user) {
                 return done(null, user, payload);
             }

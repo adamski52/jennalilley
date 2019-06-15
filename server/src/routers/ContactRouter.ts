@@ -1,10 +1,9 @@
 import BaseCrudRouter from "./BaseCrudRouter";
-import UserService from "../services/UserService";
-import ContactService from "../services/ContactService";
+import ContactController from "../controllers/ContactController";
 
 export default class ContactRouter extends BaseCrudRouter {
-    constructor(userService:UserService = new UserService(), contactService:ContactService = new ContactService()) {
-        super(userService, contactService);
+    constructor(controller:ContactController = new ContactController()) {
+        super(controller);
     }
 }
    

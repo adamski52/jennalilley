@@ -2,13 +2,12 @@ import mongoose, {Schema, Document} from "mongoose";
 import { ISchedule, ScheduleSchema } from "./Schedule";
 import { IUser, UserSchema } from "./User";
 
-export interface ISignUp extends Document {
+export interface ISignup extends Document {
     user: IUser;
     event: ISchedule;
-    isPaid: boolean;
 };
 
-export const SignUpSchema: Schema = new Schema({
+export const SignupSchema: Schema = new Schema({
     user: {
         type: UserSchema,
         required: true
@@ -17,11 +16,7 @@ export const SignUpSchema: Schema = new Schema({
     event: {
         type: ScheduleSchema,
         required: true
-    },
-
-    isPaid: {
-        type: Boolean
     }
 });
 
-export default mongoose.model<ISignUp>("SignUp", SignUpSchema);
+export default mongoose.model<ISignup>("Signup", SignupSchema);

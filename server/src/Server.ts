@@ -11,13 +11,14 @@ import DatabaseService from "./services/DatabaseService";
 import bodyParser from "body-parser";
 
 export default class Server {
-    private static jwtConfig:JWTConfig;
-    private static facebookConfig:FacebookConfig;
-    private static googleConfig:GoogleConfig;
-    private static app:Application;
+    private jwtConfig:JWTConfig = new JWTConfig();
+    private facebookConfig:FacebookConfig = new FacebookConfig();
+    private googleConfig:GoogleConfig = new GoogleConfig();
+    private databaseService:DatabaseService = new DatabaseService();
+    private app!:Application;;
 
-    public static async init() {
-        let instance = await DatabaseService.connect();
+    public async init() {
+        let instance = await this.databaseService.connect();
         
         if(!instance) {
             console.log("Failed to connect to db. Exiting.");
@@ -25,7 +26,7 @@ export default class Server {
             return;
         }
 
-        DatabaseService.initialize();
+        this.databaseService.initialize();
 
         console.log("Connected to db.");
 
@@ -33,43 +34,41 @@ export default class Server {
         this.facebookConfig = new FacebookConfig();
         this.googleConfig = new GoogleConfig();
 
-        this.app = express();
+        let app = express();
 
        
-        this.app.use(passport.initialize());
-        this.app.use(bodyParser.json())
+        app.use(passport.initialize());
+        app.use(bodyParser.json())
 
-        this.app.use((_req:Request, res:Response, next:NextFunction) => {
+        app.use((_req:Request, res:Response, next:NextFunction) => {
             res.setHeader('Content-Type', 'application/json');
-
-            // res.header("Content-Type", "application/json");
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
             next();
         });
         
-        this.app.use(cookieParser());
-        this.app.use("/api", new APIRouter().getRouter());
+        app.use(cookieParser());
+        app.use("/api", new APIRouter().getRouter());
 
         const port = AppConfig.getConfig().get("http.port");
-        this.app.listen(port, () => {
+        app.listen(port, () => {
             console.log("API Server listening on port " + port);
         });
     }
 
-    public static getApp() {
+    public getApp() {
         return this.app;
     }
     
-    public static getJWTConfig() {
+    public getJWTConfig() {
         return this.jwtConfig;
     }
 
-    public static getFacebookConfig() {
+    public getFacebookConfig() {
         return this.facebookConfig;
     }
 
-    public static getGoogleConfig() {
+    public getGoogleConfig() {
         return this.googleConfig;
     }
 }

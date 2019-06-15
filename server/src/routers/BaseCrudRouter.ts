@@ -1,104 +1,34 @@
-import BaseService from "../services/BaseService";
-import { Request, Response } from "express";
-import UserService from "../services/UserService";
 import BaseRouter from "./BaseRouter";
+import BaseController from "../controllers/BaseController";
+import { Request, Response } from "express";
 
 export default abstract class BaseCrudRouter extends BaseRouter {
-    protected service:BaseService;
-    protected userService:UserService;
+    protected controller:BaseController;
 
-    constructor(userService:UserService, service:BaseService) {        
+    constructor(controller:BaseController) {        
         super();
         
-        this.userService = userService;
-        this.service = service;
-
-        this.router.get("/", async (req:Request, res:Response) => {
-            try {
-                let items = await this.service.getAll();
-                return res.json(items);
-            }
-            catch(e) {
-                return res.status(401).json();
-            }
+        this.controller = controller;
+        
+        this.router.get("/", (req:Request, res:Response) => {
+            this.controller.getAll(req, res);
         });
 
-        // this.router.get("/:id", passport.authenticate(["jwt"], {
-            // session: false
-        this.router.get("/:id", async (req:Request, res:Response) => {
-            try {
-                let item = await this.service.getById(req.params.id);
-                return res.json(item);
-            }
-            catch(e) {
-                return res.status(401).json();
-            }
+        this.router.get("/:id", (req:Request, res:Response) => {
+            this.controller.getOne(req, res);
         });
 
-        // this.router.delete("/:id", passport.authenticate(["jwt"], {
-        //     session: false
-        this.router.delete("/:id", async (req:Request, res:Response) => {
-            // let isAdmin = UserService.isAdmin(req.user);
-            // if(!isAdmin) {
-                // return res.status(401).json();
-            // }
-
-            let item;
-            try {
-                item = await this.service.getById(req.params.id);
-            
-                try {
-                    item = await this.service.deleteById(req.params.id);
-                    return res.json(item);
-                } catch(e) {
-                    return res.status(400).json();
-                }
-            }
-            catch(e) {
-                return res.status(404).json();
-            }
+        this.router.delete("/:id", (req:Request, res:Response) => {
+             this.controller.deleteOne(req, res);
         });
 
-        // this.router.put("/:id", passport.authenticate(["jwt"], {
-        //     session: false
-        this.router.put("/:id", async (req:Request, res:Response) => {
-            // let isAdmin = UserService.isAdmin(req.user);
-            // if(!isAdmin) {
-                // return res.status(401).json();
-            // }
-
-            let item;
-            try {
-                item = await this.service.update(req.params.id, req.body);
-                console.log("result of update", item);
-                return res.json(item);
-            }
-            catch(e) {
-                return res.status(404).json();
-            }
+        this.router.put("/:id", (req:Request, res:Response) => {
+            this.controller.update(req, res);
         });
 
-
-        //this.router.post("/", passport.authenticate(["jwt"], {
-            // session: false
-        this.router.post("/", async (req:Request, res:Response) => {
-            // let isAdmin = UserService.isAdmin(req.user);
-            // if(!isAdmin) {
-                // return res.status(401).json();
-            // }
-
-            let item;
-            try {
-                item = await this.service.create(req.body);
-                return res.json(item);
-            }
-            catch(e) {
-                return res.status(400).json();
-            }
+        this.router.post("/", (req:Request, res:Response) => {
+            console.log("...1");
+            this.controller.create(req, res);
         });
-    }
-
-    public getRouter() {
-        return this.router;
     }
 }

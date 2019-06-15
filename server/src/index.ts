@@ -1,3 +1,3 @@
 import Server from "./Server";
 
-Server.init();
+new Server().init();
