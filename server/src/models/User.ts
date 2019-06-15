@@ -6,7 +6,7 @@ export interface IUser extends Document {
     email: String,
     providerName: String,
     providerId: String,
-    roles: [IRole]
+    roles: IRole[]
 }
 
 export const UserSchema: Schema = new Schema({

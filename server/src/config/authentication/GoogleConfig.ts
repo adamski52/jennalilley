@@ -12,18 +12,18 @@ export default class GoogleConfig {
         passReqToCallback: true
     };
 
-    constructor() {
+    constructor(userService:UserService = new UserService()) {
         if (this.config.clientID) {
             passport.use(new passportGoogle.OAuth2Strategy(this.config, async (_request:Request, _accessToken:string, _refreshToken:string, profile:Profile, done:VerifyFunction) => {
-                let user = await UserService.getUserByExternalId("google", profile.id),
+                let user = await userService.getUserByExternalId("google", profile.id),
                     email:string = profile.emails === undefined ? "" : profile.emails[0].value;
 
                 if(user) {
-                    user = await UserService.updateUser(profile.displayName, "google", profile.id, email);
+                    user = await userService.updateUser(profile.displayName, "google", profile.id, email);
                     return done(null, user);
                 }
 
-                user = await UserService.createUser(profile.displayName, "google", profile.id, email);     
+                user = await userService.createUser(profile.displayName, "google", profile.id, email);     
                 if(!user) {
                     return done("Unable to create user", user);
                 }

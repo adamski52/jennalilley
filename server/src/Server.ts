@@ -40,6 +40,9 @@ export default class Server {
         this.app.use(bodyParser.json())
 
         this.app.use((_req:Request, res:Response, next:NextFunction) => {
+            res.setHeader('Content-Type', 'application/json');
+
+            // res.header("Content-Type", "application/json");
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
             next();

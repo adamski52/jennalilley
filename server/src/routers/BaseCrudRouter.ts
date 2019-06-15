@@ -16,10 +16,10 @@ export default abstract class BaseCrudRouter extends BaseRouter {
         this.router.get("/", async (req:Request, res:Response) => {
             try {
                 let items = await this.service.getAll();
-                return res.send(items);
+                return res.json(items);
             }
             catch(e) {
-                return res.status(401).send();
+                return res.status(401).json();
             }
         });
 
@@ -27,11 +27,11 @@ export default abstract class BaseCrudRouter extends BaseRouter {
             // session: false
         this.router.get("/:id", async (req:Request, res:Response) => {
             try {
-                let item = this.service.getById(req.params.id);
-                return res.send(item);
+                let item = await this.service.getById(req.params.id);
+                return res.json(item);
             }
             catch(e) {
-                return res.status(401).send();
+                return res.status(401).json();
             }
         });
 
@@ -40,7 +40,7 @@ export default abstract class BaseCrudRouter extends BaseRouter {
         this.router.delete("/:id", async (req:Request, res:Response) => {
             // let isAdmin = UserService.isAdmin(req.user);
             // if(!isAdmin) {
-                // return res.status(401).send();
+                // return res.status(401).json();
             // }
 
             let item;
@@ -49,13 +49,13 @@ export default abstract class BaseCrudRouter extends BaseRouter {
             
                 try {
                     item = await this.service.deleteById(req.params.id);
-                    return res.send(item);
+                    return res.json(item);
                 } catch(e) {
-                    return res.status(400).send();
+                    return res.status(400).json();
                 }
             }
             catch(e) {
-                return res.status(404).send();
+                return res.status(404).json();
             }
         });
 
@@ -64,16 +64,17 @@ export default abstract class BaseCrudRouter extends BaseRouter {
         this.router.put("/:id", async (req:Request, res:Response) => {
             // let isAdmin = UserService.isAdmin(req.user);
             // if(!isAdmin) {
-                // return res.status(401).send();
+                // return res.status(401).json();
             // }
 
             let item;
             try {
                 item = await this.service.update(req.params.id, req.body);
-                return res.send(item);
+                console.log("result of update", item);
+                return res.json(item);
             }
             catch(e) {
-                return res.status(404).send();
+                return res.status(404).json();
             }
         });
 
@@ -83,16 +84,16 @@ export default abstract class BaseCrudRouter extends BaseRouter {
         this.router.post("/", async (req:Request, res:Response) => {
             // let isAdmin = UserService.isAdmin(req.user);
             // if(!isAdmin) {
-                // return res.status(401).send();
+                // return res.status(401).json();
             // }
 
             let item;
             try {
                 item = await this.service.create(req.body);
-                return res.send(item);
+                return res.json(item);
             }
             catch(e) {
-                return res.status(400).send();
+                return res.status(400).json();
             }
         });
     }

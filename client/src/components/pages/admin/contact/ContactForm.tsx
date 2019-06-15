@@ -1,12 +1,14 @@
 import React, { FormEvent } from 'react';
-import DatePicker from "react-datepicker";
 import HttpService from '../../../../util/HttpService';
 import StatusBar, { STATUS } from '../../../StatusBar';
 import ReactQuill from 'react-quill';
 import { RTF_MODULES } from '../../../../util/EditorUtils';
 import RefUtil from '../../../../util/RefUtil';
+import { ContactFormProps, ContactFormState } from '../../../states/Contact';
 
-export default class ContactForm extends React.Component<any, any> {
+export default class ContactForm extends React.Component<ContactFormProps, ContactFormState> {
+  private serviceUrl = "/api/contact";
+
   private twitterRef = React.createRef<HTMLInputElement>();
   private facebookRef = React.createRef<HTMLInputElement>();
   private phoneRef = React.createRef<HTMLInputElement>();
@@ -17,11 +19,45 @@ export default class ContactForm extends React.Component<any, any> {
     super(props);
 
     this.state = {
-        content: ""
+        content: "",
+        twitter: "",
+        facebook: "",
+        phone: "",
+        email: "",
+        instagram: "",
+        message: {
+            message: "",
+            type: ""
+        }
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  public componentDidMount() {
+    this.onFetch();
+  }
+
+  private onFetch() {
+    HttpService.get(this.serviceUrl).then((json) => {
+      console.log("contact", json[0]);
+      this.setState({
+          content: json[0].content || "",
+          twitter: json[0].twitter || null,
+          facebook: json[0].facebook || null,
+          phone: json[0].phone || null,
+          email: json[0].email || null,
+          instagram: json[0].instagram || null
+      });
+    }).catch(() => {
+      this.setState({
+        message: {
+          type: STATUS.ERROR,
+          message: "Failed to fetch contact info."
+        }
+      });
+    });
   }
 
   private onChange(value:string) {
@@ -41,7 +77,7 @@ export default class ContactForm extends React.Component<any, any> {
         content: this.state.content
     };
 
-    HttpService.post("/api/contact", payload).then(() => {
+    return HttpService.post(this.serviceUrl, payload).then(() => {
         this.setState({
             message: {
                 type: STATUS.SUCCESS,
@@ -65,27 +101,27 @@ export default class ContactForm extends React.Component<any, any> {
             <form onSubmit={this.onSubmit}>
                 <label>
                     <span>Twitter Handle (including @)</span>
-                    <input defaultValue="aaa" type="text" ref={this.twitterRef} placeholder="Twitter Handle (including @)" />
+                    <input defaultValue={this.state.twitter} type="text" ref={this.twitterRef} placeholder="Twitter Handle (including @)" />
                 </label>
 
                 <label>
                     <span>Facebook URL</span>
-                    <input defaultValue="bbb" type="text" ref={this.facebookRef} placeholder="Facebook URL" />
+                    <input defaultValue={this.state.facebook} type="text" ref={this.facebookRef} placeholder="Facebook URL" />
                 </label>
 
                 <label>
                     <span>Instagram URL</span>
-                    <input defaultValue="ccc" type="text" ref={this.instagramRef} placeholder="Instagram URL" />
+                    <input defaultValue={this.state.instagram} type="text" ref={this.instagramRef} placeholder="Instagram URL" />
                 </label>
 
                 <label>
                     <span>Phone Number</span>
-                    <input defaultValue="ddd" type="text" ref={this.facebookRef} placeholder="Phone Number" />
+                    <input defaultValue={this.state.phone} type="text" ref={this.phoneRef} placeholder="Phone Number" />
                 </label>
 
                 <label>
                     <span>Email Address</span>
-                    <input defaultValue="eee" type="text" ref={this.facebookRef} placeholder="Email Address" />
+                    <input defaultValue={this.state.email} type="text" ref={this.emailRef} placeholder="Email Address" />
                 </label>
 
                 <label>

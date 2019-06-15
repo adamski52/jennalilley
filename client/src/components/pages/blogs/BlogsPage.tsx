@@ -1,40 +1,59 @@
 import React from "react";
 import HttpService from "../../../util/HttpService";
-import { BlogViewOneProps, BlogViewOneState } from "../../states/Blogs";
+import { BlogViewAllProps, BlogViewAllState } from "../../states/Blogs";
+import { isTemplateElement } from "@babel/types";
+import StatusBar, { STATUS } from "../../StatusBar";
 
-export default class BlogsPage extends React.Component<BlogViewOneProps, BlogViewOneState> {
+export default class BlogsPage extends React.Component<BlogViewAllProps, BlogViewAllState> {
     constructor(props:any) {
         super(props);
 
         this.state = {
-            item: undefined,
+            items: [],
             message: {
                 message: "",
                 type: ""
             }
         };
 
-        HttpService.get("/api/blogs/" + this.props.id).then((json) => {
+        HttpService.get("/api/blogs/").then((json) => {
             this.setState({
-                item: json
+                items: json
             });
-        }).catch((e) => {
-            console.error(e);
+        }).catch(() => {
+            this.setState({
+                message: {
+                    type: STATUS.ERROR,
+                    message: "Failed to fetch blogs."
+                }
+            });
         });
     }
 
-    public render() {
-        if(!this.state.item) {
-            return null;
-        }
-
+    private renderItem(item:any) {
         return (
-            <div>
-                <h2>{this.state.item.title}</h2>
-                <div>
-                    {this.state.item.content}
-                </div>
-            </div>
+          <div className="row" key={item._id}>
+              <h3>{item.title}</h3>
+              <p>{item.startDateTime}</p>
+              <div dangerouslySetInnerHTML={{__html: item.content}} />
+          </div>
         );
+    }
+  
+    private renderItems() {
+        return this.state.items.map((item:any) => {
+            return this.renderItem(item);
+        });
+    }
+  
+    public render() {
+      return (
+          <div>
+              <StatusBar {...this.state.message} />
+              <div>
+                  {this.renderItems()}
+              </div>
+          </div>
+      );
     }
 }

@@ -2,8 +2,9 @@ import React from 'react';
 import { ISchedule } from "../../../../../server/src/models/Schedule";
 import StatusBar, { STATUS } from '../../StatusBar';
 import HttpService from '../../../util/HttpService';
+import { Link } from 'react-router-dom';
 
-export default class ScheduleList extends React.Component<any, any> {
+export default class SchedulePage extends React.Component<any, any> {
   constructor(props:any) {
     super(props);
 
@@ -13,7 +14,7 @@ export default class ScheduleList extends React.Component<any, any> {
         schedules: []
     };
 
-    HttpService.get("/api/schedules").then((schedules) => {
+    HttpService.get("/api/schedule").then((schedules) => {
         this.setState({
             schedules: schedules || []
         });
@@ -28,7 +29,7 @@ export default class ScheduleList extends React.Component<any, any> {
   }
 
   private onDelete(schedule:ISchedule) {
-    HttpService.delete("/api/schedules/" + schedule._id).then(() => {
+    HttpService.delete("/api/schedule/" + schedule._id).then(() => {
         this.setState({
             message: {
                 type: STATUS.ERROR,
@@ -45,24 +46,32 @@ export default class ScheduleList extends React.Component<any, any> {
     });
   }
 
-  private renderItem(schedule:ISchedule) {
+  private renderItem(event:ISchedule) {
       return (
-        <div key={schedule._id} className="row">
-            <div className="col-xs-9">
-                <p>{schedule.name}</p>
-                <p>{schedule.type}</p>
-                <p>{schedule.startDateTime}</p>
-                <p>{schedule.endDateTime}</p>
-                <p>{schedule.capacity}</p>
-                <p>{schedule.ageRestrictions}</p>
-                <p>{schedule.cost}</p>
-                <p>{schedule.location}</p>
-                <p>{schedule.description}</p>
+        <div className="row" key={event._id}>
+            <div className="col-xs-6">
+                <Link to={"/schedule/" + event._id}>{event.name}</Link>
             </div>
-            <div className="col-xs-3">
-                <button onClick={(e) => {
-                    return this.onDelete(schedule);
-                }}>Delete</button>
+            <div className="col-xs-2">
+                {event.type}
+            </div>
+            <div className="col-xs-2">
+                {event.startDateTime}
+            </div>
+            <div className="col-xs-2">
+                {event.endDateTime}
+            </div>
+            <div className="col-xs-2">
+                {event.capacity}
+            </div>
+            <div className="col-xs-2">
+                {event.ageRestrictions}
+            </div>
+            <div className="col-xs-2">
+                {event.cost}
+            </div>
+            <div className="col-xs-2">
+                {event.location}
             </div>
         </div>
       );

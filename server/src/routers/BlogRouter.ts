@@ -1,5 +1,4 @@
 import BaseCrudRouter from "./BaseCrudRouter";
-import passport from "passport";
 import UserService from "../services/UserService";
 import BlogService from "../services/BlogService";
 

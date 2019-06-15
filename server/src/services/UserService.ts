@@ -40,8 +40,6 @@ export default class UserService {
             return await this.createUser(name, providerName, providerId, email);
         }
 
-        // console.log("...", user.schema.methods.isAdmin());
-
         user.email = email;
         user.name = name;
         return await user.save();
@@ -49,9 +47,9 @@ export default class UserService {
 
     public async createUser(name: string, providerName:string, providerId:string, email: string) {
         let userRole = await RoleService.getRoleByName("USER");
-        // if(!userRole) {
-        //     userRole = await RoleService.createRole("USER");
-        // }
+        if(!userRole) {
+            userRole = await RoleService.createRole("USER");
+        }
 
         return await User.create({
             name: name,
@@ -60,5 +58,33 @@ export default class UserService {
             email: email,
             roles: [userRole]
         });
+    }
+
+    public async promoteToAdmin(user:IUser) {
+        let adminRole = await RoleService.getRoleByName("ADMIN");
+        if(!adminRole) {
+            adminRole = await RoleService.createRole("ADMIN");
+        }
+
+        if(!user.roles.includes(adminRole)) {
+            user.roles.push(adminRole);
+        }
+
+        return await user.save();
+    }
+
+    public async demoteToUser(user:IUser) {
+        let adminRole = await RoleService.getRoleByName("ADMIN");
+        if(!adminRole) {
+            adminRole = await RoleService.createRole("ADMIN");
+        }
+
+        let roles = user.roles.filter((role) => {
+            return role.name !== adminRole!.name;
+        });
+
+        user.roles = roles;
+
+        return await user.save();
     }
 }

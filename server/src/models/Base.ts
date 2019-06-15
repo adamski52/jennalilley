@@ -1,6 +1,8 @@
 import mongoose, {Schema, Document} from "mongoose";
 
-export interface IBase extends Document {};
+export interface IBase extends Document {
+    [key: string]: any;
+};
 
 const BaseSchema: Schema = new Schema();
 

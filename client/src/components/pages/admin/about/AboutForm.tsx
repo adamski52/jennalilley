@@ -21,15 +21,18 @@ export default class AboutForm extends React.Component<AboutFormProps, AboutForm
 
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
+  }
 
+  public componentDidMount() {
     this.onFetch();
   }
 
   private onFetch() {
     HttpService.get(this.serviceUrl).then((json) => {
-        this.setState({
-            content: json
-        });
+      console.log("abt", json[0].content);
+      this.setState({
+          content: json[0].content
+      });
     }).catch(() => {
       this.setState({
         message: {

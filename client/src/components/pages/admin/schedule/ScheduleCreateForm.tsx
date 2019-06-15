@@ -1,14 +1,20 @@
-import React, { FormEvent, RefObject } from 'react';
+import React, { FormEvent } from 'react';
 import DatePicker from "react-datepicker";
 import {style} from "typestyle";
-import ReactDatePicker from 'react-datepicker';
-import Cookies from 'js-cookie';
 import HttpService from '../../../../util/HttpService';
-import { STATUS } from '../../../StatusBar';
-import { RTF_MODULES } from '../../../../util/EditorUtils';
+import StatusBar, { STATUS } from '../../../StatusBar';
+import RefUtil from '../../../../util/RefUtil';
+import { ScheduleFormProps, ScheduleFormState } from '../../../states/Schedule';
 import ReactQuill from 'react-quill';
+import { RTF_MODULES } from '../../../../util/EditorUtils';
 
-export default class ScheduleForm extends React.Component<any, any> {
+export default class ScheduleCreateForm extends React.Component<ScheduleFormProps, ScheduleFormState> {
+  private nameRef = React.createRef<HTMLInputElement>();
+  private typeRef = React.createRef<HTMLInputElement>();
+  private capacityRef = React.createRef<HTMLInputElement>();
+  private ageRestrictionsRef = React.createRef<HTMLInputElement>();
+  private costRef = React.createRef<HTMLInputElement>();
+  private locationRef = React.createRef<HTMLInputElement>();
 
   private timeClassName = style({
     "$nest": {
@@ -26,88 +32,85 @@ export default class ScheduleForm extends React.Component<any, any> {
         }
     }
   });
-
-  private nameRef = React.createRef<HTMLInputElement>();
-  private typeRef = React.createRef<HTMLInputElement>();
-  private startDateTimeRef = React.createRef<ReactDatePicker>();
-  private endDateTimeRef = React.createRef<ReactDatePicker>();
-  private capacityRef = React.createRef<HTMLInputElement>();
-  private ageRestrictionsRef = React.createRef<HTMLInputElement>();
-  private costRef = React.createRef<HTMLInputElement>();
-  private locationRef = React.createRef<HTMLInputElement>();
   
-  constructor(props:any) {
+  constructor(props:ScheduleFormProps) {
     super(props);
 
     this.state = {
-        description: "",
+        name: "",
+        type: "",
         startDateTime: null,
-        endDateTime: null
+        endDateTime: null,
+        capacity: "",
+        ageRestrictions: "",
+        cost: "",
+        location: "",
+        description: "",
+        message: {
+            message: "",
+            type: ""
+        }
     };
 
-    this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
-  }
-
-  private refOrValue(ref:RefObject<HTMLInputElement | HTMLTextAreaElement | null>, val:string) {
-    return ref.current ? ref.current.value : val;
-  }
-
-  private onSubmit(e:FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    let payload = {
-        name: this.refOrValue(this.nameRef, ""),
-        type: this.refOrValue(this.typeRef, ""),
-        startDateTime: this.state.startDateTime || "",
-        endDateTime: this.state.endDateTime || "",
-        capacity: this.refOrValue(this.capacityRef, ""),
-        ageRestrictions: this.refOrValue(this.ageRestrictionsRef, ""),
-        cost: this.refOrValue(this.costRef, ""),
-        location: this.refOrValue(this.locationRef, ""),
-        description: this.state.description
-    };
-
-    HttpService.post("/api/schedules", payload).then(() => {
-        this.setState({
-            message: {
-                message: "Successfully created schedule.",
-                type: STATUS.SUCCESS
-            }
-        });
-    }).catch(() => {
-        this.setState({
-            message: {
-                message: "Failed to save schedule.",
-                type: STATUS.ERROR
-            }
-        });
-    });
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   private onChange(value:string) {
     this.setState({
         description: value
     });
-}
+  }
+
+  private onSubmit(e:FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    let payload = {
+        name: RefUtil.getValue(this.nameRef, ""),
+        type: RefUtil.getValue(this.typeRef, ""),
+        startDateTime: this.state.startDateTime,
+        endDateTime: this.state.endDateTime,
+        capacity: RefUtil.getValue(this.capacityRef, ""),
+        ageRestrictions: RefUtil.getValue(this.ageRestrictionsRef, ""),
+        cost: RefUtil.getValue(this.costRef, ""),
+        location: RefUtil.getValue(this.locationRef, ""),
+        description: this.state.description
+    };
+
+    HttpService.post("/api/schedule", payload).then(() => {
+        this.setState({
+            message: {
+                type: STATUS.SUCCESS,
+                message: "Event created."
+            }
+        });
+    }).catch(() => {
+        this.setState({
+            message: {
+                type: STATUS.ERROR,
+                message: "Failed to create event."
+            }
+        });
+    });
+  }
 
   public render() {
     return (
         <div>
+            <StatusBar {...this.state.message} />
             <form onSubmit={this.onSubmit}>
                 <label>
                     <span>Event Name</span>
-                    <input defaultValue="aaa" type="text" ref={this.nameRef} placeholder="Event Name" />
+                    <input defaultValue={this.state.name} type="text" ref={this.nameRef} placeholder="Event Name" />
                 </label>
 
                 <label>
                     <span>Event Type (e.g. Hitting, Fielding, etc.)</span>
-                    <input  defaultValue="bbb" type="text" ref={this.typeRef} placeholder="Event Type" />
+                    <input defaultValue={this.state.type} type="text" ref={this.typeRef} placeholder="Event Type" />
                 </label>
 
                 <label className={this.timeClassName}>
                     <span>Start Date</span>
                     <DatePicker
-                        ref={this.startDateTimeRef}
                         showTimeSelect
                         timeIntervals={15}
                         minDate={new Date()}
@@ -126,7 +129,6 @@ export default class ScheduleForm extends React.Component<any, any> {
                 <label className={this.timeClassName}>
                     <span>End Date</span>
                     <DatePicker
-                        ref={this.endDateTimeRef}
                         showTimeSelect
                         timeIntervals={15}
                         minDate={this.state.startDateTime ? this.state.startDateTime : new Date()}
@@ -144,26 +146,26 @@ export default class ScheduleForm extends React.Component<any, any> {
 
                 <label>
                     <span>Capacity</span>
-                    <input  defaultValue="ccc" type="text" ref={this.capacityRef} placeholder="Capacity" />
+                    <input defaultValue={this.state.capacity} type="text" ref={this.capacityRef} placeholder="Capacity" />
                 </label>
 
                 <label>
                     <span>Age Restrictions (e.g. 10+, none, etc.)</span>
-                    <input  defaultValue="ddd" type="text" ref={this.ageRestrictionsRef} placeholder="Age Restrictions (e.g. 10+, none, etc.)" />
+                    <input defaultValue={this.state.ageRestrictions} type="text" ref={this.ageRestrictionsRef} placeholder="Age Restrictions (e.g. 10+, none, etc.)" />
                 </label>
 
                 <label>
                     <span>Cost (e.g. $100/person, $100/group, etc.)</span>
-                    <input  defaultValue="eee" type="text" ref={this.costRef} placeholder="Cost (e.g. $100/person, $100/group, etc.)" />
+                    <input defaultValue={this.state.cost} type="text" ref={this.costRef} placeholder="Cost (e.g. $100/person, $100/group, etc.)" />
                 </label>
 
                 <label>
                     <span>Location</span>
-                    <input  defaultValue="fff" type="text" ref={this.locationRef} placeholder="Location" />
+                    <input defaultValue={this.state.location} type="text" ref={this.locationRef} placeholder="Location" />
                 </label>
 
                 <label>
-                    <span>Description</span>
+                    <span>Content</span>
                     <ReactQuill modules={RTF_MODULES} value={this.state.description} onChange={this.onChange}/>
                 </label>
 

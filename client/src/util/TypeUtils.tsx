@@ -1,6 +1,6 @@
 export const MODE = {
     EDIT: "edit",
-    CREATE: "CREATE"
+    CREATE: "create"
 };
 
 export type TMode = "edit" | "create";

@@ -3,8 +3,8 @@ import mongoose, {Schema, Document} from "mongoose";
 export interface ISchedule extends Document {
     name: string,
     type: string,
-    startDateTime: Date,
-    endDateTime: Date,
+    startDateTime: Date | null,
+    endDateTime: Date | null,
     capacity: string,
     ageRestrictions: string,
     cost: string,

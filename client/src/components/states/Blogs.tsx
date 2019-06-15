@@ -21,6 +21,7 @@ export interface BlogViewOneState {
 
 export interface BlogFormProps {
     mode: TMode;
+    match?: any;
     id: string;
 };
 

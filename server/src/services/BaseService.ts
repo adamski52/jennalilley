@@ -10,9 +10,13 @@ export default abstract class BaseService {
 
     public async getById(id:string) {
         console.log("get by id", id);
-        return await this.model.findOne({
+        let result = await this.model.findOne({
             _id: id
         });
+
+        console.log(result);
+
+        return result;
     }
 
     public async deleteById(id:string) {
@@ -28,17 +32,11 @@ export default abstract class BaseService {
     }
     
     public async update(id:string, body:IBase) {
-        console.log("update", id, body);
-        let item = await this.getById(id);
-        if(!item) {
-            return this.create(body);
-        }
-
-        item = Object.assign({}, item, body, {
-            _id: item._id
+        return this.model.updateOne({
+            _id: id
+        }, {
+            $set: body
         });
-        
-        return item.save();
     }
 
     public async create(body:IBase) {

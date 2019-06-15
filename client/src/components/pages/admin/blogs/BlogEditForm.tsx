@@ -1,20 +1,15 @@
-import React, { FormEvent, RefObject } from 'react';
+import React, { FormEvent } from 'react';
 import DatePicker from "react-datepicker";
-import ReactDatePicker from 'react-datepicker';
 import {style} from "typestyle";
 import HttpService from '../../../../util/HttpService';
 import StatusBar, { STATUS } from '../../../StatusBar';
-import { MODE } from '../../../../util/TypeUtils';
 import { BlogFormProps, BlogFormState } from '../../../states/Blogs';
 import ReactQuill from 'react-quill';
 import { RTF_MODULES } from '../../../../util/EditorUtils';
 import RefUtil from '../../../../util/RefUtil';
 
-export default class BlogForm extends React.Component<BlogFormProps, BlogFormState> {
+export default class BlogEditForm extends React.Component<BlogFormProps, BlogFormState> {
   private titleRef = React.createRef<HTMLInputElement>();
-  private contentRef = React.createRef<HTMLTextAreaElement>();
-  private startDateTimeRef = React.createRef<ReactDatePicker>();
-  private endDateTimeRef = React.createRef<ReactDatePicker>();
 
   private timeClassName = style({
     "$nest": {
@@ -51,32 +46,48 @@ export default class BlogForm extends React.Component<BlogFormProps, BlogFormSta
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  public componentDidMount() {
+    this.onFetch();
+  }
+
+  private onFetch() {
+    if(this.props.match.params && this.props.match.params.id) {
+        HttpService.get("/api/blogs/" + this.props.match.params.id).then((json) => {
+            this.setState({
+                content: json.content,
+                title: json.title,
+                startDateTime: json.startDateTime ? new Date(json.startDateTime) : null,
+                endDateTime: json.endDateTime ? new Date(json.endDateTime) : null
+            });
+        }).catch(() => {
+            this.setState({
+                message: {
+                    message: "Failed to load blog.",
+                    type: STATUS.ERROR
+                }
+            });
+        });
+    }
+  }
+
   private onChange(value:string) {
     this.setState({
         content: value
     });
-}
+  }
 
   private onSubmit(e:FormEvent<HTMLFormElement>) {
     e.preventDefault();
     let payload = {
+        _id: this.props.match.params.id,
         title: RefUtil.getValue(this.titleRef, ""),
-        content: RefUtil.getValue(this.contentRef, "")
+        content: this.state.content,
+        startDateTime: this.state.startDateTime,
+        endDateTime: this.state.endDateTime
     };
 
-    if(this.props.mode === MODE.CREATE) {
-        this.createBlog(payload);
-        return;
-    }
-
-    if(this.props.mode === MODE.EDIT) {
-        this.editBlog(payload, this.props.id);
-        return;
-    }
-  }
-
-  private editBlog(payload:any, id:string) {
-    HttpService.put("/api/blogs/" + id, payload).then(() => {
+   
+    HttpService.put("/api/blogs/" + this.props.match.params.id, payload).then(() => {
         this.setState({
             message: {
                 type: STATUS.SUCCESS,
@@ -87,25 +98,7 @@ export default class BlogForm extends React.Component<BlogFormProps, BlogFormSta
         this.setState({
             message: {
                 type: STATUS.ERROR,
-                message: "Failed to save blog."
-            }
-        });
-    });
-  }
-
-  private createBlog(payload:any) {
-    HttpService.post("/api/blogs", payload).then(() => {
-        this.setState({
-            message: {
-                type: STATUS.SUCCESS,
-                message: "About section updated."
-            }
-        });
-    }).catch(() => {
-        this.setState({
-            message: {
-                type: STATUS.ERROR,
-                message: "Failed to save content."
+                message: "Failed to update blog."
             }
         });
     });
@@ -118,13 +111,12 @@ export default class BlogForm extends React.Component<BlogFormProps, BlogFormSta
             <form onSubmit={this.onSubmit}>
                 <label>
                     <span>Blog Title</span>
-                    <input defaultValue="aaa" type="text" ref={this.titleRef} placeholder="Blog Title" />
+                    <input defaultValue={this.state.title} type="text" ref={this.titleRef} placeholder="Blog Title" />
                 </label>
 
                 <label className={this.timeClassName}>
                     <span>Publish Date</span>
                     <DatePicker
-                        ref={this.startDateTimeRef}
                         showTimeSelect
                         timeIntervals={15}
                         minDate={new Date()}
@@ -143,14 +135,13 @@ export default class BlogForm extends React.Component<BlogFormProps, BlogFormSta
                 <label className={this.timeClassName}>
                     <span>Unpublish Date</span>
                     <DatePicker
-                        ref={this.endDateTimeRef}
                         showTimeSelect
                         timeIntervals={15}
-                        minDate={this.state.startDateTime ? this.state.startDateTime : new Date()}
+                        minDate={this.state.endDateTime ? this.state.endDateTime : new Date()}
                         dateFormat="MMMM d, yyyy h:mm aa"
                         timeCaption="Unpublish Time"
                         placeholderText="Unpublish Date"
-                        selected={null}
+                        selected={this.state.endDateTime}
                         onChange={(date) => {
                             this.setState({
                                 endDateTime: date
@@ -164,7 +155,7 @@ export default class BlogForm extends React.Component<BlogFormProps, BlogFormSta
                     <ReactQuill modules={RTF_MODULES} value={this.state.content} onChange={this.onChange}/>
                 </label>
 
-                <button>Save Blog</button>
+                <button>Update Blog</button>
             </form>
         </div>
     );

@@ -11,9 +11,9 @@ export default class JWTConfig {
         audience: AppConfig.getConfig().get("authentication.token.audience")
     };
 
-    constructor() {
+    constructor(userService:UserService = new UserService()) {
         passport.use(new passportJwt.Strategy(this.options, async (payload, done) => {
-            let user = await UserService.getUserById(payload.sub);
+            let user = await userService.getUserById(payload.sub);
             if (user) {
                 return done(null, user, payload);
             }

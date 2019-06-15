@@ -1,9 +1,9 @@
 import React from "react";
 import HttpService from "../../../util/HttpService";
 import StatusBar, { STATUS } from "../../StatusBar";
-import { AboutViewProps, AboutViewState } from "../../states/About";
+import { ContactViewProps, ContactViewState } from "../../states/Contact";
 
-export default class AboutPage extends React.Component<AboutViewProps, AboutViewState> {
+export default class ContactPage extends React.Component<ContactViewProps, ContactViewState> {
     constructor(props:any) {
         super(props);
 
@@ -15,7 +15,7 @@ export default class AboutPage extends React.Component<AboutViewProps, AboutView
             }
         };
 
-        HttpService.get("/api/about").then((json) => {
+        HttpService.get("/api/contact").then((json) => {
             this.setState({
                 item: json[0]
             });
@@ -30,8 +30,19 @@ export default class AboutPage extends React.Component<AboutViewProps, AboutView
     }
 
     private renderItem() {
+        if(!this.state.item) {
+            return null;
+        }
+
         return (
-            <div dangerouslySetInnerHTML={{__html: this.state.item ? this.state.item.content : ""}} />
+            <div>
+                <div>{this.state.item.twitter}</div>
+                <div>{this.state.item.facebook}</div>
+                <div>{this.state.item.instagram}</div>
+                <div>{this.state.item.email}</div>
+                <div>{this.state.item.phone}</div>
+                <div dangerouslySetInnerHTML={{__html: this.state.item ? this.state.item.content : ""}} />
+            </div>
         );
     }
 
