@@ -45,7 +45,10 @@ export default class Server {
         });
 
         app.use(passport.initialize());
-        app.use(bodyParser.json())
+        
+        app.use(bodyParser.json({
+            limit: "50mb"
+        }));
 
         app.use((_req:Request, res:Response, next:NextFunction) => {
             res.setHeader('Content-Type', 'application/json');
