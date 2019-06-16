@@ -19,7 +19,7 @@ export default class StatusBar extends React.Component<any, any> {
   public componentWillReceiveProps(props:any) {
     this.setState({
       message: props.message || "",
-      type: ""
+      type: props.type || ""
     });
   }
 
