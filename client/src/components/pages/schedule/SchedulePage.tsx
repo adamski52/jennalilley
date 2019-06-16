@@ -3,13 +3,14 @@ import { ISchedule } from "../../../../../server/src/models/Schedule";
 import StatusBar, { STATUS } from '../../StatusBar';
 import HttpService from '../../../util/HttpService';
 import { Link } from 'react-router-dom';
+import Calendar from './Calendar';
 
 export default class SchedulePage extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
 
         this.state = {
-            schedules: []
+            items: []
         };
     }
 
@@ -18,15 +19,15 @@ export default class SchedulePage extends React.Component<any, any> {
     }
 
     private onFetch() {
-        HttpService.get("/api/schedule").then((schedules) => {
+        HttpService.get("/api/schedule").then((json) => {
             this.setState({
-                schedules: schedules || []
+                items: json || []
             });
         }).catch(() => {
             this.setState({
                 message: {
                     type: STATUS.ERROR,
-                    message: "Failed to fetch schedule."
+                    message: "Failed to fetch events."
                 }
             });
         });
@@ -64,9 +65,15 @@ export default class SchedulePage extends React.Component<any, any> {
     }
 
     private renderItems() {
-        return this.state.schedules.map((schedule: ISchedule) => {
+        return this.state.items.map((schedule: ISchedule) => {
             return this.renderItem(schedule);
         });
+    }
+
+    private renderCalendar() {
+        return (
+            <Calendar items={this.state.items} />
+        );
     }
 
     public render() {
@@ -74,6 +81,7 @@ export default class SchedulePage extends React.Component<any, any> {
             <div>
                 <StatusBar {...this.state.message} />
                 {this.renderItems()}
+                {this.renderCalendar()}
             </div>
         );
     }

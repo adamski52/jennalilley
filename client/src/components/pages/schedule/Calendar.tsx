@@ -1,37 +1,63 @@
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import {style} from "typestyle";
+import { ISchedule } from '../../../../../server/src/models/Schedule';
+import { withRouter } from 'react-router';
 
-export default class Calendar extends React.Component<any, any> {
+class Calendar extends React.Component<any, any> {
   private localizer = BigCalendar.momentLocalizer(moment);
   
   constructor(props:any) {
     super(props);
+
     this.state = {
-        events: [{
-            start: new Date(),
-            end: moment().add(1, "days"),
-            title: "Some title"
-        }]
+        items: this.getItems(props.items || [])
     };
+
+    this.onSelectEvent = this.onSelectEvent.bind(this);
+  }
+
+  public componentWillReceiveProps(props:any) {
+    this.setState({
+      items: this.getItems(props.items || [])
+    });
+  }
+
+  private getItems(items:ISchedule[]) {
+    return items.map((item:ISchedule) => {
+      return {
+        start: item.startDateTime,
+        end: item.endDateTime,
+        title: item.name,
+        id: item._id
+      };
+    });
   }
 
   private calendarClassName = style({
       height: "75vh"
   });
 
+  private onSelectEvent(item: any, e: SyntheticEvent<HTMLElement, Event>) {
+    this.props.history.push("/schedule/" + item.id);
+  }
+
   public render() {
     return (
         <div>
             <BigCalendar
                 localizer={this.localizer}
-                events={this.state.events}
+                events={this.state.items}
                 defaultDate={new Date()}
                 defaultView="month"
                 className={this.calendarClassName}
+                onSelectEvent={this.onSelectEvent}
             />
         </div>
     );
   }
 }
+
+export default withRouter(Calendar);
+

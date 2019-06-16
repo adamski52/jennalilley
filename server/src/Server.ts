@@ -36,7 +36,14 @@ export default class Server {
 
         let app = express();
 
-       
+        passport.serializeUser((user, done) => {
+            done(null, user);
+        });
+        
+        passport.deserializeUser((user, done) => {
+            done(null, user);
+        });
+
         app.use(passport.initialize());
         app.use(bodyParser.json())
 

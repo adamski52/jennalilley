@@ -122,7 +122,7 @@ export default class UserFormList extends React.Component<any, any> {
 
   private renderItem(item:IUser) {
       return (
-        <div className="row">
+        <div className="row" key={item._id}>
              <div className="col-xs-2">
                 {item.name}
             </div>

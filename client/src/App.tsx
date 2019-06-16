@@ -11,6 +11,7 @@ import AdminPage from './components/pages/admin/AdminPage';
 import BlogsPage from './components/pages/blogs/BlogsPage';
 import SchedulePage from './components/pages/schedule/SchedulePage';
 import ContactPage from './components/pages/contact/ContactPage';
+import ScheduleOnePage from './components/pages/schedule/ScheduleOnePage';
 
 export default class App extends React.Component<any, any> {
   public render() {
@@ -27,9 +28,11 @@ export default class App extends React.Component<any, any> {
           </ul>
           
           <Route path="/" exact component={HomePage} />
-          <Route path="/about/" component={AboutPage} />
-          <Route path="/blogs/" component={BlogsPage} />
-          <Route path="/schedule/" component={SchedulePage} />
+          <Route path="/about/" exact component={AboutPage} />
+          <Route path="/blogs/" exact component={BlogsPage} />
+          <Route path="/schedule/" exact component={SchedulePage} />
+          <Route path="/schedule/:id" exact component={ScheduleOnePage} />
+
           <Route path="/contact/" component={ContactPage} />
 
           <Route path="/admin/" component={AdminPage} />

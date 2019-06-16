@@ -37,17 +37,32 @@ export default abstract class BaseController implements IBaseController {
 
     protected async execute(req:Request, res:Response, config:IMethodConfig = {}, callback:(req:Request, res:Response) => Promise<Response>) {
         if(config.requireAuth || config.requireAdmin) {
-            passport.authenticate(["jwt"], {
+            return await passport.authenticate(["jwt"], {
                 session: false
-            }, async (req:Request, res:Response) => {
-                if(config.requireAdmin && !this.userService.isAdmin(req.user)) {
+            }, async (err, user) => {
+                if(err) {
+                    return res.status(400).json(err);
+                }
+
+                if(!user) {
                     return res.status(401).json();
                 }
-                return callback(req, res);
-            });
+
+                if(config.requireAdmin && !this.userService.isAdmin(user)) {
+                    return res.status(401).json();
+                }
+
+                req.logIn(user, async (err) => {
+                    if(err) {
+                        return res.status(400).json(err);
+                    }
+
+                    return await callback(req, res);
+                });
+            })(req, res);
         }
 
-        return callback(req, res);
+        return await callback(req, res);
     }
 
     public async getOne(req:Request, res:Response) {

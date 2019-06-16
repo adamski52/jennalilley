@@ -1,6 +1,7 @@
 import BaseController from "./BaseController";
 import UserService from "../services/UserService";
 import { Request, Response } from "express";
+import { IBase } from "../models/Base";
 import { IUser } from "../models/User";
 
 export default class UserController extends BaseController {
@@ -10,13 +11,13 @@ export default class UserController extends BaseController {
                 requireAuth: true
             },
             getOne: {
-                requireAdmin: true
+                requireAuth: true
             },
             getAll: {
-                requireAdmin: true
+                requireAuth: true
             },
             deleteOne: {
-                requireAdmin: true
+                requireAuth: true
             }
         });
     }
@@ -40,12 +41,12 @@ export default class UserController extends BaseController {
                 return res.status(403).json();
             }
         
-            let user:IUser = await this.service.getById(req.params.id);
+            let user:IBase | null = await this.service.getById(req.params.id);
             if(!user) {
                 return res.status(404).json();
             }
 
-            user = await (this.service as UserService).promoteToAdmin(user);
+            user = await (this.service as UserService).promoteToAdmin(user as IUser);
             return res.json(user);
         });
     }
@@ -57,12 +58,12 @@ export default class UserController extends BaseController {
                 return res.status(403).json();
             }
         
-            let user:IUser = await this.service.getById(req.params.id);
+            let user:IBase | null = await this.service.getById(req.params.id);
             if(!user) {
                 return res.status(404).json();
             }
 
-            user = await (this.service as UserService).demoteToUser(user);
+            user = await (this.service as UserService).demoteToUser(user as IUser);
             return res.json(user);
         });
     }
