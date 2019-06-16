@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import AboutForm from "./about/AboutForm";
-import UserList from "./users/UserList";
+import UserFormList from "./users/UserFormList";
 import ContactForm from "./contact/ContactForm";
 import BlogsFormList from "./blogs/BlogsFormList";
 import BlogCreateForm from "./blogs/BlogCreateForm";
@@ -35,7 +35,7 @@ export default class AdminPage extends React.Component<any, any> {
                     <Route exact path="/admin/schedule/create" component={ScheduleCreateForm} />
                     <Route exact path="/admin/schedule/edit/:id/" component={ScheduleEditForm} />
 
-                    <Route path="/admin/users/" component={UserList} />
+                    <Route path="/admin/users/" component={UserFormList} />
 
                     <Route path="/admin/contact/" component={ContactForm} />
                 </Router>

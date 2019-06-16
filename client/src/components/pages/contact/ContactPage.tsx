@@ -14,7 +14,13 @@ export default class ContactPage extends React.Component<ContactViewProps, Conta
                 type: ""
             }
         };
+    }
 
+    public componentDidMount() {
+        this.onFetch();
+    }
+
+    private onFetch() {
         HttpService.get("/api/contact").then((json) => {
             this.setState({
                 item: json[0]

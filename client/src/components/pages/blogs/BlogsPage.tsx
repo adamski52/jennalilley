@@ -1,7 +1,6 @@
 import React from "react";
 import HttpService from "../../../util/HttpService";
 import { BlogViewAllProps, BlogViewAllState } from "../../states/Blogs";
-import { isTemplateElement } from "@babel/types";
 import StatusBar, { STATUS } from "../../StatusBar";
 
 export default class BlogsPage extends React.Component<BlogViewAllProps, BlogViewAllState> {
@@ -15,7 +14,13 @@ export default class BlogsPage extends React.Component<BlogViewAllProps, BlogVie
                 type: ""
             }
         };
+    }
 
+    public componentDidMount() {
+        this.onFetch();
+    }
+
+    private onFetch() {
         HttpService.get("/api/blogs/").then((json) => {
             this.setState({
                 items: json

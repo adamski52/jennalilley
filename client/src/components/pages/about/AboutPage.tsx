@@ -14,7 +14,13 @@ export default class AboutPage extends React.Component<AboutViewProps, AboutView
                 type: ""
             }
         };
+    }
 
+    public componentDidMount() {
+        this.onFetch();
+    }
+
+    private onFetch() {
         HttpService.get("/api/about").then((json) => {
             this.setState({
                 item: json[0]

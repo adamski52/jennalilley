@@ -1,8 +1,8 @@
 import BaseController from "./BaseController";
-import BlogService from "../services/BlogService";
+import ScheduleService from "../services/ScheduleService";
 
 export default class ScheduleController extends BaseController {
-    constructor(service:BlogService = new BlogService()) {
+    constructor(service:ScheduleService = new ScheduleService()) {
         super(service, {
             create: {
                 requireAdmin: true

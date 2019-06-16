@@ -27,7 +27,6 @@ export default abstract class BaseCrudRouter extends BaseRouter {
         });
 
         this.router.post("/", (req:Request, res:Response) => {
-            console.log("...1");
             this.controller.create(req, res);
         });
     }

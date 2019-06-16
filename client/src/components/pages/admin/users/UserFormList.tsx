@@ -3,16 +3,12 @@ import { IUser } from "../../../../../../server/src/models/User";
 import HttpService from '../../../../util/HttpService';
 import StatusBar, { STATUS } from '../../../StatusBar';
 
-export default class UserList extends React.Component<any, any> {
+export default class UserFormList extends React.Component<any, any> {
   constructor(props:any) {
     super(props);
 
     this.state = {
-      users: [],
-      message: {
-        message: "",
-        type: ""
-      }
+      items: []
     };
 
     this.onDelete = this.onDelete.bind(this);
@@ -23,9 +19,9 @@ export default class UserList extends React.Component<any, any> {
   }
 
   private onFetch() {
-    HttpService.get("/api/users").then((users:IUser[]) => {
+    HttpService.get("/api/users").then((json) => {
         this.setState({
-            users: users,
+            items: json,
             message: {
               message: "",
               type: ""
@@ -124,37 +120,37 @@ export default class UserList extends React.Component<any, any> {
     });
   }
 
-  private renderUser(user:IUser) {
+  private renderItem(item:IUser) {
       return (
         <div className="row">
              <div className="col-xs-2">
-                {user.name}
+                {item.name}
             </div>
             <div className="col-xs-2">
-                {user.providerId} : {user.providerName}<br/>
-                {user._id}
+                {item.providerId} : {item.providerName}<br/>
+                {item._id}
             </div>
             <div className="col-xs-2">
-                {user.email}
+                {item.email}
             </div>
             <div className="col-xs-2">
-                {this.renderRoles(user)}
+                {this.renderRoles(item)}
             </div>
             <div className="col-xs-2">
-              {this.getRoleButton(user)}
+              {this.getRoleButton(item)}
             </div>
             <div className="col-xs-2">
                 <button onClick={(e) => {
-                    return this.onDelete(user);
+                    return this.onDelete(item);
                 }}>Delete</button>
             </div>
         </div>
       );
   }
 
-  private renderUsers() {
-      return this.state.users.map((user:IUser) => {
-        return this.renderUser(user);
+  private renderItems() {
+      return this.state.items.map((item:IUser) => {
+        return this.renderItem(item);
       });
   }
 
@@ -163,7 +159,7 @@ export default class UserList extends React.Component<any, any> {
         <div>
           <StatusBar {...this.state.message} />
           <ul>
-              {this.renderUsers()}
+              {this.renderItems()}
           </ul>
         </div>
     );
