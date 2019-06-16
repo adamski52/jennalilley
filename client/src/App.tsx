@@ -7,11 +7,11 @@ import 'react-quill/dist/quill.snow.css';
 
 import AboutPage from './components/pages/about/AboutPage';
 import HomePage from './components/pages/home/HomePage';
-import AdminPage from './components/pages/admin/AdminPage';
-import BlogsPage from './components/pages/blogs/BlogsPage';
 import SchedulePage from './components/pages/schedule/SchedulePage';
 import ContactPage from './components/pages/contact/ContactPage';
 import ScheduleOnePage from './components/pages/schedule/ScheduleOnePage';
+import BlogsPage from './components/pages/blogs/BlogsPage';
+import AdminPage from './components/admin/AdminPage';
 
 export default class App extends React.Component<any, any> {
   public render() {

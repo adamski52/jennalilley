@@ -1,9 +1,9 @@
 import React from 'react';
-import HttpService from '../../../../util/HttpService';
-import StatusBar, { STATUS } from '../../../StatusBar';
-import { BlogFormProps } from '../../../states/Blogs';
 import { Link } from 'react-router-dom';
-import { IBlog } from '../../../../../../server/src/models/Blog';
+import { BlogFormProps } from '../../states/Blogs';
+import HttpService from '../../../util/HttpService';
+import StatusBar, { STATUS } from '../../StatusBar';
+import { IBlog } from '../../../../../server/src/models/Blog';
 
 export default class BlogsFormList extends React.Component<BlogFormProps, any> {
     constructor(props: BlogFormProps) {

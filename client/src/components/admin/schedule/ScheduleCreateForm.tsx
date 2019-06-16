@@ -1,8 +1,8 @@
 import React, { FormEvent } from 'react';
-import HttpService from '../../../../util/HttpService';
-import { STATUS } from '../../../StatusBar';
-import RefUtil from '../../../../util/RefUtil';
 import ScheduleForm from './ScheduleForm';
+import RefUtil from '../../../util/RefUtil';
+import HttpService from '../../../util/HttpService';
+import { STATUS } from '../../StatusBar';
 
 export default class ScheduleCreateForm extends ScheduleForm {
   protected onSubmit(e:FormEvent<HTMLFormElement>) {

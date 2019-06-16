@@ -1,10 +1,10 @@
 import React, { FormEvent } from 'react';
 import DatePicker from "react-datepicker";
 import {style} from "typestyle";
-import StatusBar from '../../../StatusBar';
-import { BlogFormProps, BlogFormState } from '../../../states/Blogs';
 import ReactQuill from 'react-quill';
-import { RTF_MODULES } from '../../../../util/EditorUtils';
+import { BlogFormProps, BlogFormState } from '../../states/Blogs';
+import StatusBar from '../../StatusBar';
+import { RTF_MODULES } from '../../../util/EditorUtils';
 
 export default abstract class BlogForm extends React.Component<BlogFormProps, BlogFormState> {
   protected titleRef = React.createRef<HTMLInputElement>();

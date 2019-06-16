@@ -1,10 +1,10 @@
 import React, { FormEvent } from 'react';
 import DatePicker from "react-datepicker";
 import {style} from "typestyle";
-import StatusBar from '../../../StatusBar';
-import { ScheduleFormProps, ScheduleFormState } from '../../../states/Schedule';
 import ReactQuill from 'react-quill';
-import { RTF_MODULES } from '../../../../util/EditorUtils';
+import { ScheduleFormProps, ScheduleFormState } from '../../states/Schedule';
+import StatusBar from '../../StatusBar';
+import { RTF_MODULES } from '../../../util/EditorUtils';
 
 export default class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState> {
   protected nameRef = React.createRef<HTMLInputElement>();

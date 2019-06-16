@@ -1,9 +1,9 @@
 import React from 'react';
-import HttpService from '../../../../util/HttpService';
-import StatusBar, { STATUS } from '../../../StatusBar';
 import { Link } from 'react-router-dom';
-import { ScheduleFormProps } from '../../../states/Schedule';
-import { ISchedule } from '../../../../../../server/src/models/Schedule';
+import HttpService from '../../../util/HttpService';
+import StatusBar, { STATUS } from '../../StatusBar';
+import { ISchedule } from '../../../../../server/src/models/Schedule';
+import { ScheduleFormProps } from '../../states/Schedule';
 
 export default class ScheduleFormList extends React.Component<ScheduleFormProps, any> {
   constructor(props:ScheduleFormProps) {

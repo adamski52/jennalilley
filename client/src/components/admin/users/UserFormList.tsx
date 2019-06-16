@@ -1,7 +1,7 @@
 import React from 'react';
-import { IUser } from "../../../../../../server/src/models/User";
-import HttpService from '../../../../util/HttpService';
-import StatusBar, { STATUS } from '../../../StatusBar';
+import HttpService from '../../../util/HttpService';
+import StatusBar, { STATUS } from '../../StatusBar';
+import { IUser } from '../../../../../server/src/models/User';
 
 export default class UserFormList extends React.Component<any, any> {
   constructor(props:any) {

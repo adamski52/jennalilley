@@ -1,11 +1,11 @@
 import React, { FormEvent } from 'react';
-import HttpService from '../../../../util/HttpService';
-import StatusBar, { STATUS } from '../../../StatusBar';
 import ReactQuill from 'react-quill';
-import { RTF_MODULES } from '../../../../util/EditorUtils';
-import RefUtil from '../../../../util/RefUtil';
-import { ContactFormProps, ContactFormState } from '../../../states/Contact';
 import {style} from "typestyle";
+import { ContactFormProps, ContactFormState } from '../../states/Contact';
+import HttpService from '../../../util/HttpService';
+import StatusBar, { STATUS } from '../../StatusBar';
+import RefUtil from '../../../util/RefUtil';
+import { RTF_MODULES } from '../../../util/EditorUtils';
 
 export default class ContactForm extends React.Component<ContactFormProps, ContactFormState> {
   private serviceUrl = "/api/contact";

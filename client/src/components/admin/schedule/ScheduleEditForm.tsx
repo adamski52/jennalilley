@@ -1,9 +1,9 @@
 import React, { FormEvent } from 'react';
-import HttpService from '../../../../util/HttpService';
-import { STATUS } from '../../../StatusBar';
-import RefUtil from '../../../../util/RefUtil';
-import { ScheduleFormProps } from '../../../states/Schedule';
 import ScheduleForm from './ScheduleForm';
+import { ScheduleFormProps } from '../../states/Schedule';
+import HttpService from '../../../util/HttpService';
+import { STATUS } from '../../StatusBar';
+import RefUtil from '../../../util/RefUtil';
 
 export default class ScheduleEditForm extends ScheduleForm {
   constructor(props:ScheduleFormProps) {
