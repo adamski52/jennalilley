@@ -1,6 +1,5 @@
 import User, { IUser } from "../models/User";
 import RoleService from "./RoleService";
-import { IBase } from "../models/Base";
 import BaseService from "./BaseService";
 
 export default class UserService extends BaseService {

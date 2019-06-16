@@ -8,16 +8,16 @@ export default class UserController extends BaseController {
     constructor(service:UserService = new UserService()) {
         super(service, {
             update: {
-                requireAuth: true
+                requireAdmin: true
             },
             getOne: {
-                requireAuth: true
+                requireAdmin: true
             },
             getAll: {
-                requireAuth: true
+                requireAdmin: true
             },
             deleteOne: {
-                requireAuth: true
+                requireAdmin: true
             }
         });
     }
