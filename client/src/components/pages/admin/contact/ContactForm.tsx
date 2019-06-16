@@ -5,6 +5,7 @@ import ReactQuill from 'react-quill';
 import { RTF_MODULES } from '../../../../util/EditorUtils';
 import RefUtil from '../../../../util/RefUtil';
 import { ContactFormProps, ContactFormState } from '../../../states/Contact';
+import {style} from "typestyle";
 
 export default class ContactForm extends React.Component<ContactFormProps, ContactFormState> {
   private serviceUrl = "/api/contact";
@@ -14,6 +15,14 @@ export default class ContactForm extends React.Component<ContactFormProps, Conta
   private phoneRef = React.createRef<HTMLInputElement>();
   private emailRef = React.createRef<HTMLInputElement>();
   private instagramRef = React.createRef<HTMLInputElement>();
+
+  protected quillClassName = style({
+    $nest: {
+      ".ql-editor": {
+        "height": "400px"
+      }
+    }
+  });
 
   constructor(props:any) {
     super(props);
@@ -41,7 +50,6 @@ export default class ContactForm extends React.Component<ContactFormProps, Conta
 
   private onFetch() {
     HttpService.get(this.serviceUrl).then((json) => {
-      console.log("contact", json[0]);
       this.setState({
           content: json[0].content || "",
           twitter: json[0].twitter || null,
@@ -98,7 +106,7 @@ export default class ContactForm extends React.Component<ContactFormProps, Conta
     return (
         <div>
             <StatusBar {...this.state.message} />
-            <form onSubmit={this.onSubmit}>
+            <form onSubmit={this.onSubmit} className={this.quillClassName}>
                 <label>
                     <span>Twitter Handle (including @)</span>
                     <input defaultValue={this.state.twitter} type="text" ref={this.twitterRef} placeholder="Twitter Handle (including @)" />

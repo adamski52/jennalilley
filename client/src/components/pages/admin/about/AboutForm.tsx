@@ -4,9 +4,18 @@ import HttpService from '../../../../util/HttpService';
 import StatusBar, { STATUS } from '../../../StatusBar';
 import { AboutFormProps, AboutFormState } from '../../../states/About';
 import { RTF_MODULES } from '../../../../util/EditorUtils';
+import { style } from "typestyle";
 
 export default class AboutForm extends React.Component<AboutFormProps, AboutFormState> {
   private serviceUrl = "/api/about";
+
+  private quillClassName = style({
+    $nest: {
+      ".ql-editor": {
+        "height": "400px"
+      }
+    }
+  });
 
   constructor(props:AboutFormProps) {
     super(props);
@@ -76,7 +85,7 @@ export default class AboutForm extends React.Component<AboutFormProps, AboutForm
     return (
         <div>
             <StatusBar {...this.state.message} />
-            <form onSubmit={this.onSubmit}>
+            <form onSubmit={this.onSubmit} className={this.quillClassName}>
                 <ReactQuill modules={RTF_MODULES} value={this.state.content} onChange={this.onChange}/>
 
                 <button>Save About Page</button>

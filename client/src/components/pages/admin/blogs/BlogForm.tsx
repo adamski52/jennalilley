@@ -8,6 +8,14 @@ import { RTF_MODULES } from '../../../../util/EditorUtils';
 
 export default abstract class BlogForm extends React.Component<BlogFormProps, BlogFormState> {
   protected titleRef = React.createRef<HTMLInputElement>();
+  
+  protected quillClassName = style({
+    $nest: {
+      ".ql-editor": {
+        "height": "400px"
+      }
+    }
+  });
 
   protected timeClassName = style({
     "$nest": {
@@ -66,7 +74,7 @@ export default abstract class BlogForm extends React.Component<BlogFormProps, Bl
     return (
         <div>
             <StatusBar {...this.state.message} />
-            <form onSubmit={this.onSubmit}>
+            <form onSubmit={this.onSubmit} className={this.quillClassName}>
                 <label>
                     <span>Blog Title</span>
                     <input defaultValue={this.state.title} type="text" ref={this.titleRef} placeholder="Blog Title" />

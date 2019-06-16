@@ -13,6 +13,14 @@ export default class ScheduleForm extends React.Component<ScheduleFormProps, Sch
   protected ageRestrictionsRef = React.createRef<HTMLInputElement>();
   protected costRef = React.createRef<HTMLInputElement>();
   protected locationRef = React.createRef<HTMLInputElement>();
+  
+  protected quillClassName = style({
+    $nest: {
+      ".ql-editor": {
+        "height": "400px"
+      }
+    }
+  });
 
   protected timeClassName = style({
     "$nest": {
@@ -76,7 +84,7 @@ export default class ScheduleForm extends React.Component<ScheduleFormProps, Sch
     return (
         <div>
             <StatusBar {...this.state.message} />
-            <form onSubmit={this.onSubmit}>
+            <form onSubmit={this.onSubmit} className={this.quillClassName}>
                 <label>
                     <span>Event Name</span>
                     <input defaultValue={this.state.name} type="text" ref={this.nameRef} placeholder="Event Name" />
