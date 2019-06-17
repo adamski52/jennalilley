@@ -2,13 +2,21 @@ import React from 'react';
 import HttpService from '../../../util/HttpService';
 import StatusBar, { STATUS } from '../../StatusBar';
 import { IUser } from '../../../../../server/src/models/User';
+import BaseSecurePage from '../BaseSecurePage';
+import { AdminViewProps, AdminViewState } from '../../states/Admin';
+import { UserViewAllProps, UserViewAllState } from '../../states/User';
 
-export default class UserFormList extends React.Component<any, any> {
+export default class UserFormList extends BaseSecurePage<AdminViewProps & UserViewAllProps, AdminViewState & UserViewAllState> {
   constructor(props:any) {
     super(props);
 
     this.state = {
-      items: []
+      isAuthenticated: false,
+      items: [],
+      message: {
+        message: "",
+        type: ""
+      }
     };
 
     this.onDelete = this.onDelete.bind(this);
@@ -94,7 +102,7 @@ export default class UserFormList extends React.Component<any, any> {
 
   private getRoleButton(user:IUser) {
     let isAdmin = user.roles.find((role) => {
-      return role.name === "ADMIN";
+      return role.name.toUpperCase() === "ADMIN";
     });
 
     if(!isAdmin) {

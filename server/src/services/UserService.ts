@@ -1,12 +1,14 @@
 import User, { IUser } from "../models/User";
 import RoleService from "./RoleService";
 import BaseService from "./BaseService";
+import { Model } from "mongoose";
+import { IBase } from "../models/Base";
 
 export default class UserService extends BaseService {
     private roleService:RoleService;
 
-    constructor(roleService:RoleService = new RoleService()) {
-        super(User);
+    constructor(model:Model<IBase> = User, roleService:RoleService = new RoleService()) {
+        super(model);
         this.roleService = roleService;
     }
 

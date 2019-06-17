@@ -1,4 +1,4 @@
-import { TMode, IStatus } from "../../util/TypeUtils";
+import { IStatus } from "../../util/TypeUtils";
 import { IBlog } from "../../../../server/src/models/Blog";
 
 export interface BlogFormState {
@@ -20,7 +20,6 @@ export interface BlogViewOneState {
 };
 
 export interface BlogFormProps {
-    mode: TMode;
     match?: any;
     id: string;
 };

@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import RoleService from "./RoleService";
-import Role from "../models/Role";
 
 export default class DatabaseService {  
     private roleService:RoleService;

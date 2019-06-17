@@ -5,10 +5,10 @@ import { AboutFormProps, AboutFormState } from '../../states/About';
 import HttpService from '../../../util/HttpService';
 import StatusBar, { STATUS } from '../../StatusBar';
 import UploadAdapter from '../../../image-upload/UploadAdapter';
+import BaseSecurePage from '../BaseSecurePage';
+import { AdminViewState, AdminViewProps } from '../../states/Admin';
 
-export default class AboutForm extends React.Component<AboutFormProps, AboutFormState> {
-  private serviceUrl = "/api/about";
-
+export default class AboutForm extends BaseSecurePage<AdminViewProps & AboutFormProps, AdminViewState & AboutFormState> {
   private AttachUploadAdapterPlugin = function (editor: any) {
     editor.plugins.get('FileRepository').createUploadAdapter = (loader: any) => {
       return new UploadAdapter(loader);
@@ -19,6 +19,7 @@ export default class AboutForm extends React.Component<AboutFormProps, AboutForm
     super(props);
 
     this.state = {
+      isAuthenticated: false,
       content: "",
       message: {
         message: "",
@@ -34,7 +35,7 @@ export default class AboutForm extends React.Component<AboutFormProps, AboutForm
   }
 
   private onFetch() {
-    HttpService.get(this.serviceUrl).then((json) => {
+    HttpService.get("/api/about").then((json) => {
       this.setState({
         content: json[0].content
       });
@@ -54,7 +55,7 @@ export default class AboutForm extends React.Component<AboutFormProps, AboutForm
       content: this.state.content
     };
 
-    return HttpService.post(this.serviceUrl, payload).then(() => {
+    return HttpService.post("/api/about", payload).then(() => {
       this.setState({
         message: {
           type: STATUS.SUCCESS,

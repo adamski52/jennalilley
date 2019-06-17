@@ -6,6 +6,7 @@ import BlogRouter from "./BlogRouter";
 import AboutRouter from "./AboutRouter";
 import ContactRouter from "./ContactRouter";
 import UploadRouter from "./UploadRouter";
+import WhoAmIRouter from "./WhoAmIRouter";
 
 export default class APIRouter extends BaseRouter {
     constructor() {
@@ -18,5 +19,6 @@ export default class APIRouter extends BaseRouter {
         this.router.use("/about", new AboutRouter().getRouter());
         this.router.use("/contact", new ContactRouter().getRouter());
         this.router.use("/uploads", new UploadRouter().getRouter());
+        this.router.use("/whoami", new WhoAmIRouter().getRouter());
     }
 }

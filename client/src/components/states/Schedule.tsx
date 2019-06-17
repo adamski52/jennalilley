@@ -1,5 +1,5 @@
 import { ISchedule } from "../../../../server/src/models/Schedule";
-import { IStatus, TMode } from "../../util/TypeUtils";
+import { IStatus } from "../../util/TypeUtils";
 
 export interface ScheduleFormState {
     name: string;
@@ -25,7 +25,6 @@ export interface ScheduleViewOneState {
 };
 
 export interface ScheduleFormProps {
-    mode: TMode;
     match?: any;
     id: string;
 };

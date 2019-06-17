@@ -1,10 +1,11 @@
 import BaseService from "./BaseService";
 import { IBase } from "../models/Base";
 import Contact from "../models/Contact";
+import { Model } from "mongoose";
 
 export default class ContactService extends BaseService {
-    constructor() {
-        super(Contact);
+    constructor(model:Model<IBase> = Contact) {
+        super(model);
     }
 
     public async create(body:IBase) {

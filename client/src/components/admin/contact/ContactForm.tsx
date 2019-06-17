@@ -6,8 +6,10 @@ import HttpService from '../../../util/HttpService';
 import StatusBar, { STATUS } from '../../StatusBar';
 import RefUtil from '../../../util/RefUtil';
 import { RTF_MODULES } from '../../../util/EditorUtils';
+import { AdminViewProps, AdminViewState } from '../../states/Admin';
+import BaseSecurePage from '../BaseSecurePage';
 
-export default class ContactForm extends React.Component<ContactFormProps, ContactFormState> {
+export default class ContactForm extends BaseSecurePage<AdminViewProps & ContactFormProps, AdminViewState & ContactFormState> {
   private serviceUrl = "/api/contact";
 
   private twitterRef = React.createRef<HTMLInputElement>();
@@ -28,6 +30,7 @@ export default class ContactForm extends React.Component<ContactFormProps, Conta
     super(props);
 
     this.state = {
+        isAuthenticated: false,
         content: "",
         twitter: "",
         facebook: "",
@@ -102,7 +105,7 @@ export default class ContactForm extends React.Component<ContactFormProps, Conta
     });
   }
 
-  public render() {
+  protected renderAuthenticatedView() {
     return (
         <div>
             <StatusBar {...this.state.message} />

@@ -5,8 +5,10 @@ import ReactQuill from 'react-quill';
 import { BlogFormProps, BlogFormState } from '../../states/Blogs';
 import StatusBar from '../../StatusBar';
 import { RTF_MODULES } from '../../../util/EditorUtils';
+import { AdminViewState, AdminViewProps } from '../../states/Admin';
+import BaseSecurePage from '../BaseSecurePage';
 
-export default abstract class BlogForm extends React.Component<BlogFormProps, BlogFormState> {
+export default class BlogForm extends BaseSecurePage<AdminViewProps & BlogFormProps, AdminViewState & BlogFormState> {
   protected titleRef = React.createRef<HTMLInputElement>();
   
   protected quillClassName = style({
@@ -38,6 +40,7 @@ export default abstract class BlogForm extends React.Component<BlogFormProps, Bl
     super(props);
 
     this.state = {
+        isAuthenticated: false,
         content: "",
         title: "",
         startDateTime: null,
@@ -70,7 +73,7 @@ export default abstract class BlogForm extends React.Component<BlogFormProps, Bl
     e.preventDefault();
   }
 
-  public render() {
+  protected renderAuthenticatedView() {
     return (
         <div>
             <StatusBar {...this.state.message} />

@@ -5,8 +5,10 @@ import ReactQuill from 'react-quill';
 import { ScheduleFormProps, ScheduleFormState } from '../../states/Schedule';
 import StatusBar from '../../StatusBar';
 import { RTF_MODULES } from '../../../util/EditorUtils';
+import BaseSecurePage from '../BaseSecurePage';
+import { AdminViewProps, AdminViewState } from '../../states/Admin';
 
-export default class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState> {
+export default class ScheduleForm extends BaseSecurePage<AdminViewProps & ScheduleFormProps, AdminViewState & ScheduleFormState> {
   protected nameRef = React.createRef<HTMLInputElement>();
   protected typeRef = React.createRef<HTMLInputElement>();
   protected capacityRef = React.createRef<HTMLInputElement>();
@@ -43,6 +45,7 @@ export default class ScheduleForm extends React.Component<ScheduleFormProps, Sch
     super(props);
 
     this.state = {
+        isAuthenticated: false,
         name: "",
         type: "",
         startDateTime: null,
@@ -80,7 +83,7 @@ export default class ScheduleForm extends React.Component<ScheduleFormProps, Sch
       );
   }
 
-  public render() {
+  protected renderAuthenticatedView() {
     return (
         <div>
             <StatusBar {...this.state.message} />

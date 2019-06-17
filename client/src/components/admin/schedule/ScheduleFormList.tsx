@@ -3,14 +3,21 @@ import { Link } from 'react-router-dom';
 import HttpService from '../../../util/HttpService';
 import StatusBar, { STATUS } from '../../StatusBar';
 import { ISchedule } from '../../../../../server/src/models/Schedule';
-import { ScheduleFormProps } from '../../states/Schedule';
+import { ScheduleFormProps, ScheduleViewAllState } from '../../states/Schedule';
+import BaseSecurePage from '../BaseSecurePage';
+import { AdminViewProps, AdminViewState } from '../../states/Admin';
 
-export default class ScheduleFormList extends React.Component<ScheduleFormProps, any> {
-  constructor(props:ScheduleFormProps) {
+export default class ScheduleFormList extends BaseSecurePage<AdminViewProps & ScheduleFormProps, AdminViewState & ScheduleViewAllState> {
+    constructor(props:ScheduleFormProps) {
     super(props);
 
     this.state = {
-        items: []
+        isAuthenticated: false,
+        items: [],
+        message: {
+            message: "",
+            type: ""
+        }
     };
 
     this.onDelete = this.onDelete.bind(this);
@@ -98,7 +105,7 @@ export default class ScheduleFormList extends React.Component<ScheduleFormProps,
       });
   }
 
-  public render() {
+  protected renderAuthenticatedView() {
     return (
         <div>
             <StatusBar {...this.state.message} />

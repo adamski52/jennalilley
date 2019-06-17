@@ -9,9 +9,23 @@ import BlogEditForm from "./blogs/BlogEditForm";
 import ScheduleCreateForm from "./schedule/ScheduleCreateForm";
 import ScheduleEditForm from "./schedule/ScheduleEditForm";
 import ScheduleFormList from "./schedule/ScheduleFormList";
+import BaseSecurePage from "./BaseSecurePage";
+import { AdminViewProps, AdminViewState } from "../states/Admin";
 
-export default class AdminPage extends React.Component<any, any> {
-    public render() {
+export default class AdminPage extends BaseSecurePage<AdminViewProps, AdminViewState> {
+    constructor(props:AdminViewProps) {
+        super(props);
+
+        this.state = {
+            isAuthenticated: false,
+            message: {
+                message: "",
+                type: ""
+            }
+        };
+    }
+
+    protected renderAuthenticatedView() {
         return (
             <div>
                 <Router>

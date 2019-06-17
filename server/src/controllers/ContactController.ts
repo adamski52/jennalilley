@@ -8,7 +8,13 @@ export default class ContactController extends BaseController {
                 requireAdmin: true
             },
             update: {
-                requireAdmin: true
+                disabled: true
+            },
+            deleteOne: {
+                disabled: true
+            },
+            getOne: {
+                disabled: true
             }
         });
     }

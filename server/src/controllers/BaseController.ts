@@ -22,6 +22,7 @@ export interface IControllerConfig {
 export interface IMethodConfig {
     requireAuth?: boolean;
     requireAdmin?: boolean;
+    disabled?: boolean;
 }
 
 export default abstract class BaseController implements IBaseController {
@@ -36,6 +37,11 @@ export default abstract class BaseController implements IBaseController {
     }
 
     protected async execute(req:Request, res:Response, config:IMethodConfig = {}, callback:(req:Request, res:Response) => Promise<Response>) {
+        if(config.disabled) {
+            console.log(this, config);
+            return res.status(405).json();
+        }
+        
         if(config.requireAuth || config.requireAdmin) {
             return await passport.authenticate(["jwt"], {
                 session: false

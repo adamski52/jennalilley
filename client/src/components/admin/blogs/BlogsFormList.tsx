@@ -1,16 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BlogFormProps } from '../../states/Blogs';
+import { BlogFormProps, BlogViewAllState } from '../../states/Blogs';
 import HttpService from '../../../util/HttpService';
 import StatusBar, { STATUS } from '../../StatusBar';
 import { IBlog } from '../../../../../server/src/models/Blog';
+import { AdminViewProps, AdminViewState } from '../../states/Admin';
+import BaseSecurePage from '../BaseSecurePage';
 
-export default class BlogsFormList extends React.Component<BlogFormProps, any> {
+export default class AboutForm extends BaseSecurePage<AdminViewProps & BlogFormProps, AdminViewState & BlogViewAllState> {
     constructor(props: BlogFormProps) {
         super(props);
 
         this.state = {
-            items: []
+            isAuthenticated: false,
+            items: [],
+            message: {
+                message: "",
+                type: ""
+            }
         };
 
         this.onDelete = this.onDelete.bind(this);
@@ -81,7 +88,7 @@ export default class BlogsFormList extends React.Component<BlogFormProps, any> {
         });
     }
 
-    public render() {
+    protected renderAuthenticatedView() {
         return (
             <div>
                 <StatusBar {...this.state.message} />

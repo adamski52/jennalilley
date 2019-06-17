@@ -4,7 +4,6 @@ import HttpService from '../../../util/HttpService';
 import { STATUS } from '../../StatusBar';
 import RefUtil from '../../../util/RefUtil';
 
-
 export default class BlogEditForm extends BlogForm {
     constructor(props:BlogFormProps) {
         super(props);

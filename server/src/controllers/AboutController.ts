@@ -9,12 +9,14 @@ export default class AboutController extends BaseController {
                 requireAdmin: true
             },
             update: {
-                requireAdmin: true
+                disabled: true
+            },
+            deleteOne: {
+                disabled: true
+            },
+            getOne: {
+                disabled: true
             }
         });
-    }
-
-    public async getAll(req:Request, res:Response) {
-        return await super.getAll(req, res);
     }
 }

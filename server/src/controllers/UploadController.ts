@@ -12,13 +12,13 @@ export default class UploadController extends BaseController {
                 requireAdmin: true
             },
             update: {
-                requireAdmin: true
+                disabled: true
             },
             deleteOne: {
                 requireAdmin: true
             },
             getAll: {
-                requireAdmin: true
+                disabled: true
             }
         });
     }
