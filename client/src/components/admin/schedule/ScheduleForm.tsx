@@ -1,12 +1,12 @@
 import React, { FormEvent } from 'react';
 import DatePicker from "react-datepicker";
-import {style} from "typestyle";
-import ReactQuill from 'react-quill';
 import { ScheduleFormProps, ScheduleFormState } from '../../states/Schedule';
 import StatusBar from '../../StatusBar';
-import { RTF_MODULES } from '../../../util/EditorUtils';
 import BaseSecurePage from '../BaseSecurePage';
+import CKEditor from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { AdminViewProps, AdminViewState } from '../../states/Admin';
+import UploadAdapter from '../../../image-upload/UploadAdapter';
 
 export default class ScheduleForm extends BaseSecurePage<AdminViewProps & ScheduleFormProps, AdminViewState & ScheduleFormState> {
   protected nameRef = React.createRef<HTMLInputElement>();
@@ -16,30 +16,23 @@ export default class ScheduleForm extends BaseSecurePage<AdminViewProps & Schedu
   protected costRef = React.createRef<HTMLInputElement>();
   protected locationRef = React.createRef<HTMLInputElement>();
   
-  protected quillClassName = style({
-    $nest: {
-      ".ql-editor": {
-        "height": "400px"
-      }
-    }
-  });
 
-  protected timeClassName = style({
-    "$nest": {
-        ".react-datepicker__time-container": {
-            "width": "100px"
-        },
-        ".react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box": {
-            "width": "100%"
-        },
-        ".react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item": {
-            "padding": "10px 0 0 0"
-        },
-        ".react-datepicker__navigation--next--with-time:not(.react-datepicker__navigation--next--with-today-button)": {
-            "right": "110px"
-        }
-    }
-  });
+//   protected timeClassName = style({
+//     "$nest": {
+//         ".react-datepicker__time-container": {
+//             "width": "100px"
+//         },
+//         ".react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box": {
+//             "width": "100%"
+//         },
+//         ".react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item": {
+//             "padding": "10px 0 0 0"
+//         },
+//         ".react-datepicker__navigation--next--with-time:not(.react-datepicker__navigation--next--with-today-button)": {
+//             "right": "110px"
+//         }
+//     }
+//   });
   
   constructor(props:ScheduleFormProps) {
     super(props);
@@ -61,14 +54,7 @@ export default class ScheduleForm extends BaseSecurePage<AdminViewProps & Schedu
         }
     };
 
-    this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-  }
-
-  protected onChange(value:string) {
-    this.setState({
-        description: value
-    });
   }
 
   protected onSubmit(e:FormEvent<HTMLFormElement>) {
@@ -87,7 +73,7 @@ export default class ScheduleForm extends BaseSecurePage<AdminViewProps & Schedu
     return (
         <div>
             <StatusBar {...this.state.message} />
-            <form onSubmit={this.onSubmit} className={this.quillClassName}>
+            <form onSubmit={this.onSubmit}>
                 <label>
                     <span>Event Name</span>
                     <input defaultValue={this.state.name} type="text" ref={this.nameRef} placeholder="Event Name" />
@@ -98,7 +84,7 @@ export default class ScheduleForm extends BaseSecurePage<AdminViewProps & Schedu
                     <input defaultValue={this.state.type} type="text" ref={this.typeRef} placeholder="Event Type" />
                 </label>
 
-                <label className={this.timeClassName}>
+                <label className="">
                     <span>Start Date</span>
                     <DatePicker
                         showTimeSelect
@@ -116,7 +102,7 @@ export default class ScheduleForm extends BaseSecurePage<AdminViewProps & Schedu
                     />
                 </label>
 
-                <label className={this.timeClassName}>
+                <label className="">
                     <span>End Date</span>
                     <DatePicker
                         showTimeSelect
@@ -156,7 +142,18 @@ export default class ScheduleForm extends BaseSecurePage<AdminViewProps & Schedu
 
                 <label>
                     <span>Content</span>
-                    <ReactQuill modules={RTF_MODULES} value={this.state.description} onChange={this.onChange}/>
+                    <CKEditor
+                        editor={ClassicEditor}
+                        data={this.state.description}
+                        config={{
+                            extraPlugins: [UploadAdapter.AttachUploadAdapterPlugin]
+                        }}
+                        onChange={(_event: any, editor: any) => {
+                            this.setState({
+                                description: editor.getData()
+                            });
+                        }}
+                    />
                 </label>
 
                 {this.renderButton()}

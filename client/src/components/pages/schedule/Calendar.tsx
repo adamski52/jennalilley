@@ -1,7 +1,6 @@
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 import React, { SyntheticEvent } from 'react';
-import {style} from "typestyle";
 import { ISchedule } from '../../../../../server/src/models/Schedule';
 import { withRouter } from 'react-router';
 
@@ -35,9 +34,9 @@ class Calendar extends React.Component<any, any> {
     });
   }
 
-  private calendarClassName = style({
-      height: "75vh"
-  });
+  // private calendarClassName = style({
+  //     height: "75vh"
+  // });
 
   private onSelectEvent(item: any, e: SyntheticEvent<HTMLElement, Event>) {
     this.props.history.push("/schedule/" + item.id);
@@ -51,7 +50,7 @@ class Calendar extends React.Component<any, any> {
                 events={this.state.items}
                 defaultDate={new Date()}
                 defaultView="month"
-                className={this.calendarClassName}
+                className=""
                 onSelectEvent={this.onSelectEvent}
             />
         </div>

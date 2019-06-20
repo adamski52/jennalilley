@@ -4,17 +4,11 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { AboutFormProps, AboutFormState } from '../../states/About';
 import HttpService from '../../../util/HttpService';
 import StatusBar, { STATUS } from '../../StatusBar';
-import UploadAdapter from '../../../image-upload/UploadAdapter';
 import BaseSecurePage from '../BaseSecurePage';
 import { AdminViewState, AdminViewProps } from '../../states/Admin';
+import UploadAdapter from '../../../image-upload/UploadAdapter';
 
 export default class AboutForm extends BaseSecurePage<AdminViewProps & AboutFormProps, AdminViewState & AboutFormState> {
-  private AttachUploadAdapterPlugin = function (editor: any) {
-    editor.plugins.get('FileRepository').createUploadAdapter = (loader: any) => {
-      return new UploadAdapter(loader);
-    };
-  }
-
   constructor(props: AboutFormProps) {
     super(props);
 
@@ -81,7 +75,7 @@ export default class AboutForm extends BaseSecurePage<AdminViewProps & AboutForm
             editor={ClassicEditor}
             data={this.state.content}
             config={{
-              extraPlugins: [this.AttachUploadAdapterPlugin]
+              extraPlugins: [UploadAdapter.AttachUploadAdapterPlugin]
             }}
             onChange={(_event: any, editor: any) => {
               this.setState({

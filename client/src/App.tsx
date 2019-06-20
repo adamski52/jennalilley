@@ -14,7 +14,6 @@ import AdminPage from './components/admin/AdminPage';
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
-import 'react-quill/dist/quill.snow.css';
 
 export default class App extends React.Component<any, any> {
   public render() {

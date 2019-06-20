@@ -10,6 +10,12 @@ export default class UploadAdapter {
         this.loader = loader;
     }
 
+    public static AttachUploadAdapterPlugin = function (editor: any) {
+        editor.plugins.get('FileRepository').createUploadAdapter = (loader: any) => {
+            return new UploadAdapter(loader);
+        };
+    }
+
     public upload() {
         return this.loader.file.then((file:any) => {
             return new Promise((resolve, reject) => {

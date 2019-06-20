@@ -1,40 +1,33 @@
 import React, { FormEvent } from 'react';
 import DatePicker from "react-datepicker";
-import {style} from "typestyle";
-import ReactQuill from 'react-quill';
 import { BlogFormProps, BlogFormState } from '../../states/Blogs';
 import StatusBar from '../../StatusBar';
-import { RTF_MODULES } from '../../../util/EditorUtils';
+import CKEditor from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { AdminViewState, AdminViewProps } from '../../states/Admin';
 import BaseSecurePage from '../BaseSecurePage';
+import UploadAdapter from '../../../image-upload/UploadAdapter';
 
 export default class BlogForm extends BaseSecurePage<AdminViewProps & BlogFormProps, AdminViewState & BlogFormState> {
   protected titleRef = React.createRef<HTMLInputElement>();
   
-  protected quillClassName = style({
-    $nest: {
-      ".ql-editor": {
-        "height": "400px"
-      }
-    }
-  });
 
-  protected timeClassName = style({
-    "$nest": {
-        ".react-datepicker__time-container": {
-            "width": "100px"
-        },
-        ".react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box": {
-            "width": "100%"
-        },
-        ".react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item": {
-            "padding": "10px 0 0 0"
-        },
-        ".react-datepicker__navigation--next--with-time:not(.react-datepicker__navigation--next--with-today-button)": {
-            "right": "110px"
-        }
-    }
-  });
+//   protected timeClassName = style({
+//     "$nest": {
+//         ".react-datepicker__time-container": {
+//             "width": "100px"
+//         },
+//         ".react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box": {
+//             "width": "100%"
+//         },
+//         ".react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item": {
+//             "padding": "10px 0 0 0"
+//         },
+//         ".react-datepicker__navigation--next--with-time:not(.react-datepicker__navigation--next--with-today-button)": {
+//             "right": "110px"
+//         }
+//     }
+//   });
   
   constructor(props:BlogFormProps) {
     super(props);
@@ -51,14 +44,7 @@ export default class BlogForm extends BaseSecurePage<AdminViewProps & BlogFormPr
         }
     };
 
-    this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-  }
-
-  protected onChange(value:string) {
-    this.setState({
-        content: value
-    });
   }
 
   protected renderButton() {
@@ -77,13 +63,13 @@ export default class BlogForm extends BaseSecurePage<AdminViewProps & BlogFormPr
     return (
         <div>
             <StatusBar {...this.state.message} />
-            <form onSubmit={this.onSubmit} className={this.quillClassName}>
+            <form onSubmit={this.onSubmit}>
                 <label>
                     <span>Blog Title</span>
                     <input defaultValue={this.state.title} type="text" ref={this.titleRef} placeholder="Blog Title" />
                 </label>
 
-                <label className={this.timeClassName}>
+                <label className="">
                     <span>Publish Date</span>
                     <DatePicker
                         showTimeSelect
@@ -101,7 +87,7 @@ export default class BlogForm extends BaseSecurePage<AdminViewProps & BlogFormPr
                     />
                 </label>
 
-                <label className={this.timeClassName}>
+                <label className="">
                     <span>Unpublish Date</span>
                     <DatePicker
                         showTimeSelect
@@ -121,7 +107,18 @@ export default class BlogForm extends BaseSecurePage<AdminViewProps & BlogFormPr
 
                 <label>
                     <span>Content</span>
-                    <ReactQuill modules={RTF_MODULES} value={this.state.content} onChange={this.onChange}/>
+                    <CKEditor
+                        editor={ClassicEditor}
+                        data={this.state.content}
+                        config={{
+                            extraPlugins: [UploadAdapter.AttachUploadAdapterPlugin]
+                        }}
+                        onChange={(_event: any, editor: any) => {
+                            this.setState({
+                                content: editor.getData()
+                            });
+                        }}
+                    />
                 </label>
 
                 {this.renderButton()}

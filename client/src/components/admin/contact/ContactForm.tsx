@@ -1,13 +1,13 @@
 import React, { FormEvent } from 'react';
-import ReactQuill from 'react-quill';
-import {style} from "typestyle";
 import { ContactFormProps, ContactFormState } from '../../states/Contact';
 import HttpService from '../../../util/HttpService';
 import StatusBar, { STATUS } from '../../StatusBar';
 import RefUtil from '../../../util/RefUtil';
-import { RTF_MODULES } from '../../../util/EditorUtils';
 import { AdminViewProps, AdminViewState } from '../../states/Admin';
 import BaseSecurePage from '../BaseSecurePage';
+import CKEditor from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import UploadAdapter from '../../../image-upload/UploadAdapter';
 
 export default class ContactForm extends BaseSecurePage<AdminViewProps & ContactFormProps, AdminViewState & ContactFormState> {
   private serviceUrl = "/api/contact";
@@ -17,14 +17,6 @@ export default class ContactForm extends BaseSecurePage<AdminViewProps & Contact
   private phoneRef = React.createRef<HTMLInputElement>();
   private emailRef = React.createRef<HTMLInputElement>();
   private instagramRef = React.createRef<HTMLInputElement>();
-
-  protected quillClassName = style({
-    $nest: {
-      ".ql-editor": {
-        "height": "400px"
-      }
-    }
-  });
 
   constructor(props:any) {
     super(props);
@@ -109,7 +101,7 @@ export default class ContactForm extends BaseSecurePage<AdminViewProps & Contact
     return (
         <div>
             <StatusBar {...this.state.message} />
-            <form onSubmit={this.onSubmit} className={this.quillClassName}>
+            <form onSubmit={this.onSubmit}>
                 <label>
                     <span>Twitter Handle (including @)</span>
                     <input defaultValue={this.state.twitter} type="text" ref={this.twitterRef} placeholder="Twitter Handle (including @)" />
@@ -137,7 +129,18 @@ export default class ContactForm extends BaseSecurePage<AdminViewProps & Contact
 
                 <label>
                     <span>Content</span>
-                    <ReactQuill modules={RTF_MODULES} value={this.state.content} onChange={this.onChange}/>
+                    <CKEditor
+                        editor={ClassicEditor}
+                        data={this.state.content}
+                        config={{
+                            extraPlugins: [UploadAdapter.AttachUploadAdapterPlugin]
+                        }}
+                        onChange={(_event: any, editor: any) => {
+                            this.setState({
+                                content: editor.getData()
+                            });
+                        }}
+                    />
                 </label>
 
                 <button>Save Contact Information</button>
