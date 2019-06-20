@@ -18,7 +18,7 @@ import "react-datepicker/dist/react-datepicker.css";
 export default class App extends React.Component<any, any> {
   public render() {
     return (
-      <div className="main-wrapper">
+      <div className="container-fluid main-wrapper">
         <Header/>
         <Router>
             <Nav />
