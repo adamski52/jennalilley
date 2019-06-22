@@ -16,16 +16,44 @@ html,
   height: 100%;
 }
 
-.nav {
-  background: #fff;
+body {
+  overflow: auto;
+  background: #f0f0f0;
+}
+
+.signature {
+  background: url("img/sig-black.png") no-repeat;
+  background-size: contain;
   height: 80px;
+  width: 128px;
+  display: inline-block;
+}
+
+.header-contact {
+  background: #ccc;
+  padding: 5px;
+}
+
+.header-login-bar {
+  padding: 5px;
+  background: #f0f0f0;
+}
+
+.nav {
+  height: 90px;
+  margin-top: 10px;
 
   .nav-contents {
     height: 100%;
+    padding: 0;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, .65);
 
     a {
-      padding: 10px;
+      display: inline-block;
+      padding: 5px 10px;
       color: #000;
+      vertical-align: middle;
     }
   }
 }

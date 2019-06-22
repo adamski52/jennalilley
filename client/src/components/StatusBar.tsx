@@ -24,10 +24,10 @@ export default class StatusBar extends React.Component<any, any> {
 
   public getStatusBarClassName() {
     if(!this.state.message) {
-      return "hidden";
+      return "status-bar status-bar-hidden";
     }
 
-    return "status-bar-" + this.state.type;
+    return "status-bar status-bar-" + this.state.type;
   }
 
   // private getColors() {

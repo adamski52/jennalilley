@@ -75,22 +75,6 @@ export default class Header extends React.Component<any, HeaderState & AdminView
         );
     }
 
-    private renderContactBar() {
-        return (
-            <div className="header-contact">
-                <div className="col-xs-6">
-                    {this.renderFacebookIcon()}
-                    {this.renderInstagramIcon()}
-                    {this.renderTwitterIcon()}
-                    {this.renderEmailIcon()}
-                </div>
-                <div className="text-right col-xs-6">
-                    {this.renderPhoneNumber()}
-                </div>
-            </div>
-        );
-    }
-
     private renderFacebookIcon() {
         if(!this.state.facebook) {
             return null;
@@ -99,7 +83,7 @@ export default class Header extends React.Component<any, HeaderState & AdminView
         return (
             <button className="icon icon-facebook" onClick={(e) => {
                 window.location.href = "https://www.facebook.com/" + this.state.facebook;
-             }} />
+            }} />
         );
     }
 
@@ -112,7 +96,7 @@ export default class Header extends React.Component<any, HeaderState & AdminView
         return (
             <button className="icon icon-twitter" onClick={(e) => {
                 window.location.href = "https://www.twitter.com/" + this.state.twitter;
-             }} />
+            }} />
         );
     }
 
@@ -124,7 +108,7 @@ export default class Header extends React.Component<any, HeaderState & AdminView
         return (
             <button className="icon icon-instagram" onClick={(e) => {
                 window.location.href = "https://www.instagram.com/" + this.state.instagram;
-             }} />
+            }} />
         );
     }
 
@@ -136,7 +120,7 @@ export default class Header extends React.Component<any, HeaderState & AdminView
         return (
             <button className="icon icon-envelope" onClick={(e) => {
                 window.location.href = "mailto:" + this.state.email;
-             }} />
+            }} />
         );
     }
 
@@ -152,8 +136,18 @@ export default class Header extends React.Component<any, HeaderState & AdminView
 
     public render() {
         return (
-            <div className="row">
-                {this.renderContactBar()}
+            <div className="row header-bar">
+                <div className="row header-contact">
+                    <div className="col-xs-6">
+                        {this.renderFacebookIcon()}
+                        {this.renderInstagramIcon()}
+                        {this.renderTwitterIcon()}
+                        {this.renderEmailIcon()}
+                    </div>
+                    <div className="text-right col-xs-6">
+                        {this.renderPhoneNumber()}
+                    </div>
+                </div>
                 {this.renderLoginBar()}
             </div>
         );
