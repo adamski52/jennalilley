@@ -18,7 +18,7 @@ import LoginBar from './components/LoginBar';
 export default class App extends React.Component<any, any> {
   public render() {
     return (
-      <div className="container-fluid main-wrapper">
+      <div className="main-wrapper">
         <LoginBar />
         <Router>
             <Nav />
