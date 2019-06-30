@@ -7,14 +7,12 @@ export default class Nav extends React.Component<any, any> {
     public render() {
         return (
             <nav className="nav">
-                <img src={SigImg} />
+                <Link to="/"><img src={SigImg} /></Link>
 
-                <Link to="/">Home</Link>
-                <Link to="/about/">About</Link>
-                <Link to="/blogs/">Blogs</Link>
-                <Link to="/schedule/">Schedule</Link>
-                <Link to="/contact/">Contact</Link>
-                <Link to="/admin">Admin</Link>
+                <Link className="nav-item" to="/about/">About</Link>
+                <Link className="nav-item" to="/blogs/">Blogs</Link>
+                <Link className="nav-item" to="/schedule/">Schedule</Link>
+                <Link className="nav-item" to="/contact/">Contact</Link>
             </nav>
         );
     }

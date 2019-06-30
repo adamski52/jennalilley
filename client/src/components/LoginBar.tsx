@@ -41,7 +41,7 @@ export default class LoginBar extends React.Component<any, AdminViewState> {
         if(this.state.isAuthenticated) {
             return (
                 <div className="row login-bar">
-                    <a href="">Logout</a>
+                    <a href="/logout" className="btn btn-logout icon icon-unlock-alt">Logout</a>
                 </div>
             );
         }
