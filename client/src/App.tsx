@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import Header from './components/Header';
 import Nav from './components/Nav';
 
 import AboutPage from './components/pages/about/AboutPage';
@@ -14,12 +13,13 @@ import AdminPage from './components/admin/AdminPage';
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
+import LoginBar from './components/LoginBar';
 
 export default class App extends React.Component<any, any> {
   public render() {
     return (
       <div className="container-fluid main-wrapper">
-        <Header/>
+        <LoginBar />
         <Router>
             <Nav />
             

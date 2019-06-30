@@ -1,17 +1,28 @@
+@import "variables";
+
 .home-page {
-    background: url("img/hero.jpg") no-repeat;
-    height: 550px;
-    margin-top: -105px;
-    background-size: cover;
+    min-height: 700px;
 }
 
-.home-page-column {
-    padding: 500px 10px 10px 10px;
+.hero {
+    width: 100%;
+}
 
-    .home-page-column-content {
-        background: #fff;
-        padding: 25px;
+.nav {
+    position: absolute;
+    top: 0px;
+    width: 300px;
+    text-align: center;
+
+    img {
         width: 100%;
-        height: 500px;
+    }
+
+    a {
+        display: block;
+        background: rgba($theme-primary, .2);
+        color: #fff;
+        padding: $spacing-medium;
+        margin: $spacing-medium 0;
     }
 }

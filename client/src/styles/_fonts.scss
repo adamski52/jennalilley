@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+@import url('https://fonts.googleapis.com/css?family=PT+Sans|Slabo+27px&display=swap');
 @charset "UTF-8";
 
 @font-face {
@@ -100,65 +101,20 @@
 .icon-times-circle-o:before {
   content: "\41";
 }
-.icon-tumblr-square:before {
-  content: "\42";
-}
-.icon-tumblr:before {
-  content: "\43";
-}
 .icon-youtube-play:before {
   content: "\44";
-}
-.icon-arrow-down:before {
-  content: "\62";
 }
 .icon-arrow-left:before {
   content: "\63";
 }
-.icon-arrow-right:before {
-  content: "\68";
-}
-.icon-arrow-up:before {
-  content: "\70";
-}
-.icon-arrow-circle-up:before {
-  content: "\71";
-}
-.icon-arrow-circle-right:before {
-  content: "\72";
-}
-.icon-arrow-circle-o-up:before {
-  content: "\73";
-}
-.icon-arrow-circle-o-right:before {
-  content: "\45";
-}
-.icon-arrow-circle-o-left:before {
-  content: "\46";
-}
 .icon-at:before {
   content: "\47";
-}
-.icon-arrow-circle-o-down:before {
-  content: "\48";
-}
-.icon-arrow-circle-left:before {
-  content: "\49";
-}
-.icon-arrow-circle-down:before {
-  content: "\4a";
 }
 .icon-bell:before {
   content: "\4b";
 }
 .icon-bell-o:before {
   content: "\4c";
-}
-.icon-bookmark:before {
-  content: "\4d";
-}
-.icon-bookmark-o:before {
-  content: "\4e";
 }
 .icon-check:before {
   content: "\4f";
@@ -174,30 +130,6 @@
 }
 .icon-check-square-o:before {
   content: "\53";
-}
-.icon-chevron-circle-down:before {
-  content: "\54";
-}
-.icon-chevron-circle-left:before {
-  content: "\55";
-}
-.icon-chevron-circle-right:before {
-  content: "\56";
-}
-.icon-chevron-circle-up:before {
-  content: "\57";
-}
-.icon-chevron-down:before {
-  content: "\58";
-}
-.icon-chevron-right:before {
-  content: "\59";
-}
-.icon-chevron-left:before {
-  content: "\5a";
-}
-.icon-chevron-up:before {
-  content: "\30";
 }
 .icon-cog:before {
   content: "\31";
@@ -276,4 +208,7 @@
 }
 .icon-trash-o:before {
   content: "\3b";
+}
+.icon-google:before {
+  content: "\3c";
 }

@@ -1,4 +1,16 @@
 @charset "UTF-8";
 
+$header-bar-height: 30px;
+
+$spacing-small: 5px;
+$spacing-medium: 10px;
+$spacing-large: 20px;;
+
+$theme-primary: #101427;
+$theme-secondary: #4d060f;
+
+$font-accent: 'Slabo 27px', serif;
+$font-primary: 'PT Sans', sans-serif;
+
 @import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables";
 @import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins";

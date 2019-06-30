@@ -2,62 +2,56 @@
 
 @import "variables";
 
-html {
-  overflow: hidden;
-}
-
 body,
 html,
 #app {
   font-size: 16px;
   padding: 0;
   margin: 0;
-  width: 100%;
-  height: 100%;
+  position: relative;
 }
 
 body {
-  overflow: auto;
-  background: #f0f0f0;
+  background: #fff;
+  font-family: $font-primary;
 }
 
-.signature {
-  background: url("img/sig-black.png") no-repeat;
-  background-size: contain;
-  height: 80px;
-  width: 128px;
-  display: inline-block;
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-accent;
 }
 
-.header-contact {
-  background: #ccc;
-  padding: 5px;
-}
+.login-bar {
+  padding: $spacing-medium 0;
+  border-bottom: 5px solid $theme-secondary;
+  text-align: right;
+  background: $theme-primary;
 
-.header-login-bar {
-  padding: 5px;
-  background: #f0f0f0;
-}
+  .btn {
+    color: #fff;
+    border-radius: 5px;
+    padding: 0 $spacing-medium 0 0;
+    border: none;
+    vertical-align: middle;
+    margin: 0 $spacing-small;
 
-.nav {
-  height: 90px;
-  margin-top: 10px;
-
-  .nav-contents {
-    height: 100%;
-    padding: 0;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, .65);
-
-    a {
+    &:before {
+      background: rgba(0,0,0,.3);
+      font-size: 1.5em;
+      border-radius: 5px;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
       display: inline-block;
-      padding: 5px 10px;
-      color: #000;
+      margin-right: 10px;
       vertical-align: middle;
+      padding: $spacing-medium;
     }
   }
-}
 
-.logo {
-  height: 100%;
+  .btn-facebook {
+    background: #1e3b87;
+  }
+  
+  .btn-google {
+    background: #96272d;
+  }
 }

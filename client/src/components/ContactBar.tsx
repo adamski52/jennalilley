@@ -3,7 +3,7 @@ import HttpService from "../util/HttpService";
 import { HeaderState } from "./states/Header";
 import { AdminViewState } from "./states/Admin";
 
-export default class Header extends React.Component<any, HeaderState & AdminViewState> {
+export default class ContactBar extends React.Component<any, HeaderState & AdminViewState> {
     constructor(props:any) {
         super(props);
 
@@ -41,38 +41,6 @@ export default class Header extends React.Component<any, HeaderState & AdminView
         }).catch(() => {
             
         });
-
-        HttpService.get("/api/whoami").then((response) => {
-            let isAdmin = response.roles.find((role:any) => {
-                return role.name.toUpperCase() === "ADMIN";
-            });
-
-            if(isAdmin) {
-                this.setState({
-                    isAuthenticated: true
-                });
-                return;
-            }
-        }).catch(() => {
-
-        });
-    }
-
-    private renderLoginBar() {
-        if(this.state.isAuthenticated) {
-            return (
-                <div className="col-xs-12 text-right header-login-bar">
-                    <a href="">Logout</a>
-                </div>
-            );
-        }
-
-        return (
-            <div className="col-xs-12 text-right header-login-bar">
-                <a href="http://localhost:8080/api/auth/facebook/start">Login with Facebook</a>
-                <a href="http://localhost:8080/api/auth/google/start">Login with Google</a>
-            </div>
-        );
     }
 
     private renderFacebookIcon() {
@@ -136,19 +104,12 @@ export default class Header extends React.Component<any, HeaderState & AdminView
 
     public render() {
         return (
-            <div className="row header-bar">
-                <div className="row header-contact">
-                    <div className="col-xs-6">
-                        {this.renderFacebookIcon()}
-                        {this.renderInstagramIcon()}
-                        {this.renderTwitterIcon()}
-                        {this.renderEmailIcon()}
-                    </div>
-                    <div className="text-right col-xs-6">
-                        {this.renderPhoneNumber()}
-                    </div>
-                </div>
-                {this.renderLoginBar()}
+            <div className="row contact-bar">
+                {this.renderFacebookIcon()}
+                {this.renderInstagramIcon()}
+                {this.renderTwitterIcon()}
+                {this.renderEmailIcon()}
+                {this.renderPhoneNumber()}
             </div>
         );
     }
