@@ -1,16 +1,19 @@
 import React from 'react';
 import StatusBar, { STATUS } from '../../StatusBar';
 import HttpService from '../../../util/HttpService';
+import { ScheduleViewOneState, ScheduleViewOneProps } from '../../states/Schedule';
 
-export default class ScheduleOnePage extends React.Component<any, any> {
-    constructor(props: any) {
+export default class ScheduleOnePage extends React.Component<ScheduleViewOneProps, ScheduleViewOneState> {
+    constructor(props: ScheduleViewOneProps) {
         super(props);
 
         this.state = {
+            isAuthenticated: !!props.isAuthenticated,
+            isAdmin: !!props.isAdmin,
             name: "",
             type: "",
-            startDateTime: "",
-            endDateTime: "",
+            startDateTime: null,
+            endDateTime: null,
             capacity: "",
             ageRestrictions: "",
             cost: "",
@@ -32,12 +35,12 @@ export default class ScheduleOnePage extends React.Component<any, any> {
             return;
         }
         
-        HttpService.get("/api/schedule/" + this.props.match.params.id).then((json) => {
+        HttpService.get("/api/schedule/" + this.props.match.params.id).then((json:any) => {
             this.setState({
                 name: json.name,
                 type: json.type,
-                startDateTime: json.startDateTime ? new Date(json.startDateTime).toString() : "",
-                endDateTime: json.endDateTime ? new Date(json.endDateTime).toString() : "",
+                startDateTime: json.startDateTime ? new Date(json.startDateTime) : null,
+                endDateTime: json.endDateTime ? new Date(json.endDateTime) : null,
                 capacity: json.capacity,
                 ageRestrictions: json.ageRestrictions,
                 cost: json.cost,
@@ -88,7 +91,7 @@ export default class ScheduleOnePage extends React.Component<any, any> {
                         {this.state.location}
                     </div>
                     <div dangerouslySetInnerHTML={{
-                        __html: this.state.desription
+                        __html: this.state.description
                     }}/>
                 </div>
             </div>

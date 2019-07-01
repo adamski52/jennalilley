@@ -1,15 +1,16 @@
 import { IContact } from "../../../../server/src/models/Contact";
 import { IStatus } from "../../util/TypeUtils";
+import { AdminViewState, AdminViewProps } from "./Admin";
 
-export interface ContactFormProps {
+export interface ContactFormProps extends AdminViewProps {
 
 };
 
 export interface ContactViewProps {
-    id: string;
+
 };
 
-export interface ContactFormState {
+export interface ContactFormState extends AdminViewState {
   content: string;
   twitter: string;
   facebook: string;

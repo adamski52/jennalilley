@@ -4,7 +4,7 @@ import StatusBar, { STATUS } from "../../StatusBar";
 import { ContactViewProps, ContactViewState } from "../../states/Contact";
 
 export default class ContactPage extends React.Component<ContactViewProps, ContactViewState> {
-    constructor(props:any) {
+    constructor(props:ContactViewProps) {
         super(props);
 
         this.state = {

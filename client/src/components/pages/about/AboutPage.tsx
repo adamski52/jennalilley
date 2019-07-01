@@ -2,9 +2,10 @@ import React from "react";
 import HttpService from "../../../util/HttpService";
 import StatusBar, { STATUS } from "../../StatusBar";
 import { AboutViewProps, AboutViewState } from "../../states/About";
+import { AdminViewProps } from "../../states/Admin";
 
 export default class AboutPage extends React.Component<AboutViewProps, AboutViewState> {
-    constructor(props:any) {
+    constructor(props:AdminViewProps) {
         super(props);
 
         this.state = {

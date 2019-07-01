@@ -1,18 +1,8 @@
 import React from "react";
 import HeroImg from "../../../img/hero.jpg";
+import { HomeViewProps, HomeViewState } from "../../states/Home";
 
-export default class HomePage extends React.Component<any, any> {
-    constructor(props:any) {
-        super(props);
-
-        this.state = {
-            message: {
-                type: "",
-                message: ""
-            }
-        };
-    }
-
+export default class HomePage extends React.Component<HomeViewProps, HomeViewState> {
     public render() {
         return (
             <div className="home-page">

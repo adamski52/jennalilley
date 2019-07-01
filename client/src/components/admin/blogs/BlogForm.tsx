@@ -4,36 +4,18 @@ import { BlogFormProps, BlogFormState } from '../../states/Blogs';
 import StatusBar from '../../StatusBar';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { AdminViewState, AdminViewProps } from '../../states/Admin';
 import BaseSecurePage from '../BaseSecurePage';
 import UploadAdapter from '../../../image-upload/UploadAdapter';
 
-export default class BlogForm extends BaseSecurePage<AdminViewProps & BlogFormProps, AdminViewState & BlogFormState> {
+export default class BlogForm extends BaseSecurePage<BlogFormProps, BlogFormState> {
   protected titleRef = React.createRef<HTMLInputElement>();
-  
-
-//   protected timeClassName = style({
-//     "$nest": {
-//         ".react-datepicker__time-container": {
-//             "width": "100px"
-//         },
-//         ".react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box": {
-//             "width": "100%"
-//         },
-//         ".react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item": {
-//             "padding": "10px 0 0 0"
-//         },
-//         ".react-datepicker__navigation--next--with-time:not(.react-datepicker__navigation--next--with-today-button)": {
-//             "right": "110px"
-//         }
-//     }
-//   });
   
   constructor(props:BlogFormProps) {
     super(props);
 
     this.state = {
-        isAuthenticated: false,
+        isAuthenticated: !!props.isAuthenticated,
+        isAdmin: !!props.isAdmin,
         content: "",
         title: "",
         startDateTime: null,

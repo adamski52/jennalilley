@@ -5,19 +5,19 @@ import StatusBar, { STATUS } from '../../StatusBar';
 import { ISchedule } from '../../../../../server/src/models/Schedule';
 import { ScheduleFormProps, ScheduleViewAllState } from '../../states/Schedule';
 import BaseSecurePage from '../BaseSecurePage';
-import { AdminViewProps, AdminViewState } from '../../states/Admin';
 
-export default class ScheduleFormList extends BaseSecurePage<AdminViewProps & ScheduleFormProps, AdminViewState & ScheduleViewAllState> {
+export default class ScheduleFormList extends BaseSecurePage<ScheduleFormProps, ScheduleViewAllState> {
     constructor(props:ScheduleFormProps) {
     super(props);
 
     this.state = {
-        isAuthenticated: false,
-        items: [],
+        isAuthenticated: !!props.isAuthenticated,
+        isAdmin: !!props.isAdmin,
         message: {
             message: "",
             type: ""
-        }
+        },
+        items: []
     };
 
     this.onDelete = this.onDelete.bind(this);

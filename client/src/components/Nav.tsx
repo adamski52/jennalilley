@@ -6,7 +6,7 @@ import SigImg from "../img/sig-white-with-glow.png";
 export default class Nav extends React.Component<any, any> {
     public render() {
         return (
-            <nav className="nav">
+            <nav className={this.props.className + " nav"}>
                 <Link to="/"><img src={SigImg} /></Link>
 
                 <Link className="nav-item" to="/about/">About</Link>

@@ -3,13 +3,12 @@ import { ContactFormProps, ContactFormState } from '../../states/Contact';
 import HttpService from '../../../util/HttpService';
 import StatusBar, { STATUS } from '../../StatusBar';
 import RefUtil from '../../../util/RefUtil';
-import { AdminViewProps, AdminViewState } from '../../states/Admin';
 import BaseSecurePage from '../BaseSecurePage';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import UploadAdapter from '../../../image-upload/UploadAdapter';
 
-export default class ContactForm extends BaseSecurePage<AdminViewProps & ContactFormProps, AdminViewState & ContactFormState> {
+export default class ContactForm extends BaseSecurePage<ContactFormProps, ContactFormState> {
   private serviceUrl = "/api/contact";
 
   private twitterRef = React.createRef<HTMLInputElement>();
@@ -18,11 +17,12 @@ export default class ContactForm extends BaseSecurePage<AdminViewProps & Contact
   private emailRef = React.createRef<HTMLInputElement>();
   private instagramRef = React.createRef<HTMLInputElement>();
 
-  constructor(props:any) {
+  constructor(props:ContactFormProps) {
     super(props);
 
     this.state = {
-        isAuthenticated: false,
+        isAuthenticated: !!props.isAuthenticated,
+        isAdmin: !!props.isAdmin,
         content: "",
         twitter: "",
         facebook: "",

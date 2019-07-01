@@ -22,7 +22,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .login-bar {
   padding: $spacing-medium 0;
-  border-bottom: 5px solid $theme-secondary;
   text-align: right;
   background: $theme-primary;
 
@@ -33,9 +32,14 @@ h1, h2, h3, h4, h5, h6 {
     border: none;
     vertical-align: middle;
     margin: 0 $spacing-small;
+    transition: all .2s linear;
 
+    &:hover,
+    &:focus {
+        box-shadow: 0 0 10px rgba(255,255,255, .4); 
+    }
+        
     &:before {
-      background: rgba(0,0,0,.3);
       font-size: 1.5em;
       border-radius: 5px;
       border-top-right-radius: 0;
@@ -44,19 +48,123 @@ h1, h2, h3, h4, h5, h6 {
       margin-right: 10px;
       vertical-align: middle;
       padding: $spacing-medium;
+      transition: all .2s linear;
     }
   }
 
   .btn-facebook {
-    background: #1e3b87;
+    background: $theme-facebook;
+
+    &:before {
+      background: darken($theme-facebook, 10%);
+    }
+
+    &:hover,
+    &:focus {
+      &:before {
+        background: $theme-facebook;
+      }
+
+      background: darken($theme-facebook, 10%);
+    }
   }
   
   .btn-google {
-    background: #96272d;
+    background: $theme-google;
+
+    &:before {
+      background: darken($theme-google, 10%);
+    }
+
+    &:hover,
+    &:focus {
+      &:before {
+        background: $theme-google;
+      }
+
+      background: darken($theme-google, 10%);
+    }
   }
 
   .btn-logout {
-    background: #82372a;
+    background: $theme-logout;
+
+    &:before {
+      background: darken($theme-logout, 10%);
+    }
+
+    &:hover,
+    &:focus {
+      &:before {
+        background: $theme-logout;
+      }
+
+      background: darken($theme-logout, 10%);
+    }
+  }
+
+  .btn-account { 
+    background: $theme-account;
+
+    &:before {
+      background: darken($theme-account, 10%);
+    }
+
+    &:hover,
+    &:focus {
+      &:before {
+        background: $theme-account;
+      }
+
+      background: darken($theme-account, 10%);
+    }
+  }
+
+  .btn-admin {
+    background: $theme-admin;
+
+    &:before {
+      background: darken($theme-admin, 10%);
+    }
+
+    &:hover,
+    &:focus {
+      &:before {
+        background: $theme-admin;
+      }
+
+      background: darken($theme-admin, 10%);
+    }
+  }
+}
+
+.inner {
+  &.nav {
+    background: $theme-secondary;
+    padding-left: 180px;
+
+    img {
+        height: 120px;
+        position: absolute;
+        top: 0;
+        left: 5px;
+    }
+
+    .nav-item {
+        text-decoration: none;
+        display: inline-block;
+        color: #fff;
+        padding: $spacing-small $spacing-medium;
+        margin: 0 $spacing-medium;
+        transition: all .2s linear;
+
+
+        &:hover,
+        &:focus {
+          background: #fff;
+          color: $theme-secondary;
+        }
+    }
   }
 }
 

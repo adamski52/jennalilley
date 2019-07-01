@@ -3,15 +3,15 @@ import HttpService from '../../../util/HttpService';
 import StatusBar, { STATUS } from '../../StatusBar';
 import { IUser } from '../../../../../server/src/models/User';
 import BaseSecurePage from '../BaseSecurePage';
-import { AdminViewProps, AdminViewState } from '../../states/Admin';
 import { UserViewAllProps, UserViewAllState } from '../../states/User';
 
-export default class UserFormList extends BaseSecurePage<AdminViewProps & UserViewAllProps, AdminViewState & UserViewAllState> {
-  constructor(props:any) {
+export default class UserFormList extends BaseSecurePage<UserViewAllProps, UserViewAllState> {
+  constructor(props:UserViewAllProps) {
     super(props);
 
     this.state = {
-      isAuthenticated: false,
+      isAuthenticated: !!props.isAuthenticated,
+      isAdmin: !!props.isAdmin,
       items: [],
       message: {
         message: "",

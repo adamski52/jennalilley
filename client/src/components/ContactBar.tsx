@@ -1,9 +1,8 @@
 import React from "react";
 import HttpService from "../util/HttpService";
-import { HeaderState } from "./states/Header";
-import { AdminViewState } from "./states/Admin";
+import { HeaderState, HeaderProps } from "./states/Header";
 
-export default class ContactBar extends React.Component<any, HeaderState & AdminViewState> {
+export default class ContactBar extends React.Component<HeaderProps, HeaderState> {
     constructor(props:any) {
         super(props);
 
@@ -13,7 +12,6 @@ export default class ContactBar extends React.Component<any, HeaderState & Admin
             phone: "",
             email: "",
             instagram: "",
-            isAuthenticated: false,
             message: {
                 message: "",
                 type: ""

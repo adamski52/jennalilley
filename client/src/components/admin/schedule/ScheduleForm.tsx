@@ -5,10 +5,9 @@ import StatusBar from '../../StatusBar';
 import BaseSecurePage from '../BaseSecurePage';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { AdminViewProps, AdminViewState } from '../../states/Admin';
 import UploadAdapter from '../../../image-upload/UploadAdapter';
 
-export default class ScheduleForm extends BaseSecurePage<AdminViewProps & ScheduleFormProps, AdminViewState & ScheduleFormState> {
+export default class ScheduleForm extends BaseSecurePage<ScheduleFormProps, ScheduleFormState> {
   protected nameRef = React.createRef<HTMLInputElement>();
   protected typeRef = React.createRef<HTMLInputElement>();
   protected capacityRef = React.createRef<HTMLInputElement>();
@@ -16,29 +15,12 @@ export default class ScheduleForm extends BaseSecurePage<AdminViewProps & Schedu
   protected costRef = React.createRef<HTMLInputElement>();
   protected locationRef = React.createRef<HTMLInputElement>();
   
-
-//   protected timeClassName = style({
-//     "$nest": {
-//         ".react-datepicker__time-container": {
-//             "width": "100px"
-//         },
-//         ".react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box": {
-//             "width": "100%"
-//         },
-//         ".react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item": {
-//             "padding": "10px 0 0 0"
-//         },
-//         ".react-datepicker__navigation--next--with-time:not(.react-datepicker__navigation--next--with-today-button)": {
-//             "right": "110px"
-//         }
-//     }
-//   });
-  
   constructor(props:ScheduleFormProps) {
     super(props);
 
     this.state = {
-        isAuthenticated: false,
+        isAuthenticated: !!props.isAuthenticated,
+        isAdmin: !!props.isAdmin,
         name: "",
         type: "",
         startDateTime: null,

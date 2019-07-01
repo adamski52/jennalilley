@@ -5,15 +5,15 @@ import { AboutFormProps, AboutFormState } from '../../states/About';
 import HttpService from '../../../util/HttpService';
 import StatusBar, { STATUS } from '../../StatusBar';
 import BaseSecurePage from '../BaseSecurePage';
-import { AdminViewState, AdminViewProps } from '../../states/Admin';
 import UploadAdapter from '../../../image-upload/UploadAdapter';
 
-export default class AboutForm extends BaseSecurePage<AdminViewProps & AboutFormProps, AdminViewState & AboutFormState> {
+export default class AboutForm extends BaseSecurePage<AboutFormProps, AboutFormState> {
   constructor(props: AboutFormProps) {
     super(props);
 
     this.state = {
-      isAuthenticated: false,
+      isAuthenticated: !!props.isAuthenticated,
+      isAdmin: !!props.isAdmin,
       content: "",
       message: {
         message: "",

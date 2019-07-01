@@ -17,7 +17,8 @@ export default class AdminPage extends BaseSecurePage<AdminViewProps, AdminViewS
         super(props);
 
         this.state = {
-            isAuthenticated: false,
+            isAuthenticated: !!props.isAuthenticated,
+            isAdmin: !!props.isAdmin,
             message: {
                 message: "",
                 type: ""
@@ -34,24 +35,64 @@ export default class AdminPage extends BaseSecurePage<AdminViewProps, AdminViewS
                         <li><Link to="/admin/blogs/">Blogs</Link></li>
                         <li><Link to="/admin/blogs/create/">Create Blog</Link></li>
                         <li><Link to="/admin/schedule/">Events</Link></li>
-                        <li><Link to="/admin/schedule/create">Create Event</Link></li>
+                        <li><Link to="/admin/schedule/create/">Create Event</Link></li>
                         <li><Link to="/admin/users/">Users</Link></li>
                         <li><Link to="/admin/contact/">Contact</Link></li>
                     </ul>
 
-                    <Route path="/admin/about/" component={AboutForm} />
+                    <Route path="/admin/about/" render={(routeProps) => {
+                        return (
+                            <AboutForm {...routeProps}  {...this.state.authentication} />
+                        );
+                    }}/>
 
-                    <Route exact path="/admin/blogs/" component={BlogsFormList} />
-                    <Route exact path="/admin/blogs/create/" component={BlogCreateForm} />
-                    <Route exact path="/admin/blogs/edit/:id/" component={BlogEditForm} />
+                    <Route exact path="/admin/blogs/" render={(routeProps) => {
+                        return (
+                            <BlogsFormList {...routeProps}  {...this.state.authentication} />
+                        );
+                    }}/>
 
-                    <Route exact path="/admin/schedule/" component={ScheduleFormList} />
-                    <Route exact path="/admin/schedule/create" component={ScheduleCreateForm} />
-                    <Route exact path="/admin/schedule/edit/:id/" component={ScheduleEditForm} />
+                    <Route exact path="/admin/blogs/create/" render={(routeProps) => {
+                        return (
+                            <BlogCreateForm {...routeProps}  {...this.state.authentication} />
+                        );
+                    }}/>
 
-                    <Route path="/admin/users/" component={UserFormList} />
+                    <Route exact path="/admin/blogs/edit/:id/" render={(routeProps) => {
+                        return (
+                            <BlogEditForm {...routeProps}  {...this.state.authentication} />
+                        );
+                    }}/>
 
-                    <Route path="/admin/contact/" component={ContactForm} />
+                    <Route exact path="/admin/schedule/" render={(routeProps) => {
+                        return (
+                            <ScheduleFormList {...routeProps}  {...this.state.authentication} />
+                        );
+                    }}/>
+
+                    <Route exact path="/admin/schedule/create/" render={(routeProps) => {
+                        return (
+                            <ScheduleCreateForm {...routeProps}  {...this.state.authentication} />
+                        );
+                    }}/>
+
+                    <Route exact path="/admin/schedule/edit/:id/" render={(routeProps) => {
+                        return (
+                            <ScheduleEditForm {...routeProps}  {...this.state.authentication} />
+                        );
+                    }}/>
+
+                    <Route path="/admin/users/" render={(routeProps) => {
+                        return (
+                            <UserFormList {...routeProps}  {...this.state.authentication} />
+                        );
+                    }}/>
+
+                    <Route path="/admin/contact/" render={(routeProps) => {
+                        return (
+                            <ContactForm {...routeProps}  {...this.state.authentication} />
+                        );
+                    }}/>
                 </Router>
             </div>
         );

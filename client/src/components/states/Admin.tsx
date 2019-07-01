@@ -1,10 +1,14 @@
 import { IStatus } from "../../util/TypeUtils";
 
-export interface AdminViewState {
+export interface AdminAuthentication {
     isAuthenticated: boolean;
+    isAdmin: boolean;
+}
+
+export interface AdminViewState extends AdminAuthentication {
     message: IStatus;
 };
 
-export interface AdminViewProps {
-
-}
+export interface AdminViewProps extends AdminAuthentication{
+    
+};

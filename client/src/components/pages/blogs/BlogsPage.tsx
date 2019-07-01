@@ -4,7 +4,7 @@ import { BlogViewAllProps, BlogViewAllState } from "../../states/Blogs";
 import StatusBar, { STATUS } from "../../StatusBar";
 
 export default class BlogsPage extends React.Component<BlogViewAllProps, BlogViewAllState> {
-    constructor(props:any) {
+    constructor(props:BlogViewAllProps) {
         super(props);
 
         this.state = {

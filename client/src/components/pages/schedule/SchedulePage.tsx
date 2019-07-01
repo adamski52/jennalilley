@@ -4,12 +4,19 @@ import StatusBar, { STATUS } from '../../StatusBar';
 import HttpService from '../../../util/HttpService';
 import { Link } from 'react-router-dom';
 import Calendar from './Calendar';
+import { ScheduleViewAllState, ScheduleViewAllProps } from '../../states/Schedule';
 
-export default class SchedulePage extends React.Component<any, any> {
-    constructor(props: any) {
+export default class SchedulePage extends React.Component<ScheduleViewAllProps, ScheduleViewAllState> {
+    constructor(props: ScheduleViewAllProps) {
         super(props);
 
         this.state = {
+            isAuthenticated: !!props.isAuthenticated,
+            isAdmin: !!props.isAdmin,
+            message: {
+                message: "",
+                type: ""
+            },
             items: []
         };
     }

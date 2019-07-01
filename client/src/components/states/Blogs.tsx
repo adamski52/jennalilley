@@ -1,5 +1,6 @@
 import { IStatus } from "../../util/TypeUtils";
 import { IBlog } from "../../../../server/src/models/Blog";
+import { AdminViewProps } from "./Admin";
 
 export interface BlogFormState {
     content: string;
@@ -19,13 +20,13 @@ export interface BlogViewOneState {
     message: IStatus;
 };
 
-export interface BlogFormProps {
+export interface BlogFormProps extends AdminViewProps {
     match?: any;
     id: string;
 };
 
 export interface BlogViewOneProps {
-    id: string;
+    id?: string;
 }
 
 export interface BlogViewAllProps {

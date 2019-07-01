@@ -4,15 +4,15 @@ import { BlogFormProps, BlogViewAllState } from '../../states/Blogs';
 import HttpService from '../../../util/HttpService';
 import StatusBar, { STATUS } from '../../StatusBar';
 import { IBlog } from '../../../../../server/src/models/Blog';
-import { AdminViewProps, AdminViewState } from '../../states/Admin';
 import BaseSecurePage from '../BaseSecurePage';
 
-export default class AboutForm extends BaseSecurePage<AdminViewProps & BlogFormProps, AdminViewState & BlogViewAllState> {
+export default class AboutForm extends BaseSecurePage<BlogFormProps, BlogViewAllState> {
     constructor(props: BlogFormProps) {
         super(props);
 
         this.state = {
-            isAuthenticated: false,
+            isAuthenticated: !!props.isAuthenticated,
+            isAdmin: !!props.isAdmin,
             items: [],
             message: {
                 message: "",
