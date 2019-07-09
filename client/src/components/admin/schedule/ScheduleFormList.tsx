@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import HttpService from '../../../util/HttpService';
 import StatusBar, { STATUS } from '../../StatusBar';
-import { ISchedule } from '../../../../../server/src/models/Schedule';
 import { ScheduleFormProps, ScheduleViewAllState } from '../../states/Schedule';
 import BaseSecurePage from '../BaseSecurePage';
+import { ISchedule } from '../../../interfaces/Schedule';
 
 export default class ScheduleFormList extends BaseSecurePage<ScheduleFormProps, ScheduleViewAllState> {
     constructor(props:ScheduleFormProps) {

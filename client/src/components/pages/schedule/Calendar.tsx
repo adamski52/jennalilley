@@ -1,8 +1,8 @@
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 import React, { SyntheticEvent } from 'react';
-import { ISchedule } from '../../../../../server/src/models/Schedule';
 import { withRouter } from 'react-router';
+import { ISchedule } from '../../../interfaces/Schedule';
 
 class Calendar extends React.Component<any, any> {
   private localizer = BigCalendar.momentLocalizer(moment);

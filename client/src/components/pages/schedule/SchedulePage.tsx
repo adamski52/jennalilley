@@ -1,10 +1,10 @@
 import React from 'react';
-import { ISchedule } from "../../../../../server/src/models/Schedule";
 import StatusBar, { STATUS } from '../../StatusBar';
 import HttpService from '../../../util/HttpService';
 import { Link } from 'react-router-dom';
 import Calendar from './Calendar';
 import { ScheduleViewAllState, ScheduleViewAllProps } from '../../states/Schedule';
+import { ISchedule } from '../../../interfaces/Schedule';
 
 export default class SchedulePage extends React.Component<ScheduleViewAllProps, ScheduleViewAllState> {
     constructor(props: ScheduleViewAllProps) {

@@ -1,9 +1,9 @@
 import React from 'react';
 import HttpService from '../../../util/HttpService';
 import StatusBar, { STATUS } from '../../StatusBar';
-import { IUser } from '../../../../../server/src/models/User';
 import BaseSecurePage from '../BaseSecurePage';
 import { UserViewAllProps, UserViewAllState } from '../../states/User';
+import { IUser } from '../../../interfaces/User';
 
 export default class UserFormList extends BaseSecurePage<UserViewAllProps, UserViewAllState> {
   constructor(props:UserViewAllProps) {

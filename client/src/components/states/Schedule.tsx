@@ -1,6 +1,6 @@
-import { ISchedule } from "../../../../server/src/models/Schedule";
 import { IStatus } from "../../util/TypeUtils";
 import { AdminViewState, AdminViewProps } from "./Admin";
+import { ISchedule } from "../../interfaces/Schedule";
 
 export interface ScheduleFormState extends AdminViewState  {
     name: string;

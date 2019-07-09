@@ -1,6 +1,6 @@
 import { IStatus } from "../../util/TypeUtils";
-import { IBlog } from "../../../../server/src/models/Blog";
 import { AdminViewProps } from "./Admin";
+import { IBlog } from "../../interfaces/Blog";
 
 export interface BlogFormState {
     content: string;
