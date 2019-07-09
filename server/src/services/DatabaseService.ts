@@ -9,7 +9,7 @@ export default class DatabaseService {
     }
 
     public async connect() {
-        return await mongoose.connect("mongodb://mongo:mongo@localhost:27017/admin", {
+        return await mongoose.connect("mongodb://mongo:mongo@db:27017/admin", {
             useNewUrlParser: true
         });
     }

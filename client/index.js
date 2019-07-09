@@ -6,7 +6,7 @@ const port = 3000;
 app.use(express.static("build"));
 
 app.use("/api", proxy({
-    target: "http://localhost:8080"
+    target: "http://api:8080"
 }));
 
 app.listen(port, () => {
