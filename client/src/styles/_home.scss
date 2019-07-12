@@ -9,23 +9,3 @@
     border-top: 4px solid $theme-secondary;
     border-bottom: 4px solid $theme-secondary;
 }
-
-.rbc-calendar {
-    min-height: 100vh;
-    margin-top: $spacing-large;
-
-    .rbc-toolbar {
-        .rbc-toolbar-label {
-            font-size: 1.5rem;
-        }
-    }
-
-    .rbc-month-header {
-        background: #d9e9ff;
-        text-transform: uppercase;
-
-        .rbc-header {
-            padding: 10px 0;
-        }
-    }
-}

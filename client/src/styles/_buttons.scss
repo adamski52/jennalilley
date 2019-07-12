@@ -1,0 +1,131 @@
+.btn {
+    color: #fff;
+    border-radius: 5px;
+    padding: 0 $spacing-medium 0 0;
+    border: none;
+    vertical-align: middle;
+    margin: 0 $spacing-small;
+    transition: all .2s linear;
+
+    &:hover,
+    &:focus {
+        box-shadow: 0 0 10px rgba(255,255,255, .4);
+        color: #fff;
+    }
+        
+    &:before {
+      font-size: 1.5em;
+      border-radius: 5px;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      display: inline-block;
+      margin-right: 10px;
+      vertical-align: middle;
+      padding: $spacing-medium;
+      transition: all .2s linear;
+    }
+
+  &.btn-facebook {
+    background: $theme-facebook;
+
+    &:before {
+      background: darken($theme-facebook, 10%);
+    }
+
+    &:hover,
+    &:focus {
+      &:before {
+        background: $theme-facebook;
+      }
+
+      background: darken($theme-facebook, 10%);
+    }
+  }
+  
+  &.btn-google {
+    background: $theme-google;
+
+    &:before {
+      background: darken($theme-google, 10%);
+    }
+
+    &:hover,
+    &:focus {
+      &:before {
+        background: $theme-google;
+      }
+
+      background: darken($theme-google, 10%);
+    }
+  }
+
+  &.btn-logout {
+    background: $theme-logout;
+
+    &:before {
+      background: darken($theme-logout, 10%);
+    }
+
+    &:hover,
+    &:focus {
+      &:before {
+        background: $theme-logout;
+      }
+
+      background: darken($theme-logout, 10%);
+    }
+  }
+
+  &.btn-account { 
+    background: $theme-account;
+
+    &:before {
+      background: darken($theme-account, 10%);
+    }
+
+    &:hover,
+    &:focus {
+      &:before {
+        background: $theme-account;
+      }
+
+      background: darken($theme-account, 10%);
+    }
+  }
+
+  &.btn-admin {
+    background: $theme-admin;
+
+    &:before {
+      background: darken($theme-admin, 10%);
+    }
+
+    &:hover,
+    &:focus {
+      &:before {
+        background: $theme-admin;
+      }
+
+      background: darken($theme-admin, 10%);
+    }
+  }
+
+  &.btn-menu {
+    position: absolute;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    color: #fff;
+    line-height: 46px;
+    padding: 0;
+    width: 46px;
+    height: 46px;
+    left: 297px;
+    background: $theme-secondary;
+    margin: 0;
+
+    &:hover,
+    &:focus {
+        box-shadow: none;
+    }
+  }
+}
