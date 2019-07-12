@@ -61,7 +61,7 @@ export default class App extends React.Component<any, AppState> {
             <Route path="/" exact render={(routeProps) => {
               return (
                 <div>
-                  <Nav className="home" {...routeProps}  {...this.state.authentication} />
+                  <Nav className="col-lg-3 col-md-4 col-sm-4 col-xs-7 home" {...routeProps}  {...this.state.authentication} />
                   <HomePage {...routeProps} {...this.state.authentication} />
                 </div>
               );

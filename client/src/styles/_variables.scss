@@ -17,3 +17,7 @@ $theme-admin: #6e9245;
 
 $font-accent: 'Slabo 27px', serif;
 $font-primary: 'PT Sans', sans-serif;
+
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
