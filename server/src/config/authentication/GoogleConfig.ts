@@ -8,7 +8,7 @@ export default class GoogleConfig {
     private config:IOAuth2StrategyOptionWithRequest = {
         clientID: AppConfig.getConfig().get("authentication.google.clientId"),
         clientSecret: AppConfig.getConfig().get("authentication.google.clientSecret"),
-        callbackURL: "http://www.jennalilley.com/api/auth/google/redirect",
+        callbackURL: "https://www.jennalilley.com/api/auth/google/redirect",
         passReqToCallback: true
     };
 
