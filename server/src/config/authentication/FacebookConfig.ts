@@ -7,7 +7,7 @@ export default class FacebookConfig {
     private config = {
         clientID: AppConfig.getConfig().get("authentication.facebook.clientId"),
         clientSecret: AppConfig.getConfig().get("authentication.facebook.clientSecret"),
-        callbackURL: "http://localhost:8080/api/auth/facebook/redirect",
+        callbackURL: "http://www.jennalilley.com/api/auth/facebook/redirect",
         profileFields: ["id", "emails", "displayName"]
     };
 

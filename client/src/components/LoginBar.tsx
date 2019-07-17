@@ -73,7 +73,7 @@ export default class LoginBar extends React.Component<LoginProps, AdminAuthentic
         }
 
         return (
-            <a className="btn btn-google icon-google" href="http://localhost:8080/api/auth/google/start">Login with Google</a>
+            <a className="btn btn-google icon-google" href="/api/auth/google/start">Login with Google</a>
         );
     }
 
@@ -83,7 +83,7 @@ export default class LoginBar extends React.Component<LoginProps, AdminAuthentic
         }
 
         return (
-            <a className="btn btn-facebook icon-facebook" href="http://localhost:8080/api/auth/facebook/start">Login with Facebook</a>
+            <a className="btn btn-facebook icon-facebook" href="/api/auth/facebook/start">Login with Facebook</a>
         );
     }
 

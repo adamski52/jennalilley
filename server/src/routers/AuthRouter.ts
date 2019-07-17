@@ -20,7 +20,7 @@ export default class AuthRouter extends BaseRouter {
             res.cookie("TOKEN", tokenService.generateAccessToken(req.user.id));
             console.log("GOOGLE REDIRECT");
 
-            res.redirect("http://localhost:3000");
+            res.redirect("http://www.jennalilley.com/");
         });
         
         this.router.get("/facebook/start", passport.authenticate("facebook", {
@@ -35,7 +35,7 @@ export default class AuthRouter extends BaseRouter {
         }), (req:Request, res:Response) => {
             res.cookie("TOKEN", tokenService.generateAccessToken(req.user.id));
             console.log("FACEBOOK REDIRECT");
-            res.redirect("http://localhost:3000");
+            res.redirect("http://www.jennalilley.com/");
         });
     }
 }
