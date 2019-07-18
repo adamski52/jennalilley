@@ -9,6 +9,18 @@ export default class AppConfig {
                 env: "PORT"
             }
         },
+        database: {
+            username: {
+                doc: "Database username",
+                default: "mongo",
+                env: "JNA_MONGO_USERNAME"
+            },
+            password: {
+                doc: "Database password",
+                default: "mongo",
+                env: "JNA_MONGO_PASSWORD"
+            }
+        },
         authentication: {
             google: {
                 "clientId": {
