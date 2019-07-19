@@ -54,9 +54,7 @@ export default class ContactPage extends React.Component<ContactViewProps, Conta
         }
         
         return (
-            <div className="col-3">
-                <a href={url} className={iconClass}>{linkText}</a>
-            </div>
+            <a href={url} className={iconClass}>{linkText}</a>
         );
     }
 
