@@ -25,8 +25,13 @@ export default class FacebookConfig {
                 return done(null, user);
             }
 
-            user = await userService.createFromAuth(profile.displayName, "facebook", profile.id, email);     
-            if(!user) {
+            try {
+                await userService.createFromAuth(profile.displayName, "facebook", profile.id, email);     
+                if(!user) {
+                    return done("Unable to create user", user);
+                }
+            }
+            catch(e) {
                 return done("Unable to create user", user);
             }
             

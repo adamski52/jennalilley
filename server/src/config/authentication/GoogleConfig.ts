@@ -26,10 +26,16 @@ export default class GoogleConfig {
                 return done(null, user);
             }
 
-            user = await userService.createFromAuth(profile.displayName, "google", profile.id, email);     
-            if(!user) {
+            try {
+                user = await userService.createFromAuth(profile.displayName, "google", profile.id, email);     
+                if(!user) {
+                    return done("Unable to create user", user);
+                }
+            }
+            catch(e) {
                 return done("Unable to create user", user);
             }
+
             
             return done(null, user);
         }));
