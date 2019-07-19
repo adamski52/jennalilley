@@ -26,6 +26,27 @@ h1, h2, h3, h4, h5, h6 {
   background: $theme-primary;  
 }
 
+.main-content {
+  padding-top: $spacing-xlarge;
+  padding-bottom: $spacing-medium;
+}
+
+.note {
+  padding: $spacing-medium;
+  background: $theme-note;
+  margin: $spacing-medium 0;
+  border-radius: $spacing-medium;
+
+  strong {
+    text-decoration: underline;
+  }
+}
+
+.form-group {
+  margin: $spacing-medium 0;
+  padding: 0;
+}
+
 @include media-breakpoint-down(sm) {
   .login-bar {
     .btn {
@@ -35,6 +56,10 @@ h1, h2, h3, h4, h5, h6 {
     }
   }
 }
+
+// .ck-editor__editable_inline {
+//   min-height: 400px;
+// }
 
 .rbc-calendar {
   min-height: 100vh;
@@ -56,6 +81,24 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+.react-datepicker__time-container {
+  .react-datepicker__time {
+    .react-datepicker__time-box {
+      ul.react-datepicker__time-list {
+        li.react-datepicker__time-list-item {
+          font-size: .7rem;
+        }
+      }
+    }
+  }
+}
+
+.react-datepicker-wrapper,
+.react-datepicker__input-container {
+  width: 100%;
+  display: block;
+}
+
 .left-bar {
-  background: #f0f0f0;
+  background: $theme-subtle;
 }

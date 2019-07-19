@@ -6,6 +6,7 @@ import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import BaseSecurePage from '../BaseSecurePage';
 import UploadAdapter from '../../../image-upload/UploadAdapter';
+import { Link } from "react-router-dom";
 
 export default class BlogForm extends BaseSecurePage<BlogFormProps, BlogFormState> {
   protected titleRef = React.createRef<HTMLInputElement>();
@@ -29,12 +30,8 @@ export default class BlogForm extends BaseSecurePage<BlogFormProps, BlogFormStat
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  protected renderButton() {
-    return (
-        <div>
-            <button>Save</button>
-        </div>
-    );
+  protected renderButton():JSX.Element | null {
+    return null;
   }
 
   protected onSubmit(e:FormEvent<HTMLFormElement>) {
@@ -43,17 +40,20 @@ export default class BlogForm extends BaseSecurePage<BlogFormProps, BlogFormStat
 
   protected renderAuthenticatedView() {
     return (
-        <div>
+        <div className="main-content">
             <StatusBar {...this.state.message} />
+
+            <h2>Schedule / Event</h2>
             <form onSubmit={this.onSubmit}>
-                <label>
+                <label className="form-group col-12">
                     <span>Blog Title</span>
-                    <input defaultValue={this.state.title} type="text" ref={this.titleRef} placeholder="Blog Title" />
+                    <input className="form-control" defaultValue={this.state.title} type="text" ref={this.titleRef} placeholder="Blog Title" />
                 </label>
 
-                <label className="">
+                <label className="form-group col-12">
                     <span>Publish Date</span>
                     <DatePicker
+                        className="form-control"
                         showTimeSelect
                         timeIntervals={15}
                         minDate={new Date()}
@@ -69,9 +69,10 @@ export default class BlogForm extends BaseSecurePage<BlogFormProps, BlogFormStat
                     />
                 </label>
 
-                <label className="">
+                <label className="form-group col-12">
                     <span>Unpublish Date</span>
                     <DatePicker
+                        className="form-control"
                         showTimeSelect
                         timeIntervals={15}
                         minDate={this.state.endDateTime ? this.state.endDateTime : new Date()}
@@ -87,8 +88,7 @@ export default class BlogForm extends BaseSecurePage<BlogFormProps, BlogFormStat
                     />
                 </label>
 
-                <label>
-                    <span>Content</span>
+                <div className="form-group col-12">
                     <CKEditor
                         editor={ClassicEditor}
                         data={this.state.content}
@@ -101,7 +101,7 @@ export default class BlogForm extends BaseSecurePage<BlogFormProps, BlogFormStat
                             });
                         }}
                     />
-                </label>
+                </div>
 
                 {this.renderButton()}
             </form>

@@ -3,6 +3,7 @@ import ScheduleForm from './ScheduleForm';
 import RefUtil from '../../../util/RefUtil';
 import HttpService from '../../../util/HttpService';
 import { STATUS } from '../../StatusBar';
+import { Link } from "react-router-dom";
 
 export default class ScheduleCreateForm extends ScheduleForm {
   protected onSubmit(e:FormEvent<HTMLFormElement>) {
@@ -38,8 +39,13 @@ export default class ScheduleCreateForm extends ScheduleForm {
 
   protected renderButton() {
     return (
-        <div>
-            <button>Create Event</button>
+        <div className="row admin-buttons">
+            <div className="col-6">
+                <Link to="/admin" className="btn btn-admin icon-undo">Nevermind</Link>
+            </div>
+            <div className="col-6 text-right">
+                <button className="btn btn-admin icon-floppy-o">Create Event</button>
+            </div>
         </div>
     );
   }

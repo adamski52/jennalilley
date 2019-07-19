@@ -3,6 +3,7 @@ import BlogForm from './BlogForm';import { BlogFormProps } from '../../states/Bl
 import HttpService from '../../../util/HttpService';
 import { STATUS } from '../../StatusBar';
 import RefUtil from '../../../util/RefUtil';
+import { Link } from "react-router-dom";
 
 export default class BlogEditForm extends BlogForm {
     constructor(props:BlogFormProps) {
@@ -95,9 +96,14 @@ export default class BlogEditForm extends BlogForm {
 
     protected renderButton() {
         return (
-            <div>
-                <button>Update Blog</button>
-                <button onClick={this.onDelete}>Delete Blog</button>
+            <div className="row admin-buttons">
+                <div className="col-6">
+                    <Link to="/admin" className="btn btn-admin icon-undo">Nevermind</Link>
+                </div>
+                <div className="col-6 text-right">
+                    <button className="btn btn-admin icon-trash" onClick={this.onDelete}>Delete Blog</button>
+                    <button className="btn btn-admin icon-floppy-o">Update Blog</button>
+                </div>
             </div>
         );
     }

@@ -42,7 +42,7 @@ export default class LoginBar extends React.Component<LoginProps, AdminAuthentic
         }
 
         return (
-            <a href="/logout" className="btn btn-logout icon-unlock-alt">Logout</a>
+            <a href="/api/auth/logout" className="btn btn-logout icon-unlock-alt">Logout</a>
         );
     }
 

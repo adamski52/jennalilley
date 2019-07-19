@@ -44,7 +44,7 @@ class Calendar extends React.Component<any, any> {
 
   public render() {
     return (
-        <div>
+        <div className="main-content">
             <BigCalendar
                 localizer={this.localizer}
                 events={this.state.items}

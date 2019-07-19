@@ -85,7 +85,7 @@ export default class SchedulePage extends React.Component<ScheduleViewAllProps, 
 
     public render() {
         return (
-            <div>
+            <div className="main-content">
                 <StatusBar {...this.state.message} />
                 {this.renderItems()}
                 {this.renderCalendar()}

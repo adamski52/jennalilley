@@ -1,1 +1,19 @@
 @charset "UTF-8";
+
+@import "variables";
+
+.admin-section {
+    background: $theme-subtle;
+    padding: $spacing-large;
+    margin: $spacing-large;
+}
+
+.form-group span {
+    font-weight: bold;
+    font-family: $font-accent;
+}
+
+.admin-buttons {
+    padding: $spacing-medium;
+    background: $theme-subtle;
+}

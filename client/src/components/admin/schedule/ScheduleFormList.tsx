@@ -69,7 +69,7 @@ export default class ScheduleFormList extends BaseSecurePage<ScheduleFormProps, 
       return (
         <div className="row" key={item._id}>
             <div className="col-xs-6">
-                <Link to={"/admin/schedule/edit/" + item._id}>{item.name}</Link>
+                <Link className="btn btn-admin icon-calendar" to={"/admin/schedule/edit/" + item._id}>{item.name}</Link>
             </div>
             <div className="col-xs-2">
                 {item.type}

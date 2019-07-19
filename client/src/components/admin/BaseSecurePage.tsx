@@ -5,7 +5,7 @@ export default abstract class BaseSecurePage<P, S> extends React.Component<any, 
         super(props);
 
         this.state = {
-            isAuthenticated: !!props.isAuthenticated,
+            isAuthenticated: !!!props.isAuthenticated,
             isAdmin: !!props.isAdmin,
             message: {
                 message: "",
@@ -15,10 +15,10 @@ export default abstract class BaseSecurePage<P, S> extends React.Component<any, 
     }
 
     public componentWillReceiveProps(props:any) {
-        this.state = {
+        this.setState({
             isAuthenticated: !!props.isAuthenticated,
             isAdmin: !!props.isAdmin
-        };
+        });
     }
 
     protected renderUnauthenticatedView():JSX.Element | null {
@@ -35,7 +35,7 @@ export default abstract class BaseSecurePage<P, S> extends React.Component<any, 
 
     public render() {
         return (
-            <div>
+            <div className="col-12">
                 {this.state.isAdmin === true && this.renderAuthenticatedView()}
                 {this.state.isAdmin !== true && this.renderUnauthenticatedView()}
             </div>

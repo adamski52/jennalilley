@@ -40,7 +40,7 @@ export default class Nav extends React.Component<any, any> {
         return (
             <nav className={this.getNavClassName()}>
                 <button onClick={this.onToggleMenu} className={this.getMenuClassName()}/>
-                <Link to="/"><img src={SigImg} /></Link>
+                <Link to="/"><img alt="Jenna Lilley" src={SigImg} /></Link>
                 <Link className="nav-item" to="/about/">About</Link>
                 <Link className="nav-item" to="/blogs/">Blogs</Link>
                 <Link className="nav-item" to="/schedule/">Schedule</Link>

@@ -4,6 +4,7 @@ import { ScheduleFormProps } from '../../states/Schedule';
 import HttpService from '../../../util/HttpService';
 import { STATUS } from '../../StatusBar';
 import RefUtil from '../../../util/RefUtil';
+import { Link } from "react-router-dom";
 
 export default class ScheduleEditForm extends ScheduleForm {
   constructor(props:ScheduleFormProps) {
@@ -110,9 +111,14 @@ export default class ScheduleEditForm extends ScheduleForm {
 
   protected renderButton() {
     return (
-        <div>
-            <button>Update Event</button>
-            <button onClick={this.onDelete}>Delete Event</button>
+        <div className="row admin-buttons">
+            <div className="col-6">
+                <Link to="/admin" className="btn btn-admin icon-undo">Nevermind</Link>
+            </div>
+            <div className="col-6 text-right">
+                <button className="btn btn-admin icon-trash" onClick={this.onDelete}>Delete Event</button>
+                <button className="btn btn-admin icon-floppy-o">Update Event</button>
+            </div>
         </div>
     );
   }

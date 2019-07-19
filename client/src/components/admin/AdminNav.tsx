@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 import AboutForm from "./about/AboutForm";
 import UserFormList from "./users/UserFormList";
 import ContactForm from "./contact/ContactForm";
@@ -11,9 +11,8 @@ import ScheduleEditForm from "./schedule/ScheduleEditForm";
 import ScheduleFormList from "./schedule/ScheduleFormList";
 import BaseSecurePage from "./BaseSecurePage";
 import { AdminViewProps, AdminViewState } from "../states/Admin";
-import AdminNav from "./AdminNav";
 
-export default class AdminPage extends BaseSecurePage<AdminViewProps, AdminViewState> {
+export default class AdminNav extends BaseSecurePage<AdminViewProps, AdminViewState> {
     constructor(props:AdminViewProps) {
         super(props);
 
@@ -29,12 +28,31 @@ export default class AdminPage extends BaseSecurePage<AdminViewProps, AdminViewS
 
     protected renderAuthenticatedView() {
         return (
-            <Router>
-                <Route exact path="/admin/" render={(routeProps) => {
-                    return (
-                        <AdminNav {...routeProps} isAdmin={this.state.isAdmin} isAuthenticated={this.state.isAuthenticated} />
-                    );
-                }}/>
+            <div className="main-content">
+                <h2>Administration</h2>
+                <div className="admin-section">
+                    <h3>About</h3>
+                    <Link to="/admin/about" className="btn btn-admin icon-info-circle">Edit About Section</Link>
+                </div>
+                <div className="admin-section">
+                    <h3>Blogs</h3>
+                    <Link to="/admin/blogs" className="btn btn-admin icon-document-text-edit">Edit Blogs</Link>
+                    <Link to="/admin/blogs/create" className="btn btn-admin icon-document-text-add">Create New Blog</Link>
+                </div>
+                <div className="admin-section">
+                    <h3>Events / Schedule</h3>
+                    <Link to="/admin/schedule" className="btn btn-admin icon-calendar">Edit Events</Link>
+                    <Link to="/admin/schedule/create" className="btn btn-admin icon-calendar-plus-o">Create New Event</Link>
+                </div>
+                <div className="admin-section">
+                    <h3>Contact</h3>
+                    <Link to="/admin/contact" className="btn btn-admin icon-comments">Edit Contact Info</Link>
+                </div>
+                <div className="admin-section">
+                    <h3>Users</h3>
+                    <p>(You probably don't want to screw with this)</p>
+                    <Link to="/admin/users" className="btn btn-admin icon-users">Edit Users</Link>
+                </div>
 
                 <Route exact path="/admin/about/" render={(routeProps) => {
                     return (
@@ -89,7 +107,7 @@ export default class AdminPage extends BaseSecurePage<AdminViewProps, AdminViewS
                         <ContactForm {...routeProps} isAdmin={this.state.isAdmin} isAuthenticated={this.state.isAuthenticated} />
                     );
                 }}/>
-            </Router>
+            </div>
         );
     }
 }

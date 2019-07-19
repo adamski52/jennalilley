@@ -6,6 +6,7 @@ import HttpService from '../../../util/HttpService';
 import StatusBar, { STATUS } from '../../StatusBar';
 import BaseSecurePage from '../BaseSecurePage';
 import UploadAdapter from '../../../image-upload/UploadAdapter';
+import { Link } from "react-router-dom";
 
 export default class AboutForm extends BaseSecurePage<AboutFormProps, AboutFormState> {
   constructor(props: AboutFormProps) {
@@ -68,22 +69,33 @@ export default class AboutForm extends BaseSecurePage<AboutFormProps, AboutFormS
 
   public render() {
     return (
-      <div>
+      <div className="main-content">
         <StatusBar {...this.state.message} />
+
+        <h2>About Page</h2>
         <form onSubmit={this.onSubmit}>
-          <CKEditor
-            editor={ClassicEditor}
-            data={this.state.content}
-            config={{
-              extraPlugins: [UploadAdapter.AttachUploadAdapterPlugin]
-            }}
-            onChange={(_event: any, editor: any) => {
-              this.setState({
-                content: editor.getData()
-              });
-            }}
-          />
-          <button>Save About Page</button>
+          <div className="form-group col-12">
+            <CKEditor
+              editor={ClassicEditor}
+              data={this.state.content}
+              config={{
+                extraPlugins: [UploadAdapter.AttachUploadAdapterPlugin]
+              }}
+              onChange={(_event: any, editor: any) => {
+                this.setState({
+                  content: editor.getData()
+                });
+              }}
+            />
+          </div>
+          <div className="row admin-buttons">
+            <div className="col-6">
+              <Link to="/admin" className="btn btn-admin icon-undo">Nevermind</Link>
+            </div>
+            <div className="col-6 text-right">
+              <button className="btn btn-admin icon-floppy-o">Update About Page</button>
+            </div>
+          </div>
         </form>
       </div>
     );

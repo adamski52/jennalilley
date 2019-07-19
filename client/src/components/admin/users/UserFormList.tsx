@@ -4,6 +4,7 @@ import StatusBar, { STATUS } from '../../StatusBar';
 import BaseSecurePage from '../BaseSecurePage';
 import { UserViewAllProps, UserViewAllState } from '../../states/User';
 import { IUser } from '../../../interfaces/User';
+import { Link } from "react-router-dom";
 
 export default class UserFormList extends BaseSecurePage<UserViewAllProps, UserViewAllState> {
   constructor(props:UserViewAllProps) {
@@ -164,7 +165,7 @@ export default class UserFormList extends BaseSecurePage<UserViewAllProps, UserV
 
   public render() {
     return (
-        <div>
+        <div className="main-content">
           <StatusBar {...this.state.message} />
           <ul>
               {this.renderItems()}

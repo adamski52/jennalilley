@@ -6,7 +6,7 @@ export default class HomePage extends React.Component<HomeViewProps, HomeViewSta
     public render() {
         return (
             <div className="home-page">
-                <img src={HeroImg} className="hero"/>
+                <img alt="" src={HeroImg} className="hero"/>
                 <div className="row">
                     <div className="col">
                     </div>

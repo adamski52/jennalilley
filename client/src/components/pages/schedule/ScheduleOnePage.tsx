@@ -63,7 +63,7 @@ export default class ScheduleOnePage extends React.Component<ScheduleViewOneProp
     
     public render() {
         return (
-            <div>
+            <div className="main-content">
                 <StatusBar {...this.state.message} />
                 <div>
                     <div className="col-xs-2">

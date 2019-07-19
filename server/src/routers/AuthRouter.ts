@@ -7,6 +7,12 @@ export default class AuthRouter extends BaseRouter {
     constructor(tokenService:TokenService = new TokenService()) {
         super();
 
+        this.router.get("/logout", (req:Request, res:Response) => {
+            req.logout();
+            res.cookie("TOKEN", null);
+            res.redirect("https://www.jennalilley.com");
+        });
+
         this.router.get("/google/start", passport.authenticate("google", {
             session: false,
             scope: [

@@ -43,32 +43,31 @@ export default class ScheduleForm extends BaseSecurePage<ScheduleFormProps, Sche
     e.preventDefault();
   }
 
-  protected renderButton() {
-      return (
-          <div>
-              <button>Save</button>
-          </div>
-      );
+  protected renderButton():JSX.Element | null {
+      return null;
   }
 
   protected renderAuthenticatedView() {
     return (
-        <div>
+        <div className="main-content">
             <StatusBar {...this.state.message} />
+
+            <h2>Schedule / Event</h2>
             <form onSubmit={this.onSubmit}>
-                <label>
+                <label className="form-group col-12">
                     <span>Event Name</span>
-                    <input defaultValue={this.state.name} type="text" ref={this.nameRef} placeholder="Event Name" />
+                    <input className="form-control" defaultValue={this.state.name} type="text" ref={this.nameRef} placeholder="Event Name" />
                 </label>
 
-                <label>
+                <label className="form-group col-12">
                     <span>Event Type (e.g. Hitting, Fielding, etc.)</span>
-                    <input defaultValue={this.state.type} type="text" ref={this.typeRef} placeholder="Event Type" />
+                    <input className="form-control" defaultValue={this.state.type} type="text" ref={this.typeRef} placeholder="Event Type" />
                 </label>
 
-                <label className="">
+                <label className="form-group col-12">
                     <span>Start Date</span>
                     <DatePicker
+                        className="form-control"
                         showTimeSelect
                         timeIntervals={15}
                         minDate={new Date()}
@@ -84,9 +83,10 @@ export default class ScheduleForm extends BaseSecurePage<ScheduleFormProps, Sche
                     />
                 </label>
 
-                <label className="">
+                <label className="form-group col-12">
                     <span>End Date</span>
                     <DatePicker
+                        className="form-control"
                         showTimeSelect
                         timeIntervals={15}
                         minDate={this.state.startDateTime ? this.state.startDateTime : new Date()}
@@ -102,28 +102,27 @@ export default class ScheduleForm extends BaseSecurePage<ScheduleFormProps, Sche
                     />
                 </label>
 
-                <label>
+                <label className="form-group col-12">
                     <span>Capacity</span>
-                    <input defaultValue={this.state.capacity} type="text" ref={this.capacityRef} placeholder="Capacity" />
+                    <input className="form-control" defaultValue={this.state.capacity} type="text" ref={this.capacityRef} placeholder="Capacity" />
                 </label>
 
-                <label>
+                <label className="form-group col-12">
                     <span>Age Restrictions (e.g. 10+, none, etc.)</span>
-                    <input defaultValue={this.state.ageRestrictions} type="text" ref={this.ageRestrictionsRef} placeholder="Age Restrictions (e.g. 10+, none, etc.)" />
+                    <input className="form-control" defaultValue={this.state.ageRestrictions} type="text" ref={this.ageRestrictionsRef} placeholder="Age Restrictions (e.g. 10+, none, etc.)" />
                 </label>
 
-                <label>
+                <label className="form-group col-12">
                     <span>Cost (e.g. $100/person, $100/group, etc.)</span>
-                    <input defaultValue={this.state.cost} type="text" ref={this.costRef} placeholder="Cost (e.g. $100/person, $100/group, etc.)" />
+                    <input className="form-control" defaultValue={this.state.cost} type="text" ref={this.costRef} placeholder="Cost (e.g. $100/person, $100/group, etc.)" />
                 </label>
 
-                <label>
+                <label className="form-group col-12">
                     <span>Location</span>
-                    <input defaultValue={this.state.location} type="text" ref={this.locationRef} placeholder="Location" />
+                    <input className="form-control" defaultValue={this.state.location} type="text" ref={this.locationRef} placeholder="Location" />
                 </label>
 
-                <label>
-                    <span>Content</span>
+                <div className="form-group col-12">
                     <CKEditor
                         editor={ClassicEditor}
                         data={this.state.description}
@@ -136,7 +135,7 @@ export default class ScheduleForm extends BaseSecurePage<ScheduleFormProps, Sche
                             });
                         }}
                     />
-                </label>
+                </div>
 
                 {this.renderButton()}
             </form>

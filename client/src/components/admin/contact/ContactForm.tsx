@@ -7,6 +7,7 @@ import BaseSecurePage from '../BaseSecurePage';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import UploadAdapter from '../../../image-upload/UploadAdapter';
+import { Link } from "react-router-dom";
 
 export default class ContactForm extends BaseSecurePage<ContactFormProps, ContactFormState> {
   private serviceUrl = "/api/contact";
@@ -99,36 +100,45 @@ export default class ContactForm extends BaseSecurePage<ContactFormProps, Contac
 
   protected renderAuthenticatedView() {
     return (
-        <div>
+        <div className="main-content">
             <StatusBar {...this.state.message} />
+
+            <h2>Contact Page</h2>
+
+            <div className="note">
+                <h5>Hey.  Read this.</h5>
+                <p>Filling stuff in here will place publically accessible links to whatever you fill in on the header/footer of every page.  <strong>This means, for instance, that your phone number will be visible to everyone in the world</strong>.</p>
+                <p>To remove those links, remove the values from the corresponding box below.</p>
+                <p>Your email address will be used for receiving emails sent from the form.  There will never be a direct link to your email address on the page.  If you have a blank email address, the email form will not display.</p>
+            </div>
+
             <form onSubmit={this.onSubmit}>
-                <label>
+                <label className="form-group col-12">
                     <span>Twitter Handle (including @)</span>
-                    <input defaultValue={this.state.twitter} type="text" ref={this.twitterRef} placeholder="Twitter Handle (including @)" />
+                    <input className="form-control" defaultValue={this.state.twitter} type="text" ref={this.twitterRef} placeholder="Twitter Handle (including @)" />
                 </label>
 
-                <label>
+                <label className="form-group col-12">
                     <span>Facebook URL</span>
-                    <input defaultValue={this.state.facebook} type="text" ref={this.facebookRef} placeholder="Facebook URL" />
+                    <input className="form-control" defaultValue={this.state.facebook} type="text" ref={this.facebookRef} placeholder="Facebook URL" />
                 </label>
 
-                <label>
+                <label className="form-group col-12">
                     <span>Instagram URL</span>
-                    <input defaultValue={this.state.instagram} type="text" ref={this.instagramRef} placeholder="Instagram URL" />
+                    <input className="form-control" defaultValue={this.state.instagram} type="text" ref={this.instagramRef} placeholder="Instagram URL" />
                 </label>
 
-                <label>
+                <label className="form-group col-12">
                     <span>Phone Number</span>
-                    <input defaultValue={this.state.phone} type="text" ref={this.phoneRef} placeholder="Phone Number" />
+                    <input className="form-control" defaultValue={this.state.phone} type="text" ref={this.phoneRef} placeholder="Phone Number" />
                 </label>
 
-                <label>
+                <label className="form-group col-12">
                     <span>Email Address</span>
-                    <input defaultValue={this.state.email} type="text" ref={this.emailRef} placeholder="Email Address" />
+                    <input className="form-control" defaultValue={this.state.email} type="text" ref={this.emailRef} placeholder="Email Address" />
                 </label>
 
-                <label>
-                    <span>Content</span>
+                <div className="form-group col-12">
                     <CKEditor
                         editor={ClassicEditor}
                         data={this.state.content}
@@ -141,9 +151,16 @@ export default class ContactForm extends BaseSecurePage<ContactFormProps, Contac
                             });
                         }}
                     />
-                </label>
+                </div>
 
-                <button>Save Contact Information</button>
+                <div className="row admin-buttons">
+                    <div className="col-6">
+                        <Link to="/admin" className="btn btn-admin icon-undo">Nevermind</Link>
+                    </div>
+                    <div className="col-6 text-right">
+                        <button className="btn btn-admin icon-floppy-o">Update Contact Info</button>
+                    </div>
+                </div>
             </form>
         </div>
     );
