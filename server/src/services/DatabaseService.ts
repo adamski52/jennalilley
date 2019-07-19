@@ -15,7 +15,9 @@ export default class DatabaseService {
     }
 
     public async connect() {
-        return await mongoose.connect("mongodb://" + this.auth.username + ":" + this.auth.password + "@db:27017/admin", {
+        let url = "mongodb://" + this.auth.username + ":" + this.auth.password + "@db:27017/admin";
+        console.log("Connecting to db", url);
+        return await mongoose.connect(url, {
             useNewUrlParser: true
         });
     }
