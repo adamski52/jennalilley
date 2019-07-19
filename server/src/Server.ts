@@ -18,16 +18,8 @@ export default class Server {
     private app!:Application;;
 
     public async init() {
-        let instance = await this.databaseService.connect();
-        
-        if(!instance) {
-            console.log("Failed to connect to db. Exiting.");
-            process.exitCode = 1;
-            return;
-        }
-
-        this.databaseService.initialize();
-
+        await this.databaseService.connect();
+        await this.databaseService.initialize();
         console.log("Connected to db.");
 
         this.jwtConfig = new JWTConfig();

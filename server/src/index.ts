@@ -1,3 +1,12 @@
 import Server from "./Server";
 
-new Server().init();
+(async() => {
+    try {
+        await new Server().init();
+        process.exitCode = 0;
+    }
+    catch(e) {
+        console.error(e);
+        process.exitCode = 1;
+    }
+})();
