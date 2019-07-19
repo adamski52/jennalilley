@@ -27,7 +27,9 @@ export default class ContactPage extends React.Component<ContactViewProps, Conta
         }
         
         return (
-            <EmailForm />
+            <div className="col-12">
+                <EmailForm />
+            </div>
         );
     }
 
@@ -46,19 +48,30 @@ export default class ContactPage extends React.Component<ContactViewProps, Conta
         });
     }
 
+    private renderSocialButton(iconClass:string, url:string, linkText: string) {
+        if(!url) {
+            return null;
+        }
+        
+        return (
+            <div className="col-3">
+                <a href={url} className={iconClass}>{linkText}</a>
+            </div>
+        );
+    }
+
     private renderItem() {
         if(!this.state.item) {
             return null;
         }
 
         return (
-            <div>
-                <div>{this.state.item.twitter}</div>
-                <div>{this.state.item.facebook}</div>
-                <div>{this.state.item.instagram}</div>
-                <div>{this.state.item.email}</div>
-                <div>{this.state.item.phone}</div>
-                <div dangerouslySetInnerHTML={{__html: this.state.item ? this.state.item.content : ""}} />
+            <div className="col-12">
+                {this.renderSocialButton("btn btn-twitter icon-twitter", this.state.item.twitter, "Follow me on Twitter")}
+                {this.renderSocialButton("btn btn-facebook icon-facebook", this.state.item.facebook, "Follow me on Facebook")}
+                {this.renderSocialButton("btn btn-instagram icon-instagram", this.state.item.instagram, "Follow me on Instagram")}
+                {this.renderSocialButton("btn btn-phone icon-phone", this.state.item.phone, this.state.item.phone)}
+                <div className="col-12" dangerouslySetInnerHTML={{__html: this.state.item ? this.state.item.content : ""}} />
                 {this.drawEmailForm()}
             </div>
         );

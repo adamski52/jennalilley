@@ -130,4 +130,72 @@
         box-shadow: none;
     }
   }
+  
+  &.btn-twitter {
+    background: $theme-twitter;
+
+    &:before {
+      background: darken($theme-twitter, 10%);
+    }
+
+    &:hover,
+    &:focus {
+      &:before {
+        background: $theme-twitter;
+      }
+
+      background: darken($theme-twitter, 10%);
+    }
+  }
+
+  &.btn-instagram {
+    background: $theme-instagram;
+
+    &:before {
+      background: darken($theme-instagram, 10%);
+    }
+
+    &:hover,
+    &:focus {
+      &:before {
+        background: $theme-instagram;
+      }
+
+      background: darken($theme-instagram, 10%);
+    }
+  }
+
+  &.btn-phone {
+    background: $theme-phone;
+
+    &:before {
+      background: darken($theme-phone, 10%);
+    }
+
+    &:hover,
+    &:focus {
+      &:before {
+        background: $theme-phone;
+      }
+
+      background: darken($theme-phone, 10%);
+    }
+  }
+
+  &.btn-email {
+    background: $theme-email;
+
+    &:before {
+      background: darken($theme-email, 10%);
+    }
+
+    &:hover,
+    &:focus {
+      &:before {
+        background: $theme-email;
+      }
+
+      background: darken($theme-email, 10%);
+    }
+  }
 }

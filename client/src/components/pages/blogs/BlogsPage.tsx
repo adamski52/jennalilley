@@ -55,7 +55,7 @@ export default class BlogsPage extends React.Component<BlogViewAllProps, BlogVie
       return (
         <div className="main-content">
               <StatusBar {...this.state.message} />
-              <div>
+              <div className="col-12">
                   {this.renderItems()}
               </div>
           </div>

@@ -38,7 +38,7 @@ export default class AboutPage extends React.Component<AboutViewProps, AboutView
 
     private renderItem() {
         return (
-            <div dangerouslySetInnerHTML={{__html: this.state.item ? this.state.item.content : ""}} />
+            <div className="col-12" dangerouslySetInnerHTML={{__html: this.state.item ? this.state.item.content : ""}} />
         );
     }
 

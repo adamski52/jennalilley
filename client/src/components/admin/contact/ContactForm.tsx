@@ -114,8 +114,8 @@ export default class ContactForm extends BaseSecurePage<ContactFormProps, Contac
 
             <form onSubmit={this.onSubmit}>
                 <label className="form-group col-12">
-                    <span>Twitter Handle (including @)</span>
-                    <input className="form-control" defaultValue={this.state.twitter} type="text" ref={this.twitterRef} placeholder="Twitter Handle (including @)" />
+                    <span>Twitter Feed URL</span>
+                    <input className="form-control" defaultValue={this.state.twitter} type="text" ref={this.twitterRef} placeholder="Twitter Feed URL" />
                 </label>
 
                 <label className="form-group col-12">
