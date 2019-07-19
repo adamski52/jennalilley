@@ -42,55 +42,55 @@ export default class AdminPage extends BaseSecurePage<AdminViewProps, AdminViewS
 
                     <Route path="/admin/about/" render={(routeProps) => {
                         return (
-                            <AboutForm {...routeProps}  {...this.state.authentication} />
+                            <AboutForm {...routeProps} isAdmin={this.state.isAdmin} isAuthenticated={this.state.isAuthenticated} />
                         );
                     }}/>
 
                     <Route exact path="/admin/blogs/" render={(routeProps) => {
                         return (
-                            <BlogsFormList {...routeProps}  {...this.state.authentication} />
+                            <BlogsFormList {...routeProps} isAdmin={this.state.isAdmin} isAuthenticated={this.state.isAuthenticated} />
                         );
                     }}/>
 
                     <Route exact path="/admin/blogs/create/" render={(routeProps) => {
                         return (
-                            <BlogCreateForm {...routeProps}  {...this.state.authentication} />
+                            <BlogCreateForm {...routeProps} isAdmin={this.state.isAdmin} isAuthenticated={this.state.isAuthenticated} />
                         );
                     }}/>
 
                     <Route exact path="/admin/blogs/edit/:id/" render={(routeProps) => {
                         return (
-                            <BlogEditForm {...routeProps}  {...this.state.authentication} />
+                            <BlogEditForm {...routeProps} isAdmin={this.state.isAdmin} isAuthenticated={this.state.isAuthenticated} />
                         );
                     }}/>
 
                     <Route exact path="/admin/schedule/" render={(routeProps) => {
                         return (
-                            <ScheduleFormList {...routeProps}  {...this.state.authentication} />
+                            <ScheduleFormList {...routeProps} isAdmin={this.state.isAdmin} isAuthenticated={this.state.isAuthenticated} />
                         );
                     }}/>
 
                     <Route exact path="/admin/schedule/create/" render={(routeProps) => {
                         return (
-                            <ScheduleCreateForm {...routeProps}  {...this.state.authentication} />
+                            <ScheduleCreateForm {...routeProps} isAdmin={this.state.isAdmin} isAuthenticated={this.state.isAuthenticated} />
                         );
                     }}/>
 
                     <Route exact path="/admin/schedule/edit/:id/" render={(routeProps) => {
                         return (
-                            <ScheduleEditForm {...routeProps}  {...this.state.authentication} />
+                            <ScheduleEditForm {...routeProps} isAdmin={this.state.isAdmin} isAuthenticated={this.state.isAuthenticated} />
                         );
                     }}/>
 
                     <Route path="/admin/users/" render={(routeProps) => {
                         return (
-                            <UserFormList {...routeProps}  {...this.state.authentication} />
+                            <UserFormList {...routeProps} isAdmin={this.state.isAdmin} isAuthenticated={this.state.isAuthenticated}/>
                         );
                     }}/>
 
                     <Route path="/admin/contact/" render={(routeProps) => {
                         return (
-                            <ContactForm {...routeProps}  {...this.state.authentication} />
+                            <ContactForm {...routeProps} isAdmin={this.state.isAdmin} isAuthenticated={this.state.isAuthenticated} />
                         );
                     }}/>
                 </Router>
