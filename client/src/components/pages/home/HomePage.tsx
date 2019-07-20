@@ -1,19 +1,29 @@
+import PageContainer from "../../../containers/PageContainer";
+import { HomePageProps, HomePageState } from "../../states/Home";
 import React from "react";
-import HeroImg from "../../../img/hero.jpg";
-import { HomeViewProps, HomeViewState } from "../../states/Home";
+import { connect } from 'react-redux';
+import { Dispatch } from "redux";
+import HomePageHandler from "../../../handlers/HomePageHandler";
 
-export default class HomePage extends React.Component<HomeViewProps, HomeViewState> {
-    public render() {
+class HomePage extends PageContainer<HomePageProps, HomePageState> {
+    public render():JSX.Element | null {
         return (
-            <div className="home-page">
-                <img alt="" src={HeroImg} className="hero"/>
-                <div className="row">
-                    <div className="col">
-                    </div>
-                    <div className="col-3 left-bar">
-                    </div>
-                </div>
-            </div>
+            <h2>Doesnt matter</h2>
         );
     }
 }
+
+export default connect(
+    (state:HomePageState) => {
+        return {
+            ...state
+        };
+    },
+    (dispatch:Dispatch) => {
+        return {
+            fetch: () => {
+                return HomePageHandler.METHODS.fetch(dispatch);
+            }
+        };
+    }
+)(HomePage);

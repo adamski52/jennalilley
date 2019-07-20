@@ -5,7 +5,6 @@ export default class HttpService {
     private static baseUrl = "";
 
     private static toJson(response:Response) {
-        console.log("raw response", response);
         if(response.ok) {
             return response.json();
         }

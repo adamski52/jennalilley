@@ -1,14 +1,14 @@
-import { IStatus } from "../../util/TypeUtils";
+import { SecurePageContainerBaseProps, SecurePageContainerBaseState } from "./Containers";
 
 export interface AdminAuthentication {
-    isAuthenticated: boolean;
     isAdmin: boolean;
+    isAuthenticated: boolean;
 }
 
-export interface AdminViewState extends AdminAuthentication {
-    message: IStatus;
-};
+export interface AdminPageProps extends SecurePageContainerBaseProps {
 
-export interface AdminViewProps extends AdminAuthentication{
-    
-};
+}
+
+export interface AdminPageState extends SecurePageContainerBaseState {
+
+}

@@ -1,7 +1,11 @@
-import { AdminAuthentication } from "./Admin";
-import { IStatus } from "../../util/TypeUtils";
+import { AdminPageState } from "./Admin";
+import { HomePageState } from "./Home";
+import GlobalState from "./Global";
 
 export interface AppState {
-    authentication: AdminAuthentication;
-    message: IStatus;
+
+}
+
+export interface AppProps {
+
 }
