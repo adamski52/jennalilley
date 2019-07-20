@@ -64,8 +64,10 @@ export default class ScheduleOnePage extends React.Component<ScheduleViewOneProp
     public render() {
         return (
             <div className="main-content">
+                
                 <StatusBar {...this.state.message} />
-                <div>
+                
+                <div className="col-12">
                     <div className="col-xs-2">
                         {this.state.name}
                     </div>
@@ -73,10 +75,10 @@ export default class ScheduleOnePage extends React.Component<ScheduleViewOneProp
                         {this.state.type}
                     </div>
                     <div className="col-xs-2">
-                        {this.state.startDateTime}
+                        {this.state.startDateTime ? new Date(this.state.startDateTime).toLocaleString() : ""}
                     </div>
                     <div className="col-xs-2">
-                        {this.state.endDateTime}
+                        {this.state.endDateTime ? new Date(this.state.endDateTime).toLocaleString() : ""}
                     </div>
                     <div className="col-xs-2">
                         {this.state.capacity}

@@ -14,6 +14,15 @@ export default class StatusBar extends React.Component<IStatus, IStatus> {
       message: props.message || "",
       type: props.type || ""
     };
+
+    this.onClose = this.onClose.bind(this);
+  }
+
+  private onClose() {
+    this.setState({
+      message: "",
+      type: ""
+    });
   }
 
   public componentWillReceiveProps(props:any) {
@@ -23,17 +32,26 @@ export default class StatusBar extends React.Component<IStatus, IStatus> {
     });
   }
 
-  public getStatusBarClassName() {
-    if(!this.state.message) {
-      return "status-bar status-bar-hidden";
-    }
+  public getButtonClassName() {
+    return "btn btn-status-" + this.state.type + " icon-x";
+  }
 
-    return "status-bar status-bar-" + this.state.type;
+  public getStatusBarClassName() {
+    return "row status-bar status-bar-" + this.state.type;
   }
 
   public render() {
+    if(!this.state.message) {
+      return null;
+    }
+
     return (
-      <div className={this.getStatusBarClassName()}>{this.state.message}</div>
+      <div className={this.getStatusBarClassName()}>
+        <div className="col-10">{this.state.message}</div>
+        <div className="col-2 text-right">
+          <button className={this.getButtonClassName()} onClick={this.onClose} />
+        </div>
+      </div>
     );
   }
 }

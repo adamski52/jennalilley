@@ -198,4 +198,58 @@
       background: darken($theme-email, 10%);
     }
   }
+
+  &.btn-status-success {
+    $bg: lighten($theme-success, 20%);
+    background: $bg;
+
+    &:before {
+      background: darken($bg, 10%);
+    }
+
+    &:hover,
+    &:focus {
+      &:before {
+        background: $bg;
+      }
+
+      background: darken($bg, 10%);
+    }
+  }
+
+  &.btn-status-error {
+    $bg: lighten($theme-error, 20%);
+    background: $bg;
+
+    &:before {
+      background: darken($bg, 10%);
+    }
+
+    &:hover,
+    &:focus {
+      &:before {
+        background: $bg;
+      }
+
+      background: darken($bg, 10%);
+    }
+  }
+
+  &.btn-status-warn {
+    $bg: lighten($theme-warn, 20%);
+    background: $bg;
+
+    &:before {
+      background: darken($bg, 10%);
+    }
+
+    &:hover,
+    &:focus {
+      &:before {
+        background: $bg;
+      }
+
+      background: darken($bg, 10%);
+    }
+  }
 }

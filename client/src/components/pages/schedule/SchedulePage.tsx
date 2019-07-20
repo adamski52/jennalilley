@@ -50,10 +50,10 @@ export default class SchedulePage extends React.Component<ScheduleViewAllProps, 
                     {event.type}
                 </div>
                 <div className="col-xs-2">
-                    {event.startDateTime ? new Date(event.startDateTime) : ""}
+                    {event.startDateTime ? new Date(event.startDateTime).toLocaleString() : ""}
                 </div>
                 <div className="col-xs-2">
-                    {event.endDateTime ? new Date(event.endDateTime) : ""}
+                    {event.endDateTime ? new Date(event.endDateTime).toLocaleString() : ""}
                 </div>
                 <div className="col-xs-2">
                     {event.capacity}

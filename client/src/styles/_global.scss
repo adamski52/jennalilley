@@ -57,9 +57,9 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-// .ck-editor__editable_inline {
-//   min-height: 400px;
-// }
+.ck-editor__editable_inline {
+  min-height: 400px;
+}
 
 .rbc-calendar {
   min-height: 100vh;
@@ -101,4 +101,27 @@ h1, h2, h3, h4, h5, h6 {
 
 .left-bar {
   background: $theme-subtle;
+}
+
+.status-bar {
+  width: 100%;
+  padding: $spacing-medium;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+
+  &.status-bar-success {
+    background: $theme-success;
+    color: lighten($theme-success, 60%);
+  }
+
+  &.status-bar-error {
+    background: $theme-error;
+    color: lighten($theme-error, 60%);
+  }
+
+  &.status-bar-warn {
+    background: $theme-warn;
+    color: lighten($theme-warn, 60%);
+  }
 }
