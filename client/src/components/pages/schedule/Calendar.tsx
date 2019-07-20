@@ -34,26 +34,19 @@ class Calendar extends React.Component<any, any> {
     });
   }
 
-  // private calendarClassName = style({
-  //     height: "75vh"
-  // });
-
   private onSelectEvent(item: any, e: SyntheticEvent<HTMLElement, Event>) {
     this.props.history.push("/schedule/" + item.id);
   }
 
   public render() {
     return (
-        <div className="main-content">
-            <BigCalendar
-                localizer={this.localizer}
-                events={this.state.items}
-                defaultDate={new Date()}
-                defaultView="month"
-                className=""
-                onSelectEvent={this.onSelectEvent}
-            />
-        </div>
+        <BigCalendar
+            localizer={this.localizer}
+            events={this.state.items}
+            defaultDate={new Date()}
+            defaultView="month"
+            onSelectEvent={this.onSelectEvent}
+        />
     );
   }
 }
