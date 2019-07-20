@@ -37,7 +37,7 @@ export default class EmailForm extends React.Component<any, EmailFormState> {
         if(!this.emailRef.current || !this.emailRef.current.value) {
             this.setState({
                 message: {
-                    message: "Pleasde provide your email address.",
+                    message: "Please provide your email address.",
                     type: STATUS.ERROR
                 }
             });
@@ -47,7 +47,7 @@ export default class EmailForm extends React.Component<any, EmailFormState> {
         if(this.emailRef.current.value.indexOf("@") < 0 || this.emailRef.current.value.indexOf(".") < 0) {
             this.setState({
                 message: {
-                    message: "Pleasde provide a valid email address.",
+                    message: "Please provide a valid email address.",
                     type: STATUS.ERROR
                 }
             });
@@ -57,7 +57,7 @@ export default class EmailForm extends React.Component<any, EmailFormState> {
         if(!this.messageRef.current || !this.messageRef.current.value) {
             this.setState({
                 message: {
-                    message: "Pleasde provide your message.",
+                    message: "Please provide your message.",
                     type: STATUS.ERROR
                 }
             });

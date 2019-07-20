@@ -111,8 +111,10 @@ export default class SchedulePage extends React.Component<ScheduleViewAllProps, 
             <div className="main-content">
                 <StatusBar {...this.state.message} />
 
-                <h2>Upcoming Events</h2>
-
+                <div className="col-12">
+                    <h2>Upcoming Events</h2>
+                </div>
+                
                 {this.renderItems()}
             </div>
         );

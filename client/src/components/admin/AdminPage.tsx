@@ -30,11 +30,8 @@ export default class AdminPage extends BaseSecurePage<AdminViewProps, AdminViewS
     protected renderAuthenticatedView() {
         return (
             <Router>
-                <Route exact path="/admin/" render={(routeProps) => {
-                    return (
-                        <AdminNav {...routeProps} isAdmin={this.state.isAdmin} isAuthenticated={this.state.isAuthenticated} />
-                    );
-                }}/>
+ 
+                <AdminNav isAdmin={this.state.isAdmin} isAuthenticated={this.state.isAuthenticated} />
 
                 <Route exact path="/admin/about/" render={(routeProps) => {
                     return (

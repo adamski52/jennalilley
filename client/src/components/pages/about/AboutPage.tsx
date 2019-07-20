@@ -46,9 +46,9 @@ export default class AboutPage extends React.Component<AboutViewProps, AboutView
         return (
             <div className="main-content">
                 <StatusBar {...this.state.message} />
-                
-                <h2>About Me</h2>
-
+                <div className="col-12">
+                    <h2>About Me</h2>
+                </div>
                 {this.renderItem()}
             </div>
         );

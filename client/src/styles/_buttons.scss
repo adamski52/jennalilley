@@ -204,8 +204,9 @@
   &.btn-status-warn {
     padding-right: $spacing-small;
     font-size: .7rem;
-    
+
     &:before {
+      margin-right: $spacing-small;
       padding: $spacing-small;
     }
   }
