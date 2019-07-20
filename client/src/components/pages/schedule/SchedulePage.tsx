@@ -27,8 +27,12 @@ export default class SchedulePage extends React.Component<ScheduleViewAllProps, 
 
     private onFetch() {
         HttpService.get("/api/schedule").then((json:ISchedule[]) => {
-            let items = json || [];
-            items = items.sort((lhs:ISchedule, rhs:ISchedule) => {
+            let items = json || [],
+                today = new Date();
+
+            items = items.filter((item) => {
+                return item.startDateTime && item.startDateTime < today;
+            }).sort((lhs:ISchedule, rhs:ISchedule) => {
                 if(lhs.startDateTime != null && rhs.startDateTime != null) {
                     if(lhs.startDateTime < rhs.startDateTime) {
                         return -1;
@@ -106,6 +110,8 @@ export default class SchedulePage extends React.Component<ScheduleViewAllProps, 
         return (
             <div className="main-content">
                 <StatusBar {...this.state.message} />
+
+                <h2>Upcoming Events</h2>
 
                 {this.renderItems()}
             </div>

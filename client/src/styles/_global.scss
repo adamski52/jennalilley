@@ -162,3 +162,9 @@ table {
     }    
   }
 }
+
+.blog-post {
+  padding: $spacing-medium;
+  margin-bottom: $spacing-medium;
+  border-bottom: 1px dotted #ccc;
+}

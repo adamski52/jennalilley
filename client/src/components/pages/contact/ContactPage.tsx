@@ -79,6 +79,9 @@ export default class ContactPage extends React.Component<ContactViewProps, Conta
         return (
             <div className="main-content">
                 <StatusBar {...this.state.message} />
+
+                <h2>Contact Me</h2>
+
                 {this.renderItem()}
             </div>
         );

@@ -66,9 +66,10 @@ export default class ScheduleOnePage extends React.Component<ScheduleViewOneProp
             <div className="main-content">
                 
                 <StatusBar {...this.state.message} />
+
+                <h2>{this.state.name}</h2>
                 
                 <div className="schedule-page">
-                    <h3>{this.state.name}</h3>
 
                     <table className="schedule-table">
                         <thead>

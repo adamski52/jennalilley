@@ -2,6 +2,7 @@ import React from "react";
 import HttpService from "../../../util/HttpService";
 import { BlogViewAllProps, BlogViewAllState } from "../../states/Blogs";
 import StatusBar, { STATUS } from "../../StatusBar";
+import { IBlog } from "../../../interfaces/Blog";
 
 export default class BlogsPage extends React.Component<BlogViewAllProps, BlogViewAllState> {
     constructor(props:BlogViewAllProps) {
@@ -21,9 +22,30 @@ export default class BlogsPage extends React.Component<BlogViewAllProps, BlogVie
     }
 
     private onFetch() {
-        HttpService.get("/api/blogs/").then((json) => {
+        HttpService.get("/api/blogs/").then((json:IBlog[]) => {
+            let items = json || [],
+                today = new Date();
+
+            items = items.filter((item) => {
+                return item.startDateTime == null || item.startDateTime > today;
+            }).filter((item) => {
+                return item.endDateTime == null || item.endDateTime < today;
+            }).sort((lhs, rhs) => {
+                if(lhs.startDateTime != null && rhs.startDateTime != null) {
+                    if(lhs.startDateTime < rhs.startDateTime) {
+                        return -1;
+                    }
+
+                    if(lhs.startDateTime > rhs.startDateTime) {
+                        return 1;
+                    }
+                }
+
+                return 0;
+            });
+
             this.setState({
-                items: json
+                items: items
             });
         }).catch(() => {
             this.setState({
@@ -35,18 +57,28 @@ export default class BlogsPage extends React.Component<BlogViewAllProps, BlogVie
         });
     }
 
-    private renderItem(item:any) {
+    private renderPostedAt(item:IBlog) {
+        if(!item.startDateTime) {
+            return null;
+        }
+
         return (
-          <div className="row" key={item._id}>
+            <p className="blog-title">{new Date(item.startDateTime).toLocaleString()}</p>
+        );
+    }
+
+    private renderItem(item:IBlog) {
+        return (
+          <div className="col-12 blog-post" key={item._id}>
               <h3>{item.title}</h3>
-              <p>{item.startDateTime}</p>
+              {this.renderPostedAt(item)}
               <div dangerouslySetInnerHTML={{__html: item.content}} />
           </div>
         );
     }
   
     private renderItems() {
-        return this.state.items.map((item:any) => {
+        return this.state.items.map((item:IBlog) => {
             return this.renderItem(item);
         });
     }
@@ -55,6 +87,9 @@ export default class BlogsPage extends React.Component<BlogViewAllProps, BlogVie
       return (
         <div className="main-content">
               <StatusBar {...this.state.message} />
+              
+              <h2>Blogs</h2>
+
               <div className="col-12">
                   {this.renderItems()}
               </div>
