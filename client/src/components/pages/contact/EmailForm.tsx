@@ -100,7 +100,7 @@ export default class EmailForm extends React.Component<any, EmailFormState> {
                 <textarea className="form-control" ref={this.messageRef} />
 
                 <div className="col-12 text-right">
-                    <button className="btn btn-email icon-email" onClick={this.onSubmit}>Send Email</button>
+                    <button className="btn btn-email icon-envelope" onClick={this.onSubmit}>Send Email</button>
                 </div>
             </form>
         );

@@ -199,6 +199,17 @@
     }
   }
 
+  &.btn-status-success,
+  &.btn-status-error,
+  &.btn-status-warn {
+    padding-right: $spacing-small;
+    font-size: .7rem;
+    
+    &:before {
+      padding: $spacing-small;
+    }
+  }
+
   &.btn-status-success {
     $bg: lighten($theme-success, 20%);
     background: $bg;

@@ -33,7 +33,7 @@ export default class StatusBar extends React.Component<IStatus, IStatus> {
   }
 
   public getButtonClassName() {
-    return "btn btn-status-" + this.state.type + " icon-x";
+    return "btn btn-status-" + this.state.type + " icon-times";
   }
 
   public getStatusBarClassName() {
@@ -49,7 +49,7 @@ export default class StatusBar extends React.Component<IStatus, IStatus> {
       <div className={this.getStatusBarClassName()}>
         <div className="col-10">{this.state.message}</div>
         <div className="col-2 text-right">
-          <button className={this.getButtonClassName()} onClick={this.onClose} />
+          <button className={this.getButtonClassName()} onClick={this.onClose}>Dismiss</button>
         </div>
       </div>
     );
