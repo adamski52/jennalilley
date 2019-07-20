@@ -72,7 +72,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .rbc-month-header {
-      background: #d9e9ff;
+      background: $theme-table-header;
       text-transform: uppercase;
 
       .rbc-header {
@@ -123,5 +123,42 @@ h1, h2, h3, h4, h5, h6 {
   &.status-bar-warn {
     background: $theme-warn;
     color: lighten($theme-warn, 60%);
+  }
+}
+
+.schedule-page {
+  padding: 0 $spacing-large;
+
+  .schedule-table {
+    width: 100%;
+  }
+}
+
+table {
+  &,
+  td,
+  th {
+    border: 1px solid #ccc;
+  }
+
+  thead {
+    tr {
+      font-weight: bold;
+      background: $theme-table-header;
+
+      th {
+        padding: $spacing-medium;
+      }
+    }
+  }
+
+  tbody:nth-child(2n) {
+    tr {
+      background: #f0f0f0;
+
+      td {
+        padding: $spacing-medium;
+      }
+    }    
   }
 }

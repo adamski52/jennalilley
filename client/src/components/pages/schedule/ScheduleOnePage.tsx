@@ -67,31 +67,34 @@ export default class ScheduleOnePage extends React.Component<ScheduleViewOneProp
                 
                 <StatusBar {...this.state.message} />
                 
-                <div className="col-12">
-                    <div className="col-xs-2">
-                        {this.state.name}
-                    </div>
-                    <div className="col-xs-2">
-                        {this.state.type}
-                    </div>
-                    <div className="col-xs-2">
-                        {this.state.startDateTime ? new Date(this.state.startDateTime).toLocaleString() : ""}
-                    </div>
-                    <div className="col-xs-2">
-                        {this.state.endDateTime ? new Date(this.state.endDateTime).toLocaleString() : ""}
-                    </div>
-                    <div className="col-xs-2">
-                        {this.state.capacity}
-                    </div>
-                    <div className="col-xs-2">
-                        {this.state.ageRestrictions}
-                    </div>
-                    <div className="col-xs-2">
-                        {this.state.cost}
-                    </div>
-                    <div className="col-xs-2">
-                        {this.state.location}
-                    </div>
+                <div className="schedule-page">
+                    <h3>{this.state.name}</h3>
+
+                    <table className="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>Event Type</th>
+                                <th>Start Date/Time</th>
+                                <th>End Date/Time</th>
+                                <th>Capacity</th>
+                                <th>Age Restrictions</th>
+                                <th>Cost</th>
+                                <th>Location</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{this.state.type}</td>
+                                <td>{this.state.startDateTime ? new Date(this.state.startDateTime).toLocaleString() : ""}</td>
+                                <td>{this.state.endDateTime ? new Date(this.state.endDateTime).toLocaleString() : ""}</td>
+                                <td>{this.state.capacity}</td>
+                                <td>{this.state.ageRestrictions}</td>
+                                <td>{this.state.cost}</td>
+                                <td>{this.state.location}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
                     <div dangerouslySetInnerHTML={{
                         __html: this.state.description
                     }}/>

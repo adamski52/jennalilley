@@ -103,7 +103,7 @@ export default class App extends React.Component<any, AppState> {
               );
             }}/>
 
-            <Route path="/contact/" render={(routeProps) => {
+            <Route path="/contact/" exact render={(routeProps) => {
               return (
                 <div>
                   <Nav className="inner" {...routeProps} {...this.state.authentication} />
@@ -112,7 +112,7 @@ export default class App extends React.Component<any, AppState> {
               );
             }}/>
 
-            <Route path="/admin/" render={(routeProps) => {
+            <Route path="/admin/" exact render={(routeProps) => {
               return (
                 <div>
                   <Nav className="inner" {...routeProps} {...this.state.authentication} />

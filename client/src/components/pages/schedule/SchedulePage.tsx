@@ -57,25 +57,27 @@ export default class SchedulePage extends React.Component<ScheduleViewAllProps, 
 
     private renderItems() {
         return (
-            <table className="schedule-table">
-                <thead>
-                    <tr>
-                        <th>Event Name</th>
-                        <th>Event Type</th>
-                        <th>Start Date/Time</th>
-                        <th>End Date/Time</th>
-                        <th>Capacity</th>
-                        <th>Age Restrictions</th>
-                        <th>Cost</th>
-                        <th>Location</th>
-                    </tr>
-                </thead>
-                <tbody>{
-                    this.state.items.map((schedule: ISchedule) => {
-                        return this.renderItem(schedule);
-                    })
-                }</tbody>
-            </table>
+            <div className="schedule-page">
+                <table className="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>Event Name</th>
+                            <th>Event Type</th>
+                            <th>Start Date/Time</th>
+                            <th>End Date/Time</th>
+                            <th>Capacity</th>
+                            <th>Age Restrictions</th>
+                            <th>Cost</th>
+                            <th>Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>{
+                        this.state.items.map((schedule: ISchedule) => {
+                            return this.renderItem(schedule);
+                        })
+                    }</tbody>
+                </table>
+            </div>
         );
     }
 
