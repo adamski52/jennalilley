@@ -127,7 +127,15 @@ export default class ScheduleForm extends BaseSecurePage<ScheduleFormProps, Sche
                         editor={ClassicEditor}
                         data={this.state.description}
                         config={{
-                            extraPlugins: [UploadAdapter.AttachUploadAdapterPlugin]
+                            extraPlugins: [UploadAdapter.AttachUploadAdapterPlugin],
+                            image: {
+                                toolbar: [ 'imageTextAlternative', '|', 'imageStyle:alignLeft', 'imageStyle:full', 'imageStyle:alignRight' ],
+                                styles: [
+                                    'full',
+                                    'alignLeft',
+                                    'alignRight'
+                                ]
+                            }
                         }}
                         onChange={(_event: any, editor: any) => {
                             this.setState({

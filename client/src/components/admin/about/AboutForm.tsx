@@ -79,7 +79,15 @@ export default class AboutForm extends BaseSecurePage<AboutFormProps, AboutFormS
               editor={ClassicEditor}
               data={this.state.content}
               config={{
-                extraPlugins: [UploadAdapter.AttachUploadAdapterPlugin]
+                extraPlugins: [UploadAdapter.AttachUploadAdapterPlugin],
+                image: {
+                  toolbar: [ 'imageTextAlternative', '|', 'imageStyle:alignLeft', 'imageStyle:full', 'imageStyle:alignRight' ],
+                  styles: [
+                      'full',
+                      'alignLeft',
+                      'alignRight'
+                  ]
+                }
               }}
               onChange={(_event: any, editor: any) => {
                 this.setState({

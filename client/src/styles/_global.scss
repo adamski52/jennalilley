@@ -169,3 +169,30 @@ table {
   margin-bottom: $spacing-medium;
   border-bottom: 1px dotted #ccc;
 }
+
+figure.image {
+  &.image-style-left {
+    width: 40%;
+    min-width: 300px;
+    max-width: 600px;
+    float: left;
+    margin: $spacing-medium;
+
+    img {
+      width: 100%;
+    }
+  }
+  
+  &.image-style-side,
+  &.image-style-right {
+    width: 40%;
+    min-width: 300px;
+    max-width: 600px;
+    float: left;
+    margin: $spacing-medium;
+
+    img {
+      width: 100%;
+    }
+  }
+}
