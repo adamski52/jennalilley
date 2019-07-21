@@ -43,7 +43,7 @@
 .inner {
     &.nav {
         position: absolute;
-        padding: $spacing-medium $spacing-medium $spacing-medium 200px;
+        padding-left: 200px;
         top: 64px;
         width: 100%;
         background: $theme-secondary;

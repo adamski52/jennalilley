@@ -48,16 +48,6 @@ export default class ContactPage extends React.Component<ContactViewProps, Conta
         });
     }
 
-    private renderSocialButton(iconClass:string, url:string, linkText: string) {
-        if(!url) {
-            return null;
-        }
-        
-        return (
-            <a href={url} className={iconClass}>{linkText}</a>
-        );
-    }
-
     private renderItem() {
         if(!this.state.item) {
             return null;
@@ -65,10 +55,6 @@ export default class ContactPage extends React.Component<ContactViewProps, Conta
 
         return (
             <div>
-                {this.renderSocialButton("btn btn-twitter icon-twitter", this.state.item.twitter, "Follow me on Twitter")}
-                {this.renderSocialButton("btn btn-facebook icon-facebook", this.state.item.facebook, "Follow me on Facebook")}
-                {this.renderSocialButton("btn btn-instagram icon-instagram", this.state.item.instagram, "Follow me on Instagram")}
-                {this.renderSocialButton("btn btn-phone icon-phone", this.state.item.phone, this.state.item.phone)}
                 <div className="col-12" dangerouslySetInnerHTML={{__html: this.state.item ? this.state.item.content : ""}} />
                 {this.drawEmailForm()}
             </div>

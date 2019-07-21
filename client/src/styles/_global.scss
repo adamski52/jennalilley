@@ -100,9 +100,16 @@ h1, h2, h3, h4, h5, h6 {
 
 .left-bar {
   background: $theme-subtle;
+  padding-top: 50px;
   
   .btn {
     margin-top: $spacing-medium;
+  }
+}
+
+.home-page {
+  .left-bar {
+    padding-top: 0;
   }
 }
 

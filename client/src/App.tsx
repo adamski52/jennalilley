@@ -71,7 +71,7 @@ export default class App extends React.Component<any, AppState> {
 
                 <Route path="/" exact render={(routeProps) => {
                     return (
-                        <div>
+                        <div className="container-fluid">
                             <Nav className="col-lg-3 col-md-4 col-sm-4 col-xs-7 home" {...routeProps}  {...this.state.authentication} />
                             <div className="home-page row">
                                 <HeroImage {...routeProps} {...this.state.authentication} />
@@ -88,8 +88,8 @@ export default class App extends React.Component<any, AppState> {
 
                 <Route path="/about/" exact render={(routeProps) => {
                     return (
-                        <div>
-                            <Nav className="inner" {...routeProps} {...this.state.authentication} />
+                        <div className="container-fluid">
+                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
                             <div className="row">
                                 <div className="col-xs-12 col-sm-8">
                                     <AboutPage {...routeProps} {...this.state.authentication} />
@@ -104,8 +104,8 @@ export default class App extends React.Component<any, AppState> {
 
                 <Route path="/blogs/" exact render={(routeProps) => {
                     return (
-                        <div>
-                            <Nav className="inner" {...routeProps} {...this.state.authentication} />
+                        <div className="container-fluid">
+                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
                             <div className="row">
                                 <div className="col-xs-12 col-sm-8">
                                     <BlogsPage {...routeProps} {...this.state.authentication} />
@@ -120,8 +120,8 @@ export default class App extends React.Component<any, AppState> {
 
                 <Route path="/schedule/" exact render={(routeProps) => {
                     return (
-                        <div>
-                            <Nav className="inner" {...routeProps} {...this.state.authentication} />
+                        <div className="container-fluid">
+                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
                             <div className="row">
                                 <div className="col-xs-12 col-sm-8">
                                     <SchedulePage {...routeProps} {...this.state.authentication} />
@@ -136,8 +136,8 @@ export default class App extends React.Component<any, AppState> {
 
                 <Route path="/schedule/:id" exact render={(routeProps) => {
                     return (
-                        <div>
-                            <Nav className="inner" {...routeProps} {...this.state.authentication} />
+                        <div className="container-fluid">
+                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
                             <div className="row">
                                 <div className="col-xs-12 col-sm-8">
                                     <ScheduleOnePage {...routeProps} {...this.state.authentication} />
@@ -152,8 +152,8 @@ export default class App extends React.Component<any, AppState> {
 
                 <Route path="/contact/" exact render={(routeProps) => {
                     return (
-                        <div>
-                            <Nav className="inner" {...routeProps} {...this.state.authentication} />
+                        <div className="container-fluid">
+                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
                             <div className="row">
                                 <div className="col-xs-12 col-sm-8">
                                     <ContactPage {...routeProps} {...this.state.authentication} />
@@ -168,8 +168,8 @@ export default class App extends React.Component<any, AppState> {
 
                 <Route path="/admin/" exact render={(routeProps) => {
                     return (
-                        <div>
-                            <Nav className="inner" {...routeProps} {...this.state.authentication} />
+                        <div className="container-fluid">
+                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
                             <AdminNav {...routeProps} {...this.state.authentication} />
                         </div>
                     );
@@ -177,8 +177,8 @@ export default class App extends React.Component<any, AppState> {
 
                 <Route exact path="/admin/about" render={(routeProps) => {
                     return (
-                        <div>
-                            <Nav className="inner" {...routeProps} {...this.state.authentication} />
+                        <div className="container-fluid">
+                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
                             <AboutForm {...routeProps} {...this.state.authentication} />
                         </div>
                     );
@@ -186,8 +186,8 @@ export default class App extends React.Component<any, AppState> {
 
                 <Route exact path="/admin/blogs" render={(routeProps) => {
                     return (
-                        <div>
-                            <Nav className="inner" {...routeProps} {...this.state.authentication} />
+                        <div className="container-fluid">
+                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
                             <BlogsFormList {...routeProps} {...this.state.authentication} />
                         </div>
                     );
@@ -195,8 +195,8 @@ export default class App extends React.Component<any, AppState> {
 
                 <Route exact path="/admin/blogs/create" render={(routeProps) => {
                     return (
-                        <div>
-                            <Nav className="inner" {...routeProps} {...this.state.authentication} />
+                        <div className="container-fluid">
+                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
                             <BlogCreateForm {...routeProps} {...this.state.authentication} />
                         </div>
                     );
@@ -204,8 +204,8 @@ export default class App extends React.Component<any, AppState> {
 
                 <Route exact path="/admin/blogs/edit/:id" render={(routeProps) => {
                     return (
-                        <div>
-                            <Nav className="inner" {...routeProps} {...this.state.authentication} />
+                        <div className="container-fluid">
+                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
                             <BlogEditForm {...routeProps} {...this.state.authentication} />
                         </div>
                     );
@@ -213,8 +213,8 @@ export default class App extends React.Component<any, AppState> {
 
                 <Route exact path="/admin/schedule" render={(routeProps) => {
                     return (
-                        <div>
-                            <Nav className="inner" {...routeProps} {...this.state.authentication} />
+                        <div className="container-fluid">
+                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
                             <ScheduleFormList {...routeProps} {...this.state.authentication} />
                         </div>
                     );
@@ -222,8 +222,8 @@ export default class App extends React.Component<any, AppState> {
 
                 <Route exact path="/admin/schedule/create" render={(routeProps) => {
                     return (
-                        <div>
-                            <Nav className="inner" {...routeProps} {...this.state.authentication} />
+                        <div className="container-fluid">
+                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
                             <ScheduleCreateForm {...routeProps} {...this.state.authentication} />
                         </div>
                     );
@@ -231,8 +231,8 @@ export default class App extends React.Component<any, AppState> {
 
                 <Route exact path="/admin/schedule/edit/:id" render={(routeProps) => {
                     return (
-                        <div>
-                            <Nav className="inner" {...routeProps} {...this.state.authentication} />
+                        <div className="container-fluid">
+                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
                             <ScheduleEditForm {...routeProps} {...this.state.authentication} />
                         </div>
                     );
@@ -240,8 +240,8 @@ export default class App extends React.Component<any, AppState> {
 
                 <Route exact path="/admin/users" render={(routeProps) => {
                     return (
-                        <div>
-                            <Nav className="inner" {...routeProps} {...this.state.authentication} />
+                        <div className="container-fluid">
+                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
                             <UserFormList {...routeProps} {...this.state.authentication} />
                         </div>
                     );
@@ -249,8 +249,8 @@ export default class App extends React.Component<any, AppState> {
 
                 <Route exact path="/admin/contact" render={(routeProps) => {
                     return (
-                        <div>
-                            <Nav className="inner" {...routeProps} {...this.state.authentication} />
+                        <div className="container-fluid">
+                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
                             <ContactForm {...routeProps} {...this.state.authentication} />
                         </div>
                     );
