@@ -171,28 +171,25 @@ table {
 }
 
 figure.image {
-  &.image-style-left {
+  width: 100%;
+  margin: $spacing-medium;
+
+  img {
+    width: 100%;
+  }
+
+  &.image-style-align-left {
     width: 40%;
     min-width: 300px;
     max-width: 600px;
     float: left;
-    margin: $spacing-medium;
-
-    img {
-      width: 100%;
-    }
   }
   
   &.image-style-side,
-  &.image-style-right {
+  &.image-style-align-right {
     width: 40%;
     min-width: 300px;
     max-width: 600px;
-    float: left;
-    margin: $spacing-medium;
-
-    img {
-      width: 100%;
-    }
+    float: right;
   }
 }
