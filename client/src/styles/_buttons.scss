@@ -8,6 +8,7 @@
     vertical-align: middle;
     margin: 0 $spacing-small;
     transition: all .2s linear;
+    white-space: nowrap;
 
     &:hover,
     &:focus {
@@ -60,6 +61,24 @@
       background: darken($theme-google, 10%);
     }
   }
+
+  &.btn-unknown {
+    background: $theme-unknown;
+
+    &:before {
+      background: darken($theme-unknown, 10%);
+    }
+
+    &:hover,
+    &:focus {
+      &:before {
+        background: $theme-unknown;
+      }
+
+      background: darken($theme-unknown, 10%);
+    }
+  }
+
 
   &.btn-logout {
     background: $theme-logout;
@@ -199,18 +218,6 @@
     }
   }
 
-  &.btn-status-success,
-  &.btn-status-error,
-  &.btn-status-warn {
-    padding-right: $spacing-small;
-    font-size: .7rem;
-
-    &:before {
-      margin-right: $spacing-small;
-      padding: $spacing-small;
-    }
-  }
-
   &.btn-status-success {
     $bg: lighten($theme-success, 20%);
     background: $bg;
@@ -262,6 +269,16 @@
       }
 
       background: darken($bg, 10%);
+    }
+  }
+
+  &.btn-small {
+    padding-right: $spacing-small;
+    font-size: .7rem;
+
+    &:before {
+      margin-right: $spacing-small;
+      padding: $spacing-small;
     }
   }
 }

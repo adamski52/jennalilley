@@ -33,7 +33,7 @@ export default class StatusBar extends React.Component<IStatus, IStatus> {
   }
 
   public getButtonClassName() {
-    return "btn btn-status-" + this.state.type + " icon-times";
+    return "btn btn-status-" + this.state.type + " btn-small icon-times";
   }
 
   public getStatusBarClassName() {

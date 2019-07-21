@@ -17,3 +17,31 @@
     padding: $spacing-medium;
     background: $theme-subtle;
 }
+
+.users-page {
+    padding: 0 $spacing-large;
+  
+    .users-table {
+      width: 100%;
+    }
+}
+
+.role-badge {
+    padding: $spacing-xsmall;
+    text-align: center;
+    font-size: .7rem;
+    border-radius: $spacing-xsmall;
+    margin: $spacing-xsmall;
+
+    &.role-badge-admin {
+        background: $theme-admin;
+    }
+
+    &.role-badge-user {
+        background: $theme-account;
+    }
+
+    &.role-badge-unknown {
+        background: $theme-unknown;
+    }
+}
