@@ -21,8 +21,13 @@
 .users-page {
     padding: 0 $spacing-large;
   
+    .btn {
+        font-size: .7rem;
+    }
+
     .users-table {
       width: 100%;
+      font-size: .8rem;
     }
 }
 
@@ -32,6 +37,7 @@
     font-size: .7rem;
     border-radius: $spacing-xsmall;
     margin: $spacing-xsmall;
+    color: #fff;
 
     &.role-badge-admin {
         background: $theme-admin;

@@ -110,14 +110,14 @@ export default class UserFormList extends BaseSecurePage<UserViewAllProps, UserV
             return (
                 <button className="btn btn-status-warn icon-user-plus" onClick={(e) => {
                     return this.onPromote(user);
-                }}>Promote to Admin</button>
+                }}>Promote</button>
             );
         }
 
         return (
             <button className="btn btn-status-warn icon-user-times" onClick={(e) => {
                 return this.onDemote(user);
-            }}>Revoke Admin Rights</button>
+            }}>Demote</button>
         );
     }
 
@@ -171,7 +171,6 @@ export default class UserFormList extends BaseSecurePage<UserViewAllProps, UserV
             <tr key={item._id}>
                 <td>{item.name}</td>
                 <td>{this.getProviderDetails(item)}</td>
-                <td>{item._id}</td>
                 <td>{item.email}</td>
                 <td>{this.renderRoles(item)}</td>
                 <td>
@@ -197,9 +196,7 @@ export default class UserFormList extends BaseSecurePage<UserViewAllProps, UserV
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Account Provider</th>
-                                <th>3rd Party ID</th>
-                                <th>Local ID</th>
+                                <th>Provider</th>
                                 <th>Email</th>
                                 <th>Roles</th>
                                 <th>Actions</th>
