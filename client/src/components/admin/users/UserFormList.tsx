@@ -152,13 +152,13 @@ export default class UserFormList extends BaseSecurePage<UserViewAllProps, UserV
         let classNames = ["btn"];
 
         if(user.providerName.toLowerCase() === "facebook") {
-            classNames.push("btn-facebook");
+            classNames.push("btn-facebook icon-facebook");
         }
         else if(user.providerName.toLowerCase() === "google") {
-            classNames.push("btn-google");
+            classNames.push("btn-google icon-google");
         }
         else {
-            classNames.push("btn-unknown");
+            classNames.push("btn-unknown icon-question-circle");
         }
 
         return (
