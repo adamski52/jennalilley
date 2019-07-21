@@ -60,60 +60,38 @@ export default class SchedulePage extends React.Component<ScheduleViewAllProps, 
     }
 
     private renderItems() {
-        return (
-            <div className="schedule-page">
-                <table className="schedule-table">
-                    <thead>
-                        <tr>
-                            <th>Event Name</th>
-                            <th>Event Type</th>
-                            <th>Start Date/Time</th>
-                            <th>End Date/Time</th>
-                            <th>Capacity</th>
-                            <th>Age Restrictions</th>
-                            <th>Cost</th>
-                            <th>Location</th>
-                        </tr>
-                    </thead>
-                    <tbody>{
-                        this.state.items.map((schedule: ISchedule) => {
-                            return this.renderItem(schedule);
-                        })
-                    }</tbody>
-                </table>
-            </div>
-        );
+        if(this.state.items.length <= 0) {
+            return (
+                <p className="note">There are no upcoming events currently scheduled.</p>
+            );
+        }
+
+        return this.state.items.map((schedule: ISchedule) => {
+            return this.renderItem(schedule);
+        });
     }
 
     private renderItem(item:ISchedule) {
         return (
-            <tr>
-                <td><Link to={"/schedule/" + item._id}>{item.name}</Link></td>
-                <td>{item.type}</td>
-                <td>{item.startDateTime ? new Date(item.startDateTime).toLocaleString() : ""}</td>
-                <td>{item.endDateTime ? new Date(item.endDateTime).toLocaleString() : ""}</td>
-                <td>{item.capacity}</td>
-                <td>{item.ageRestrictions}</td>
-                <td>{item.cost}</td>
-                <td>{item.location}</td>
-            </tr>
+            <div className="schedule-item">
+                <Link to={"/schedule/" + item._id}>{item.name}</Link>
+                <p><strong>Event Type:</strong> {item.type}</p>
+                <p><strong>Start Date:</strong> {item.startDateTime ? new Date(item.startDateTime).toLocaleString() : ""}</p>
+                <p><strong>End Date:</strong> {item.endDateTime ? new Date(item.endDateTime).toLocaleString() : ""}</p>
+                <p><strong>Capacity:</strong> {item.capacity}</p>
+                <p><strong>Age Restrictions:</strong> {item.ageRestrictions}</p>
+                <p><strong>Cost:</strong> {item.cost}</p>
+                <p><strong>Location:</strong> {item.location}</p>
+            </div>
         );
     }
-
-    // private renderCalendar() {
-    //     return (
-    //         <Calendar items={this.state.items} />
-    //     );
-    // }
-
+    
     public render() {
         return (
             <div className="main-content">
                 <StatusBar {...this.state.message} />
 
-                <div className="col-12">
-                    <h2>Upcoming Events</h2>
-                </div>
+                <h2>Upcoming Events</h2>
                 
                 {this.renderItems()}
             </div>

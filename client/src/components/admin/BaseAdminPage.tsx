@@ -1,6 +1,6 @@
 import React from "react";
 
-export default abstract class BaseSecurePage<P, S> extends React.Component<any, any> {
+export default abstract class BaseAdminPage<P, S> extends React.Component<any, any> {
     constructor(props:any) {
         super(props);
 
@@ -36,8 +36,8 @@ export default abstract class BaseSecurePage<P, S> extends React.Component<any, 
     public render() {
         return (
             <div className="col-12">
-                {this.state.isAuthenticated === true && this.renderAuthenticatedView()}
-                {this.state.isAuthenticated !== true && this.renderUnauthenticatedView()}
+                {this.state.isAdmin === true && this.renderAuthenticatedView()}
+                {this.state.isAdmin !== true && this.renderUnauthenticatedView()}
             </div>
         );
     }

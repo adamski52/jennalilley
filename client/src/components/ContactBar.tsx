@@ -1,17 +1,13 @@
 import React from "react";
 import HttpService from "../util/HttpService";
-import { HeaderState, HeaderProps } from "./states/Header";
+import { ContactViewProps, ContactViewState } from "./states/Contact";
 
-export default class ContactBar extends React.Component<HeaderProps, HeaderState> {
+export default class ContactBar extends React.Component<ContactViewProps, ContactViewState> {
     constructor(props:any) {
         super(props);
 
         this.state = {
-            twitter: "",
-            facebook: "",
-            phone: "",
-            email: "",
-            instagram: "",
+            item: undefined,
             message: {
                 message: "",
                 type: ""
@@ -25,89 +21,37 @@ export default class ContactBar extends React.Component<HeaderProps, HeaderState
 
     private onFetch() {
         HttpService.get("/api/contact").then((json) => {
-            if(json.length <= 0) {
-                return;
-            }
-            
             this.setState({
-                twitter: json[0].twitter,
-                facebook: json[0].facebook,
-                phone: json[0].phone,
-                email: json[0].email,
-                instagram: json[0].instagram
+                item: json[0]
             });
-        }).catch(() => {
+        }).catch((e) => {
             
         });
     }
 
-    private renderFacebookIcon() {
-        if(!this.state.facebook) {
-            return null;
+    private renderSocialButton(iconClass:string, url:string, linkText: string) {
+        if(!url) {
+            return (
+                <span className={iconClass}>{linkText}</span>
+            );
         }
-
+        
         return (
-            <button className="icon icon-facebook" onClick={(e) => {
-                window.location.href = "https://www.facebook.com/" + this.state.facebook;
-            }} />
-        );
-    }
-
-
-    private renderTwitterIcon() {
-        if(!this.state.twitter) {
-            return null;
-        }
-
-        return (
-            <button className="icon icon-twitter" onClick={(e) => {
-                window.location.href = "https://www.twitter.com/" + this.state.twitter;
-            }} />
-        );
-    }
-
-    private renderInstagramIcon() {
-        if(!this.state.instagram) {
-            return null;
-        }
-
-        return (
-            <button className="icon icon-instagram" onClick={(e) => {
-                window.location.href = "https://www.instagram.com/" + this.state.instagram;
-            }} />
-        );
-    }
-
-    private renderEmailIcon() {
-        if(!this.state.email) {
-            return null;
-        }
-
-        return (
-            <button className="icon icon-envelope" onClick={(e) => {
-                window.location.href = "mailto:" + this.state.email;
-            }} />
-        );
-    }
-
-    private renderPhoneNumber() {
-        if(!this.state.phone) {
-            return null;
-        }
-
-        return (
-            <span className="icon icon-phone-square">{this.state.phone}</span>
+            <a href={url} className={iconClass}>{linkText}</a>
         );
     }
 
     public render() {
+        if(!this.state.item) {
+            return null;
+        }
+
         return (
-            <div className="row contact-bar">
-                {this.renderFacebookIcon()}
-                {this.renderInstagramIcon()}
-                {this.renderTwitterIcon()}
-                {this.renderEmailIcon()}
-                {this.renderPhoneNumber()}
+            <div>
+                {this.renderSocialButton("btn btn-twitter icon-twitter", this.state.item.twitter, "Follow me on Twitter")}
+                {this.renderSocialButton("btn btn-facebook icon-facebook", this.state.item.facebook, "Follow me on Facebook")}
+                {this.renderSocialButton("btn btn-instagram icon-instagram", this.state.item.instagram, "Follow me on Instagram")}
+                {this.renderSocialButton("btn btn-phone icon-phone", "", this.state.item.phone)}
             </div>
         );
     }

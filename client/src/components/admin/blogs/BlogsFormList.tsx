@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { BlogFormProps, BlogViewAllState } from '../../states/Blogs';
 import HttpService from '../../../util/HttpService';
 import StatusBar, { STATUS } from '../../StatusBar';
-import BaseSecurePage from '../BaseSecurePage';
 import { IBlog } from '../../../interfaces/Blog';
+import BaseAdminPage from '../BaseAdminPage';
 
-export default class AboutForm extends BaseSecurePage<BlogFormProps, BlogViewAllState> {
+export default class BlogsFormList extends BaseAdminPage<BlogFormProps, BlogViewAllState> {
     constructor(props: BlogFormProps) {
         super(props);
 

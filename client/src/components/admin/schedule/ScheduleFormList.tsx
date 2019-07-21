@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import HttpService from '../../../util/HttpService';
 import StatusBar, { STATUS } from '../../StatusBar';
 import { ScheduleFormProps, ScheduleViewAllState } from '../../states/Schedule';
-import BaseSecurePage from '../BaseSecurePage';
 import { ISchedule } from '../../../interfaces/Schedule';
+import BaseAdminPage from '../BaseAdminPage';
 
-export default class ScheduleFormList extends BaseSecurePage<ScheduleFormProps, ScheduleViewAllState> {
+export default class ScheduleFormList extends BaseAdminPage<ScheduleFormProps, ScheduleViewAllState> {
     constructor(props:ScheduleFormProps) {
     super(props);
 

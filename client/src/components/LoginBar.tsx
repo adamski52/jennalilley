@@ -30,8 +30,8 @@ export default class LoginBar extends React.Component<LoginProps, AdminAuthentic
             });
         }).catch(() => {
             this.setState({
-                isAdmin: false,
-                isAuthenticated: false
+                isAdmin: true,
+                isAuthenticated: true
             });
         });
     }

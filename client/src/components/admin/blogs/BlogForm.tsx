@@ -4,11 +4,10 @@ import { BlogFormProps, BlogFormState } from '../../states/Blogs';
 import StatusBar from '../../StatusBar';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import BaseSecurePage from '../BaseSecurePage';
 import UploadAdapter from '../../../image-upload/UploadAdapter';
-import { Link } from "react-router-dom";
+import BaseAdminPage from '../BaseAdminPage';
 
-export default class BlogForm extends BaseSecurePage<BlogFormProps, BlogFormState> {
+export default class BlogForm extends BaseAdminPage<BlogFormProps, BlogFormState> {
   protected titleRef = React.createRef<HTMLInputElement>();
   
   constructor(props:BlogFormProps) {

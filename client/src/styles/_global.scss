@@ -27,8 +27,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .main-content {
-  padding-top: $spacing-xlarge;
-  padding-bottom: $spacing-medium;
+  padding: $spacing-xlarge $spacing-medium $spacing-medium $spacing-medium;
 }
 
 .note {
@@ -135,35 +134,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-table {
-  &,
-  td,
-  th {
-    border: 1px solid #ccc;
-  }
-
-  thead {
-    tr {
-      font-weight: bold;
-      background: $theme-table-header;
-
-      th {
-        padding: $spacing-medium;
-      }
-    }
-  }
-
-  tbody:nth-child(2n) {
-    tr {
-      background: #f0f0f0;
-
-      td {
-        padding: $spacing-medium;
-      }
-    }    
-  }
-}
-
 .blog-post {
   padding: $spacing-medium;
   margin-bottom: $spacing-medium;
@@ -172,7 +142,7 @@ table {
 
 figure.image {
   width: 100%;
-  margin: $spacing-medium;
+  padding: $spacing-medium;
 
   img {
     width: 100%;

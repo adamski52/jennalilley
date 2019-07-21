@@ -64,7 +64,7 @@ export default class ContactPage extends React.Component<ContactViewProps, Conta
         }
 
         return (
-            <div className="col-12">
+            <div>
                 {this.renderSocialButton("btn btn-twitter icon-twitter", this.state.item.twitter, "Follow me on Twitter")}
                 {this.renderSocialButton("btn btn-facebook icon-facebook", this.state.item.facebook, "Follow me on Facebook")}
                 {this.renderSocialButton("btn btn-instagram icon-instagram", this.state.item.instagram, "Follow me on Instagram")}
@@ -79,11 +79,7 @@ export default class ContactPage extends React.Component<ContactViewProps, Conta
         return (
             <div className="main-content">
                 <StatusBar {...this.state.message} />
-
-                <div className="col-12">
-                    <h2>Contact Me</h2>
-                </div>
-                
+                <h2>Contact Me</h2>                
                 {this.renderItem()}
             </div>
         );

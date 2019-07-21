@@ -1,12 +1,11 @@
 import React from 'react';
 import HttpService from '../../../util/HttpService';
 import StatusBar, { STATUS } from '../../StatusBar';
-import BaseSecurePage from '../BaseSecurePage';
 import { UserViewAllProps, UserViewAllState } from '../../states/User';
 import { IUser } from '../../../interfaces/User';
-import { Link } from "react-router-dom";
+import BaseAdminPage from '../BaseAdminPage';
 
-export default class UserFormList extends BaseSecurePage<UserViewAllProps, UserViewAllState> {
+export default class UserFormList extends BaseAdminPage<UserViewAllProps, UserViewAllState> {
     constructor(props: UserViewAllProps) {
         super(props);
 

@@ -4,11 +4,11 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { AboutFormProps, AboutFormState } from '../../states/About';
 import HttpService from '../../../util/HttpService';
 import StatusBar, { STATUS } from '../../StatusBar';
-import BaseSecurePage from '../BaseSecurePage';
 import UploadAdapter from '../../../image-upload/UploadAdapter';
 import { Link } from "react-router-dom";
+import BaseAdminPage from '../BaseAdminPage';
 
-export default class AboutForm extends BaseSecurePage<AboutFormProps, AboutFormState> {
+export default class AboutForm extends BaseAdminPage<AboutFormProps, AboutFormState> {
   constructor(props: AboutFormProps) {
     super(props);
 

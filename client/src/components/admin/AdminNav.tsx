@@ -1,18 +1,9 @@
 import React from "react";
-import { Route, Link } from "react-router-dom";
-import AboutForm from "./about/AboutForm";
-import UserFormList from "./users/UserFormList";
-import ContactForm from "./contact/ContactForm";
-import BlogsFormList from "./blogs/BlogsFormList";
-import BlogCreateForm from "./blogs/BlogCreateForm";
-import BlogEditForm from "./blogs/BlogEditForm";
-import ScheduleCreateForm from "./schedule/ScheduleCreateForm";
-import ScheduleEditForm from "./schedule/ScheduleEditForm";
-import ScheduleFormList from "./schedule/ScheduleFormList";
-import BaseSecurePage from "./BaseSecurePage";
+import { Link } from "react-router-dom";
 import { AdminViewProps, AdminViewState } from "../states/Admin";
+import BaseAdminPage from "./BaseAdminPage";
 
-export default class AdminNav extends BaseSecurePage<AdminViewProps, AdminViewState> {
+export default class AdminNav extends BaseAdminPage<AdminViewProps, AdminViewState> {
     constructor(props:AdminViewProps) {
         super(props);
 

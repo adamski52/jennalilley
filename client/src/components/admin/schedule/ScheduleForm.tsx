@@ -2,12 +2,12 @@ import React, { FormEvent } from 'react';
 import DatePicker from "react-datepicker";
 import { ScheduleFormProps, ScheduleFormState } from '../../states/Schedule';
 import StatusBar from '../../StatusBar';
-import BaseSecurePage from '../BaseSecurePage';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import UploadAdapter from '../../../image-upload/UploadAdapter';
+import BaseAdminPage from '../BaseAdminPage';
 
-export default class ScheduleForm extends BaseSecurePage<ScheduleFormProps, ScheduleFormState> {
+export default class ScheduleForm extends BaseAdminPage<ScheduleFormProps, ScheduleFormState> {
   protected nameRef = React.createRef<HTMLInputElement>();
   protected typeRef = React.createRef<HTMLInputElement>();
   protected capacityRef = React.createRef<HTMLInputElement>();

@@ -3,13 +3,13 @@ import { ContactFormProps, ContactFormState } from '../../states/Contact';
 import HttpService from '../../../util/HttpService';
 import StatusBar, { STATUS } from '../../StatusBar';
 import RefUtil from '../../../util/RefUtil';
-import BaseSecurePage from '../BaseSecurePage';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import UploadAdapter from '../../../image-upload/UploadAdapter';
 import { Link } from "react-router-dom";
+import BaseAdminPage from '../BaseAdminPage';
 
-export default class ContactForm extends BaseSecurePage<ContactFormProps, ContactFormState> {
+export default class ContactForm extends BaseAdminPage<ContactFormProps, ContactFormState> {
   private serviceUrl = "/api/contact";
 
   private twitterRef = React.createRef<HTMLInputElement>();

@@ -1,7 +1,8 @@
 import React from "react";
+import HeroImg from "../../../img/hero.jpg";
 import { HomeViewProps, HomeViewState } from "../../states/Home";
 
-export default class HomePage extends React.Component<HomeViewProps, HomeViewState> {
+export default class HeroImage extends React.Component<HomeViewProps, HomeViewState> {
     constructor(props:HomeViewProps) {
         super(props);
 
@@ -16,9 +17,7 @@ export default class HomePage extends React.Component<HomeViewProps, HomeViewSta
 
     public render() {
         return (
-            <div dangerouslySetInnerHTML={{
-                __html: this.state.content
-            }} />
+            <img alt="" src={HeroImg} className="hero"/>
         );
     }
 }
