@@ -284,7 +284,7 @@
 }
 
 @include media-breakpoint-down(sm) {
-  .login-bar {
+  .left-bar {
     .btn {
         padding-right: $spacing-small;
         font-size: .7rem;
