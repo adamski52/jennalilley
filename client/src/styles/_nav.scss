@@ -91,7 +91,7 @@
         &.inner {
             position: absolute;
             top: 0;
-            left: -300px;
+            left: -285px;
             width: 300px;
             text-align: center;
             min-height: 100%;
@@ -111,6 +111,7 @@
 
             .nav-item {
                 display: block;
+                width: 100%;
                 border: 5px solid $theme-secondary;
                 border-top: 0;
                 transition: all linear .2s;
@@ -128,7 +129,7 @@
             }
 
             &.open {
-                left: 0;
+                left: 15px;
                 // box-shadow: 20px 20px 20px rgba(#000, .5);
             }
         }
