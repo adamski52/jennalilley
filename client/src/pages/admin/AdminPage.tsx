@@ -1,10 +1,10 @@
-import SecurePageContainer from "../../containers/SecurePageContainer";
-import { AdminPageProps, AdminPageState } from "../states/Admin";
+import { AdminPageProps, AdminPageState } from "../../states/Admin";
 import React from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
+import AdminPageContainer from "../../containers/AdminPageContainer";
 
-export class AdminPage extends SecurePageContainer<AdminPageProps, AdminPageState> {
+export class AdminPage extends AdminPageContainer<AdminPageProps, AdminPageState> {
     protected renderUnauthenticated():JSX.Element | null {
         return (
             <h2>Unauthenticated.</h2>

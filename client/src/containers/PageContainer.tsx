@@ -1,5 +1,5 @@
 import React from "react";
-import { PageContainerBaseProps, PageContainerBaseState } from "../components/states/Containers";
+import { PageContainerBaseProps, PageContainerBaseState } from "../states/Containers";
 
 export default abstract class PageContainer<P extends PageContainerBaseProps, S extends PageContainerBaseState> extends React.Component<P & PageContainerBaseProps, S & PageContainerBaseState> {
     public componentDidMount() {

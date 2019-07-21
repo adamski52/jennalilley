@@ -1,5 +1,5 @@
 import PageContainer from "./PageContainer";
-import { SecurePageContainerBaseProps, SecurePageContainerBaseState } from "../components/states/Containers";
+import { SecurePageContainerBaseProps, SecurePageContainerBaseState } from "../states/Containers";
 import HttpService from "../util/HttpService";
 
 export default abstract class SecurePageContainer<P extends SecurePageContainerBaseProps, S extends SecurePageContainerBaseState> extends PageContainer<SecurePageContainerBaseProps, SecurePageContainerBaseState> {

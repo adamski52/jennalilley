@@ -1,14 +1,14 @@
-import PageContainer from "../../../containers/PageContainer";
-import { HomePageProps, HomePageState } from "../../states/Home";
+import PageContainer from "../containers/PageContainer";
+import { HomePageProps, HomePageState } from "../states/Home";
 import React from "react";
 import { connect } from 'react-redux';
 import { Dispatch } from "redux";
-import HomePageHandler from "../../../handlers/HomePageHandler";
+import HomePageHandler from "../handlers/HomePageHandler";
 
 class HomePage extends PageContainer<HomePageProps, HomePageState> {
     public render():JSX.Element | null {
         return (
-            <h2>Doesnt matter</h2>
+            <h2>Home page</h2>
         );
     }
 }
