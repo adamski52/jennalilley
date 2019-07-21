@@ -9,7 +9,7 @@ app.use("/api", proxy({
     target: "http://api:8080"
 }));
 
-app.get("*", (req, res) => {
+app.use((req, res) => {
     res.sendFile(path.resolve(__dirname, "./build/index.html"));
 });
 

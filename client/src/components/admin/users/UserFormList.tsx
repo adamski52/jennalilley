@@ -168,16 +168,18 @@ export default class UserFormList extends BaseSecurePage<UserViewAllProps, UserV
 
     private renderItem(item: IUser) {
         return (
-            <tr key={item._id}>
-                <td>{item.name}</td>
-                <td>{this.getProviderDetails(item)}</td>
-                <td>{item.email}</td>
-                <td>{this.renderRoles(item)}</td>
-                <td>
+            <div key={item._id} className="admin-section">
+                <p className="text-large">{item.name}</p>
+                <p>{item.email}</p>
+                <div className="admin-subsection">
+                    {this.getProviderDetails(item)}
+                    {this.renderRoles(item)}
+                </div>
+                <div className="admin-subsection text-right">
                     {this.getRoleButton(item)}
                     {this.getDeleteButton(item)}
-                </td>
-            </tr>
+                </div>
+            </div>
         );
     }
 
@@ -191,22 +193,7 @@ export default class UserFormList extends BaseSecurePage<UserViewAllProps, UserV
         return (
             <div className="main-content">
                 <StatusBar {...this.state.message} />
-                <div className="users-page">
-                    <table className="users-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Provider</th>
-                                <th>Email</th>
-                                <th>Roles</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.renderItems()}
-                        </tbody>
-                    </table>
-                </div>
+                {this.renderItems()}
             </div>
         );
     }

@@ -8,6 +8,19 @@
     margin: $spacing-large;
 }
 
+.admin-subsection {
+    padding: $spacing-medium 0;
+    margin: $spacing-medium 0;
+    background: #fff;
+}
+
+.admin-field {
+    background: rgba(#fff, .5);
+    border: 1px solid #ccc;
+    padding: $spacing-medium;
+    margin: $spacing-medium;
+}
+
 .form-group span {
     font-weight: bold;
     font-family: $font-accent;
@@ -18,17 +31,8 @@
     background: $theme-subtle;
 }
 
-.users-page {
-    padding: 0 $spacing-large;
-  
-    .btn {
-        font-size: .7rem;
-    }
-
-    .users-table {
-      width: 100%;
-      font-size: .8rem;
-    }
+.text-large {
+    font-size: 1.4rem;
 }
 
 .role-badge {
