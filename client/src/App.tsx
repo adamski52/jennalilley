@@ -73,12 +73,12 @@ export default class App extends React.Component<any, AppState> {
                     return (
                         <div>
                             <Nav className="col-lg-3 col-md-4 col-sm-4 col-xs-7 home" {...routeProps}  {...this.state.authentication} />
-                            <div className="home-page">
+                            <div className="home-page row">
                                 <HeroImage {...routeProps} {...this.state.authentication} />
-                                <div className="col-xs-12 col-sm-9">
+                                <div className="col-xs-12 col-sm-8">
                                     <HomePage {...routeProps} {...this.state.authentication} />
                                 </div>
-                                <div className="col-xs-12 col-sm-3 left-bar">
+                                <div className="col-xs-12 col-sm-4 left-bar">
                                     <ContactBar />
                                 </div>
                             </div>
@@ -90,11 +90,13 @@ export default class App extends React.Component<any, AppState> {
                     return (
                         <div>
                             <Nav className="inner" {...routeProps} {...this.state.authentication} />
-                            <div className="col-xs-12 col-sm-9">
-                                <AboutPage {...routeProps} {...this.state.authentication} />
-                            </div>
-                            <div className="col-xs-12 col-sm-3 left-bar">
-                                <ContactBar />
+                            <div className="row">
+                                <div className="col-xs-12 col-sm-8">
+                                    <AboutPage {...routeProps} {...this.state.authentication} />
+                                </div>
+                                <div className="col-xs-12 col-sm-4 left-bar">
+                                    <ContactBar />
+                                </div>
                             </div>
                         </div>
                     );
@@ -104,11 +106,13 @@ export default class App extends React.Component<any, AppState> {
                     return (
                         <div>
                             <Nav className="inner" {...routeProps} {...this.state.authentication} />
-                            <div className="col-xs-12 col-sm-9">
-                                <BlogsPage {...routeProps} {...this.state.authentication} />
-                            </div>
-                            <div className="col-xs-12 col-sm-3 left-bar">
-                                <ContactBar />
+                            <div className="row">
+                                <div className="col-xs-12 col-sm-8">
+                                    <BlogsPage {...routeProps} {...this.state.authentication} />
+                                </div>
+                                <div className="col-xs-12 col-sm-4 left-bar">
+                                    <ContactBar />
+                                </div>
                             </div>
                         </div>
                     );
@@ -118,11 +122,13 @@ export default class App extends React.Component<any, AppState> {
                     return (
                         <div>
                             <Nav className="inner" {...routeProps} {...this.state.authentication} />
-                            <div className="col-xs-12 col-sm-9">
-                                <SchedulePage {...routeProps} {...this.state.authentication} />
-                            </div>
-                            <div className="col-xs-12 col-sm-3 left-bar">
-                                <ContactBar />
+                            <div className="row">
+                                <div className="col-xs-12 col-sm-8">
+                                    <SchedulePage {...routeProps} {...this.state.authentication} />
+                                </div>
+                                <div className="col-xs-12 col-sm-4 left-bar">
+                                    <ContactBar />
+                                </div>
                             </div>
                         </div>
                     );
@@ -132,11 +138,13 @@ export default class App extends React.Component<any, AppState> {
                     return (
                         <div>
                             <Nav className="inner" {...routeProps} {...this.state.authentication} />
-                            <div className="col-xs-12 col-sm-9">
-                                <ScheduleOnePage {...routeProps} {...this.state.authentication} />
-                            </div>
-                            <div className="col-xs-12 col-sm-3 left-bar">
-                                <ContactBar />
+                            <div className="row">
+                                <div className="col-xs-12 col-sm-8">
+                                    <ScheduleOnePage {...routeProps} {...this.state.authentication} />
+                                </div>
+                                <div className="col-xs-12 col-sm-4 left-bar">
+                                    <ContactBar />
+                                </div>
                             </div>
                         </div>
                     );
@@ -146,11 +154,13 @@ export default class App extends React.Component<any, AppState> {
                     return (
                         <div>
                             <Nav className="inner" {...routeProps} {...this.state.authentication} />
-                            <div className="col-xs-12 col-sm-9">
-                                <ContactPage {...routeProps} {...this.state.authentication} />
-                            </div>
-                            <div className="col-xs-12 col-sm-3 left-bar">
-                                <ContactBar />
+                            <div className="row">
+                                <div className="col-xs-12 col-sm-8">
+                                    <ContactPage {...routeProps} {...this.state.authentication} />
+                                </div>
+                                <div className="col-xs-12 col-sm-4 left-bar">
+                                    <ContactBar />
+                                </div>
                             </div>
                         </div>
                     );

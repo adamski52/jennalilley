@@ -6,7 +6,7 @@ export default class HomePage extends React.Component<HomeViewProps, HomeViewSta
         super(props);
 
         this.state = {
-            content: "<p>oh hi</p>",
+            content: "",
             message: {
                 message: "",
                 type: ""

@@ -100,6 +100,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .left-bar {
   background: $theme-subtle;
+  
+  .btn {
+    margin-top: $spacing-medium;
+  }
 }
 
 .status-bar {
