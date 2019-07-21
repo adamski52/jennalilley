@@ -90,16 +90,22 @@ export default class EmailForm extends React.Component<any, EmailFormState> {
             <form onSubmit={this.onSubmit}>
                 <StatusBar message={this.state.message.message} type={this.state.message.type} />
 
-                <label className="form-group col-12">Your Name</label>
-                <input className="form-control" type="text" ref={this.nameRef} />
+                <label className="form-group col-12">
+                    <span>Your Name</span>
+                    <input className="form-control" type="text" ref={this.nameRef} />
+                </label>
 
-                <label className="form-group col-12">Your Email Address</label>
-                <input className="form-control" type="text" ref={this.emailRef} />
+                <label className="form-group col-12">
+                    <span>Your Email Address</span>
+                    <input className="form-control" type="text" ref={this.emailRef} />
+                </label>
 
-                <label className="form-group col-12">Your Message</label>
-                <textarea className="form-control" ref={this.messageRef} />
+                <label className="form-group col-12">
+                    <span>Your Message</span>
+                    <textarea className="form-control" ref={this.messageRef} />
+                </label>
 
-                <div className="col-12 text-right">
+                <div className="col-12 admin-buttons text-right">
                     <button className="btn btn-email icon-envelope" onClick={this.onSubmit}>Send Email</button>
                 </div>
             </form>

@@ -30,6 +30,12 @@ h1, h2, h3, h4, h5, h6 {
   padding: $spacing-xlarge $spacing-medium $spacing-medium $spacing-medium;
 }
 
+@include media-breakpoint-down(xs) {
+  .main-content {
+    padding-top: $spacing-medium;
+  }
+}
+
 .note {
   padding: $spacing-medium;
   background: $theme-note;
@@ -153,7 +159,7 @@ h1, h2, h3, h4, h5, h6 {
 
 figure.image {
   width: 100%;
-  padding: $spacing-medium;
+  padding: $spacing-medium 0;
 
   img {
     width: 100%;
