@@ -17,6 +17,7 @@ export default class ScheduleCreateForm extends ScheduleForm {
         ageRestrictions: RefUtil.getValue(this.ageRestrictionsRef, ""),
         cost: RefUtil.getValue(this.costRef, ""),
         location: RefUtil.getValue(this.locationRef, ""),
+        isFull: RefUtil.getValue(this.isFullRef, "") === "1",
         description: this.state.description
     };
 

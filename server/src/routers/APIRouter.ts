@@ -13,6 +13,7 @@ export default class APIRouter extends BaseRouter {
         super();
         
         this.router.use("/auth", new AuthRouter().getRouter());
+        this.router.use("/home", new AuthRouter().getRouter());
         this.router.use("/users", new UsersRouter().getRouter());
         this.router.use("/schedule", new ScheduleRouter().getRouter());
         this.router.use("/blogs", new BlogRouter().getRouter());

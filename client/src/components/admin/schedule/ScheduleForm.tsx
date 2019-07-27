@@ -14,7 +14,8 @@ export default class ScheduleForm extends BaseAdminPage<ScheduleFormProps, Sched
   protected ageRestrictionsRef = React.createRef<HTMLInputElement>();
   protected costRef = React.createRef<HTMLInputElement>();
   protected locationRef = React.createRef<HTMLInputElement>();
-  
+  protected isFullRef = React.createRef<HTMLInputElement>();
+
   constructor(props:ScheduleFormProps) {
     super(props);
 
@@ -30,6 +31,7 @@ export default class ScheduleForm extends BaseAdminPage<ScheduleFormProps, Sched
         cost: "",
         location: "",
         description: "",
+        isFull: false,
         message: {
             message: "",
             type: ""
@@ -120,6 +122,10 @@ export default class ScheduleForm extends BaseAdminPage<ScheduleFormProps, Sched
                 <label className="form-group col-12">
                     <span>Location</span>
                     <input className="form-control" defaultValue={this.state.location} type="text" ref={this.locationRef} placeholder="Location" />
+                </label>
+
+                <label className="form-group col-12">
+                    <input className="form-control" type="checkbox" defaultChecked={true} ref={this.isFullRef} value="1" /> <span>This course is full</span>
                 </label>
 
                 <div className="form-group col-12">

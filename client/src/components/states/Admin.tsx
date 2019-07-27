@@ -9,6 +9,6 @@ export interface AdminViewState extends AdminAuthentication {
     message: IStatus;
 };
 
-export interface AdminViewProps extends AdminAuthentication{
+export interface AdminViewProps extends AdminAuthentication {
     
 };

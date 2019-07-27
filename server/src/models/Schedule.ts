@@ -47,6 +47,10 @@ export const ScheduleSchema: Schema = new Schema({
 
     description: {
         type: String
+    },
+
+    isFull: {
+        type: Boolean
     }
 });
 

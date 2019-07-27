@@ -13,6 +13,7 @@ export interface ScheduleFormState extends AdminViewState  {
     location: string;
     description: string;
     message: IStatus;
+    isFull: boolean;
 };
 
 export interface ScheduleViewAllState extends AdminViewState {
@@ -28,9 +29,14 @@ export interface ScheduleViewOneState extends AdminViewState  {
     capacity: string;
     ageRestrictions: string;
     cost: string;
+    isFull: boolean;
     location: string;
     description: string;
     message: IStatus;
+    modal?: {
+        title: string;
+        message: string;
+    };
 };
 
 export interface ScheduleFormProps extends AdminViewProps {

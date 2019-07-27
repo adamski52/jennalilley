@@ -1,8 +1,8 @@
-import AboutService from "../services/AboutService";
+import HomeService from "../services/HomeService";
 import BaseController from "./BaseController";
 
-export default class AboutController extends BaseController {
-    constructor(service:AboutService = new AboutService()) {
+export default class HomeController extends BaseController {
+    constructor(service:HomeService = new HomeService()) {
         super(service, {
             create: {
                 requireAdmin: true

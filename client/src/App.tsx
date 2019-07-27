@@ -27,6 +27,7 @@ import AboutForm from './components/admin/about/AboutForm';
 import BlogsFormList from './components/admin/blogs/BlogsFormList';
 import HeroImage from './components/pages/home/HeroImage';
 import ContactBar from './components/ContactBar';
+import HomeForm from './components/admin/home/HomeForm';
 
 export default class App extends React.Component<any, AppState> {
     constructor(props: any) {
@@ -72,7 +73,9 @@ export default class App extends React.Component<any, AppState> {
                 <Route path="/" exact render={(routeProps) => {
                     return (
                         <div className="container-fluid">
-                            <Nav className="col-lg-3 col-md-4 col-sm-4 col-xs-7 home" {...routeProps}  {...this.state.authentication} />
+                            <div className="row">
+                                <Nav className="col-lg-3 col-md-4 col-sm-4 col-xs-7 home" {...routeProps}  {...this.state.authentication} />
+                            </div>
                             <div className="home-page row">
                                 <HeroImage {...routeProps} {...this.state.authentication} />
                                 <div className="col-xs-12 col-sm-8">
@@ -170,7 +173,27 @@ export default class App extends React.Component<any, AppState> {
                     return (
                         <div className="container-fluid">
                             <Nav className="row inner" {...routeProps} {...this.state.authentication} />
+                            <Account {...routeProps} {...this.state.authentication} />
+                        </div>
+                    );
+                }} />
+
+
+
+                <Route path="/admin/" exact render={(routeProps) => {
+                    return (
+                        <div className="container-fluid">
+                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
                             <AdminNav {...routeProps} {...this.state.authentication} />
+                        </div>
+                    );
+                }} />
+
+                <Route exact path="/admin/home" render={(routeProps) => {
+                    return (
+                        <div className="container-fluid">
+                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
+                            <HomeForm {...routeProps} {...this.state.authentication} />
                         </div>
                     );
                 }} />

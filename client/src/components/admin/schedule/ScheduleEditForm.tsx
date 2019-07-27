@@ -22,6 +22,10 @@ export default class ScheduleEditForm extends ScheduleForm {
         return;
     }
 
+    if (!window.confirm("Deleting a class will disenroll everyone enrolled without notifying them.  That's up to you.  Are you sure you want to do this?")) {
+        return;
+    }
+
     HttpService.delete("/api/schedule/" + this.props.match.params.id).then(() => {
         this.setState({
             message: {
@@ -58,6 +62,7 @@ export default class ScheduleEditForm extends ScheduleForm {
             cost: json.cost,
             location: json.location,
             description: json.description,
+            isFull: json.isFull,
             message: {
                 message: "",
                 type: ""
@@ -89,6 +94,7 @@ export default class ScheduleEditForm extends ScheduleForm {
         ageRestrictions: RefUtil.getValue(this.ageRestrictionsRef, ""),
         cost: RefUtil.getValue(this.costRef, ""),
         location: RefUtil.getValue(this.locationRef, ""),
+        isFull: RefUtil.getValue(this.isFullRef, "") === "1",
         description: this.state.description
     };
 

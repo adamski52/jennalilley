@@ -7,7 +7,6 @@ export default class HeroImage extends React.Component<HomeViewProps, HomeViewSt
         super(props);
 
         this.state = {
-            content: "<p>oh hi</p>",
             message: {
                 message: "",
                 type: ""

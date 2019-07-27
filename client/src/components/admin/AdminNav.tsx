@@ -22,6 +22,10 @@ export default class AdminNav extends BaseAdminPage<AdminViewProps, AdminViewSta
             <div className="main-content">
                 <h2>Administration</h2>
                 <div className="admin-section">
+                    <h3>Home Page</h3>
+                    <Link to="/admin/home" className="btn btn-admin icon-home">Edit Home Section</Link>
+                </div>
+                <div className="admin-section">
                     <h3>About</h3>
                     <Link to="/admin/about" className="btn btn-admin icon-info-circle">Edit About Section</Link>
                 </div>
