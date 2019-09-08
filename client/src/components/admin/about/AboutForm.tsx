@@ -1,13 +1,11 @@
 import React, { MouseEvent } from 'react';
-import CKEditor from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { AboutFormProps, AboutFormState } from '../../states/About';
 import HttpService from '../../../util/HttpService';
 import { STATUS } from '../../StatusBar';
-import UploadAdapter from '../../../image-upload/UploadAdapter';
 import BaseAdminPage from '../BaseAdminPage';
 import NevermindButton from '../../buttons/NevermindButton';
 import SaveButton from '../../buttons/SaveButton';
+import RichInputText from "../../form/RichTextInput";
 
 export default class AboutForm extends BaseAdminPage<AboutFormProps, AboutFormState> {
   constructor(props: AboutFormProps) {
@@ -53,28 +51,14 @@ export default class AboutForm extends BaseAdminPage<AboutFormProps, AboutFormSt
       <div>
         <h2>About Page</h2>
         <form>
-            <CKEditor
-              editor={ClassicEditor}
-              data={this.state.content}
-              config={{
-                extraPlugins: [UploadAdapter.AttachUploadAdapterPlugin],
-                image: {
-                  toolbar: [ 'imageTextAlternative', '|', 'imageStyle:alignLeft', 'imageStyle:full', 'imageStyle:alignRight' ],
-                  styles: [
-                      'full',
-                      'alignLeft',
-                      'alignRight'
-                  ]
-                }
-              }}
-              onChange={(_event: any, editor: any) => {
-                this.setState({
-                  content: editor.getData()
-                });
-              }}
-            />
-            <NevermindButton authentication={this.props.authentication} />
-            <SaveButton onClick={this.onSubmit} authentication={this.props.authentication} />
+          <RichInputText content={this.state.content} onChange={(data:string) => {
+            this.setState({
+              content: data
+            });
+          }} />
+          
+          <NevermindButton authentication={this.props.authentication} />
+          <SaveButton onClick={this.onSubmit} authentication={this.props.authentication} />
         </form>
       </div>
     );

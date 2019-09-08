@@ -3,12 +3,11 @@ import { ContactFormProps, ContactFormState } from '../../states/Contact';
 import HttpService from '../../../util/HttpService';
 import { STATUS } from '../../StatusBar';
 import RefUtil from '../../../util/RefUtil';
-import CKEditor from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import UploadAdapter from '../../../image-upload/UploadAdapter';
 import BaseAdminPage from '../BaseAdminPage';
 import NevermindButton from '../../buttons/NevermindButton';
 import SaveButton from '../../buttons/SaveButton';
+import TextInput from '../../form/TextInput';
+import RichTextInput from '../../form/RichTextInput';
 
 export default class ContactForm extends BaseAdminPage<ContactFormProps, ContactFormState> {
   private serviceUrl = "/api/contact";
@@ -92,53 +91,16 @@ export default class ContactForm extends BaseAdminPage<ContactFormProps, Contact
             </div>
 
             <form>
-                <label>
-                    <span>Twitter Feed URL</span>
-                    <input defaultValue={this.state.twitter} type="text" ref={this.twitterRef} placeholder="Twitter Feed URL" />
-                </label>
-
-                <label>
-                    <span>Facebook URL</span>
-                    <input defaultValue={this.state.facebook} type="text" ref={this.facebookRef} placeholder="Facebook URL" />
-                </label>
-
-                <label>
-                    <span>Instagram URL</span>
-                    <input defaultValue={this.state.instagram} type="text" ref={this.instagramRef} placeholder="Instagram URL" />
-                </label>
-
-                <label>
-                    <span>Phone Number</span>
-                    <input defaultValue={this.state.phone} type="text" ref={this.phoneRef} placeholder="Phone Number" />
-                </label>
-
-                <label>
-                    <span>Email Address</span>
-                    <input defaultValue={this.state.email} type="text" ref={this.emailRef} placeholder="Email Address" />
-                </label>
-
-                <div>
-                    <CKEditor
-                        editor={ClassicEditor}
-                        data={this.state.content}
-                        config={{
-                            extraPlugins: [UploadAdapter.AttachUploadAdapterPlugin],
-                            image: {
-                                toolbar: [ 'imageTextAlternative', '|', 'imageStyle:alignLeft', 'imageStyle:full', 'imageStyle:alignRight' ],
-                                styles: [
-                                    'full',
-                                    'alignLeft',
-                                    'alignRight'
-                                ]
-                            }
-                        }}
-                        onChange={(_event: any, editor: any) => {
-                            this.setState({
-                                content: editor.getData()
-                            });
-                        }}
-                    />
-                </div>
+                <TextInput defaultValue={this.state.twitter} reference={this.twitterRef} title="Twitter Feed URL" />
+                <TextInput defaultValue={this.state.facebook} reference={this.twitterRef} title="Facebook URL" />
+                <TextInput defaultValue={this.state.instagram} reference={this.twitterRef} title="Instagram URL" />
+                <TextInput defaultValue={this.state.phone} reference={this.twitterRef} title="Phone Number" />
+                <TextInput defaultValue={this.state.email} reference={this.twitterRef} title="Email Address" />
+                <RichTextInput content={this.state.content} onChange={(data:string) => {
+                    this.setState({
+                        content: data
+                    });
+                }} />
                 <NevermindButton authentication={this.props.authentication} />
                 <SaveButton onClick={this.onSubmit} authentication={this.props.authentication} />
             </form>

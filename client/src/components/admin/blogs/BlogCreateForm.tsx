@@ -33,7 +33,7 @@ export default class BlogCreateForm extends BlogForm {
 
   protected renderButton() {
     return (
-        <div className="row admin-buttons">
+        <div>
           <NevermindButton authentication={this.props.authentication} />
           <SaveButton onClick={this.onSubmit} authentication={this.props.authentication} />
         </div>

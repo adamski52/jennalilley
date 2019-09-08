@@ -1,10 +1,9 @@
 import React, { MouseEvent } from 'react';
-import DatePicker from "react-datepicker";
 import { BlogFormProps, BlogFormState } from '../../states/Blogs';
-import CKEditor from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import UploadAdapter from '../../../image-upload/UploadAdapter';
 import BaseAdminPage from '../BaseAdminPage';
+import RichTextInput from '../../form/RichTextInput';
+import DateInput from "../../form/DateInput";
+import TextInput from '../../form/TextInput';
 
 export default class BlogForm extends BaseAdminPage<BlogFormProps, BlogFormState> {
   protected titleRef = React.createRef<HTMLInputElement>();
@@ -36,69 +35,25 @@ export default class BlogForm extends BaseAdminPage<BlogFormProps, BlogFormState
         <div>
             <h2>Schedule / Event</h2>
             <form>
-                <label>
-                    <span>Blog Title</span>
-                    <input defaultValue={this.state.title} type="text" ref={this.titleRef} placeholder="Blog Title" />
-                </label>
+                <TextInput defaultValue={this.state.title} reference={this.titleRef} title="Blog Title" />
 
-                <label>
-                    <span>Publish Date</span>
-                    <DatePicker
-                        showTimeSelect
-                        timeIntervals={15}
-                        minDate={new Date()}
-                        placeholderText="Publish Date"
-                        dateFormat="MMMM d, yyyy h:mm aa"
-                        timeCaption="Publish Time"
-                        selected={this.state.startDateTime}
-                        onChange={(date) => {
-                            this.setState({
-                                startDateTime: date
-                            });
-                        }}
-                    />
-                </label>
+                <DateInput onChange={(date: Date) => {
+                    this.setState({
+                        startDateTime: date
+                    });
+                }} date={this.state.startDateTime} title="Publish Date" caption="Publish Time" />
 
-                <label>
-                    <span>Unpublish Date</span>
-                    <DatePicker
-                        showTimeSelect
-                        timeIntervals={15}
-                        minDate={this.state.endDateTime ? this.state.endDateTime : new Date()}
-                        dateFormat="MMMM d, yyyy h:mm aa"
-                        timeCaption="Unpublish Time"
-                        placeholderText="Unpublish Date"
-                        selected={this.state.endDateTime}
-                        onChange={(date) => {
-                            this.setState({
-                                endDateTime: date
-                            });
-                        }}
-                    />
-                </label>
+                <DateInput onChange={(date: Date) => {
+                    this.setState({
+                        endDateTime: date
+                    });
+                }} date={this.state.endDateTime} title="Unpublish Date" caption="Unpublish Time" />
 
-                <div>
-                    <CKEditor
-                        editor={ClassicEditor}
-                        data={this.state.content}
-                        config={{
-                            extraPlugins: [UploadAdapter.AttachUploadAdapterPlugin],
-                            image: {
-                                toolbar: [ 'imageTextAlternative', '|', 'imageStyle:alignLeft', 'imageStyle:full', 'imageStyle:alignRight' ],
-                                styles: [
-                                    'full',
-                                    'alignLeft',
-                                    'alignRight'
-                                ]
-                            }
-                        }}
-                        onChange={(_event: any, editor: any) => {
-                            this.setState({
-                                content: editor.getData()
-                            });
-                        }}
-                    />
-                </div>
+                <RichTextInput content={this.state.content} onChange={(data: string) => {
+                    this.setState({
+                        content: data
+                    });
+                }} />
 
                 {this.renderButton()}
             </form>

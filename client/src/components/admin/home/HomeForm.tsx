@@ -1,13 +1,11 @@
 import React, { MouseEvent } from 'react';
-import CKEditor from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import HttpService from '../../../util/HttpService';
 import { STATUS } from '../../StatusBar';
-import UploadAdapter from '../../../image-upload/UploadAdapter';
 import BaseAdminPage from '../BaseAdminPage';
 import { HomeFormProps, HomeFormState } from '../../states/Home';
 import NevermindButton from '../../buttons/NevermindButton';
 import SaveButton from '../../buttons/SaveButton';
+import RichTextInput from '../../form/RichTextInput';
 
 export default class HomeForm extends BaseAdminPage<HomeFormProps, HomeFormState> {
   constructor(props: HomeFormProps) {
@@ -53,28 +51,11 @@ export default class HomeForm extends BaseAdminPage<HomeFormProps, HomeFormState
       <div>
         <h2>Home Page</h2>
         <form>
-          <div>
-            <CKEditor
-              editor={ClassicEditor}
-              data={this.state.content}
-              config={{
-                extraPlugins: [UploadAdapter.AttachUploadAdapterPlugin],
-                image: {
-                  toolbar: [ 'imageTextAlternative', '|', 'imageStyle:alignLeft', 'imageStyle:full', 'imageStyle:alignRight' ],
-                  styles: [
-                      'full',
-                      'alignLeft',
-                      'alignRight'
-                  ]
-                }
-              }}
-              onChange={(_event: any, editor: any) => {
-                this.setState({
-                  content: editor.getData()
-                });
-              }}
-            />
-          </div>
+          <RichTextInput content={this.state.content} onChange={(data:string) => {
+              this.setState({
+                  content: data
+              });
+          }} />
           <NevermindButton authentication={this.props.authentication} />
           <SaveButton onClick={this.onSubmit} authentication={this.props.authentication} />
         </form>

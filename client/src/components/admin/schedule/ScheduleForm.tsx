@@ -1,10 +1,10 @@
 import React, { MouseEvent } from 'react';
-import DatePicker from "react-datepicker";
 import { ScheduleFormProps, ScheduleFormState } from '../../states/Schedule';
-import CKEditor from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import UploadAdapter from '../../../image-upload/UploadAdapter';
 import BaseAdminPage from '../BaseAdminPage';
+import TextInput from '../../form/TextInput';
+import DateInput from '../../form/DateInput';
+import CheckboxInput from '../../form/CheckboxInput';
+import RichTextInput from '../../form/RichTextInput';
 
 export default class ScheduleForm extends BaseAdminPage<ScheduleFormProps, ScheduleFormState> {
   protected nameRef = React.createRef<HTMLInputElement>();
@@ -47,101 +47,33 @@ export default class ScheduleForm extends BaseAdminPage<ScheduleFormProps, Sched
     return (
         <div>
             <h2>Schedule / Event</h2>
-            <form >
-                <label>
-                    <span>Event Name</span>
-                    <input defaultValue={this.state.name} type="text" ref={this.nameRef} placeholder="Event Name" />
-                </label>
+            <form>
+                <TextInput defaultValue={this.state.name} reference={this.nameRef} title="Event Name" />
+                <TextInput defaultValue={this.state.type} reference={this.typeRef} title="Event Type (e.g. Hitting, Fielding, etc.)" />
+                
+                <DateInput onChange={(date: Date) => {
+                    this.setState({
+                        startDateTime: date
+                    });
+                }} date={this.state.startDateTime} title="Start Date" caption="Start Time" />
 
-                <label>
-                    <span>Event Type (e.g. Hitting, Fielding, etc.)</span>
-                    <input defaultValue={this.state.type} type="text" ref={this.typeRef} placeholder="Event Type" />
-                </label>
+                <DateInput onChange={(date: Date) => {
+                    this.setState({
+                        endDateTime: date
+                    });
+                }} date={this.state.startDateTime} title="End Date" caption="End Time" />
 
-                <label>
-                    <span>Start Date</span>
-                    <DatePicker
-                        className="form-control"
-                        showTimeSelect
-                        timeIntervals={15}
-                        minDate={new Date()}
-                        placeholderText="Start Date"
-                        dateFormat="MMMM d, yyyy h:mm aa"
-                        timeCaption="Start Time"
-                        selected={this.state.startDateTime}
-                        onChange={(date) => {
-                            this.setState({
-                                startDateTime: date
-                            });
-                        }}
-                    />
-                </label>
-
-                <label>
-                    <span>End Date</span>
-                    <DatePicker
-                        className="form-control"
-                        showTimeSelect
-                        timeIntervals={15}
-                        minDate={this.state.startDateTime ? this.state.startDateTime : new Date()}
-                        dateFormat="MMMM d, yyyy h:mm aa"
-                        timeCaption="End Time"
-                        placeholderText="End Date"
-                        selected={this.state.endDateTime}
-                        onChange={(date) => {
-                            this.setState({
-                                endDateTime: date
-                            });
-                        }}
-                    />
-                </label>
-
-                <label>
-                    <span>Capacity</span>
-                    <input defaultValue={this.state.capacity} type="text" ref={this.capacityRef} placeholder="Capacity" />
-                </label>
-
-                <label>
-                    <span>Age Restrictions (e.g. 10+, none, etc.)</span>
-                    <input defaultValue={this.state.ageRestrictions} type="text" ref={this.ageRestrictionsRef} placeholder="Age Restrictions (e.g. 10+, none, etc.)" />
-                </label>
-
-                <label>
-                    <span>Cost (e.g. $100/person, $100/group, etc.)</span>
-                    <input defaultValue={this.state.cost} type="text" ref={this.costRef} placeholder="Cost (e.g. $100/person, $100/group, etc.)" />
-                </label>
-
-                <label>
-                    <span>Location</span>
-                    <input defaultValue={this.state.location} type="text" ref={this.locationRef} placeholder="Location" />
-                </label>
-
-                <label>
-                    <input type="checkbox" defaultChecked={true} ref={this.isFullRef} value="1" /> <span>This course is full</span>
-                </label>
-
-                <div>
-                    <CKEditor
-                        editor={ClassicEditor}
-                        data={this.state.description}
-                        config={{
-                            extraPlugins: [UploadAdapter.AttachUploadAdapterPlugin],
-                            image: {
-                                toolbar: [ 'imageTextAlternative', '|', 'imageStyle:alignLeft', 'imageStyle:full', 'imageStyle:alignRight' ],
-                                styles: [
-                                    'full',
-                                    'alignLeft',
-                                    'alignRight'
-                                ]
-                            }
-                        }}
-                        onChange={(_event: any, editor: any) => {
-                            this.setState({
-                                description: editor.getData()
-                            });
-                        }}
-                    />
-                </div>
+                <TextInput defaultValue={this.state.capacity} reference={this.capacityRef} title="Capacity" />
+                <TextInput defaultValue={this.state.ageRestrictions} reference={this.ageRestrictionsRef} title="Age Restrictions (e.g. 10+, none, etc.)" />
+                <TextInput defaultValue={this.state.cost} reference={this.costRef} title="Cost (e.g. $100/person, $100/group, etc.)" />
+                <TextInput defaultValue={this.state.location} reference={this.locationRef} title="Location" />
+                <CheckboxInput reference={this.isFullRef} title="This course is full" />
+                <TextInput defaultValue={this.state.type} reference={this.typeRef} title="Event Type (e.g. Hitting, Fielding, etc.)" />
+                <RichTextInput content={this.state.description} onChange={(data:string) => {
+                    this.setState({
+                        description: data
+                    });
+                }} />
 
                 {this.renderButton()}
             </form>
