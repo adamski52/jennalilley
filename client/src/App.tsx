@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Nav from './components/Nav';
+import Modal from './components/Modal';
 
 import AboutPage from './components/pages/about/AboutPage';
 import HomePage from './components/pages/home/HomePage';
@@ -25,9 +26,8 @@ import BlogEditForm from './components/admin/blogs/BlogEditForm';
 import BlogCreateForm from './components/admin/blogs/BlogCreateForm';
 import AboutForm from './components/admin/about/AboutForm';
 import BlogsFormList from './components/admin/blogs/BlogsFormList';
-import HeroImage from './components/pages/home/HeroImage';
-import ContactBar from './components/ContactBar';
 import HomeForm from './components/admin/home/HomeForm';
+import AccountPage from './components/pages/account/AccountPage';
 
 export default class App extends React.Component<any, AppState> {
     constructor(props: any) {
@@ -41,9 +41,22 @@ export default class App extends React.Component<any, AppState> {
             message: {
                 message: "",
                 type: ""
+            },
+            modal: {
+                title: "",
+                message: ""
             }
         };
 
+        this.checkAuth();
+
+        this.setGlobalMessage = this.setGlobalMessage.bind(this);
+        this.clearGlobalMessage = this.clearGlobalMessage.bind(this);
+        this.setModalMessage = this.setModalMessage.bind(this);
+        this.clearModalMessage = this.clearModalMessage.bind(this);
+    }
+
+    private checkAuth() {
         HttpService.get("/api/whoami").then((response) => {
             let isAdmin = response.roles.find((role: any) => {
                 return role.name.toUpperCase() === "ADMIN";
@@ -65,217 +78,168 @@ export default class App extends React.Component<any, AppState> {
         });
     }
 
+    public componentWillUpdate() {
+        this.checkAuth();
+    }
+
+    private setGlobalMessage(type:string, message:string) {
+        this.setState({
+            message: {
+                type: type,
+                message: message
+            }
+        });
+    }
+
+    private clearGlobalMessage() {
+        this.setState({
+            message: {
+                message: "",
+                type: ""
+            }
+        });
+    }
+
+    private setModalMessage(title:string, message:string) {
+        this.setState({
+            modal: {
+                title: title,
+                message: message
+            }
+        });
+    }
+
+    private clearModalMessage() {
+        this.setState({
+            modal: {
+                title: "",
+                message: ""
+            }
+        });
+    }
+
     public render() {
+        let globalProps = {
+            authentication: this.state.authentication,
+            setModalMessage: this.setModalMessage,
+            setGlobalMessage: this.setGlobalMessage,
+            clearGlobalMessage: this.clearGlobalMessage,
+            clearModalMessage: this.clearModalMessage
+        };
+
         return (
             <Router>
-                <LoginBar {...this.state.authentication} />
+                <Modal message={this.state.modal.message} title={this.state.modal.title} onClose={this.clearModalMessage} />
 
+                <LoginBar {...globalProps} />
+
+                <Nav {...globalProps} />
+                
                 <Route path="/" exact render={(routeProps) => {
                     return (
-                        <div className="container-fluid">
-                            <div className="row">
-                                <Nav className="col-lg-3 col-md-4 col-sm-4 col-xs-7 home" {...routeProps}  {...this.state.authentication} />
-                            </div>
-                            <div className="home-page row">
-                                <HeroImage {...routeProps} {...this.state.authentication} />
-                                <div className="col-xs-12 col-sm-8">
-                                    <HomePage {...routeProps} {...this.state.authentication} />
-                                </div>
-                                <div className="col-xs-12 col-sm-4 left-bar">
-                                    <ContactBar />
-                                </div>
-                            </div>
-                        </div>
+                        <HomePage {...routeProps} {...globalProps} />
                     );
                 }} />
 
                 <Route path="/about/" exact render={(routeProps) => {
                     return (
-                        <div className="container-fluid">
-                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
-                            <div className="row">
-                                <div className="col-xs-12 col-sm-8">
-                                    <AboutPage {...routeProps} {...this.state.authentication} />
-                                </div>
-                                <div className="col-xs-12 col-sm-4 left-bar">
-                                    <ContactBar />
-                                </div>
-                            </div>
-                        </div>
+                        <AboutPage {...routeProps} {...globalProps} />
                     );
                 }} />
 
                 <Route path="/blogs/" exact render={(routeProps) => {
                     return (
-                        <div className="container-fluid">
-                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
-                            <div className="row">
-                                <div className="col-xs-12 col-sm-8">
-                                    <BlogsPage {...routeProps} {...this.state.authentication} />
-                                </div>
-                                <div className="col-xs-12 col-sm-4 left-bar">
-                                    <ContactBar />
-                                </div>
-                            </div>
-                        </div>
+                        <BlogsPage {...routeProps} {...globalProps} />
                     );
                 }} />
 
                 <Route path="/schedule/" exact render={(routeProps) => {
                     return (
-                        <div className="container-fluid">
-                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
-                            <div className="row">
-                                <div className="col-xs-12 col-sm-8">
-                                    <SchedulePage {...routeProps} {...this.state.authentication} />
-                                </div>
-                                <div className="col-xs-12 col-sm-4 left-bar">
-                                    <ContactBar />
-                                </div>
-                            </div>
-                        </div>
+                        <SchedulePage {...routeProps} {...globalProps} />
                     );
                 }} />
 
                 <Route path="/schedule/:id" exact render={(routeProps) => {
                     return (
-                        <div className="container-fluid">
-                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
-                            <div className="row">
-                                <div className="col-xs-12 col-sm-8">
-                                    <ScheduleOnePage {...routeProps} {...this.state.authentication} />
-                                </div>
-                                <div className="col-xs-12 col-sm-4 left-bar">
-                                    <ContactBar />
-                                </div>
-                            </div>
-                        </div>
+                        <ScheduleOnePage {...routeProps} {...globalProps} />
                     );
                 }} />
 
                 <Route path="/contact/" exact render={(routeProps) => {
                     return (
-                        <div className="container-fluid">
-                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
-                            <div className="row">
-                                <div className="col-xs-12 col-sm-8">
-                                    <ContactPage {...routeProps} {...this.state.authentication} />
-                                </div>
-                                <div className="col-xs-12 col-sm-4 left-bar">
-                                    <ContactBar />
-                                </div>
-                            </div>
-                        </div>
+                        <ContactPage {...routeProps} {...globalProps} />
+                    );
+                }} />
+
+                <Route path="/account/" exact render={(routeProps) => {
+                    return (
+                        <AccountPage {...routeProps} {...globalProps} />
                     );
                 }} />
 
                 <Route path="/admin/" exact render={(routeProps) => {
                     return (
-                        <div className="container-fluid">
-                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
-                            <Account {...routeProps} {...this.state.authentication} />
-                        </div>
-                    );
-                }} />
-
-
-
-                <Route path="/admin/" exact render={(routeProps) => {
-                    return (
-                        <div className="container-fluid">
-                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
-                            <AdminNav {...routeProps} {...this.state.authentication} />
-                        </div>
+                        <AdminNav {...routeProps} {...globalProps} />
                     );
                 }} />
 
                 <Route exact path="/admin/home" render={(routeProps) => {
                     return (
-                        <div className="container-fluid">
-                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
-                            <HomeForm {...routeProps} {...this.state.authentication} />
-                        </div>
+                        <HomeForm {...routeProps} {...globalProps} />
                     );
                 }} />
 
                 <Route exact path="/admin/about" render={(routeProps) => {
                     return (
-                        <div className="container-fluid">
-                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
-                            <AboutForm {...routeProps} {...this.state.authentication} />
-                        </div>
+                        <AboutForm {...routeProps} {...globalProps} />
                     );
                 }} />
 
                 <Route exact path="/admin/blogs" render={(routeProps) => {
                     return (
-                        <div className="container-fluid">
-                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
-                            <BlogsFormList {...routeProps} {...this.state.authentication} />
-                        </div>
+                        <BlogsFormList {...routeProps} {...globalProps} />
                     );
                 }} />
 
                 <Route exact path="/admin/blogs/create" render={(routeProps) => {
                     return (
-                        <div className="container-fluid">
-                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
-                            <BlogCreateForm {...routeProps} {...this.state.authentication} />
-                        </div>
+                        <BlogCreateForm {...routeProps} {...globalProps} />
                     );
                 }} />
 
                 <Route exact path="/admin/blogs/edit/:id" render={(routeProps) => {
                     return (
-                        <div className="container-fluid">
-                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
-                            <BlogEditForm {...routeProps} {...this.state.authentication} />
-                        </div>
+                        <BlogEditForm {...routeProps} {...globalProps} />
                     );
                 }} />
 
                 <Route exact path="/admin/schedule" render={(routeProps) => {
                     return (
-                        <div className="container-fluid">
-                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
-                            <ScheduleFormList {...routeProps} {...this.state.authentication} />
-                        </div>
+                        <ScheduleFormList {...routeProps} {...globalProps} />
                     );
                 }} />
 
                 <Route exact path="/admin/schedule/create" render={(routeProps) => {
                     return (
-                        <div className="container-fluid">
-                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
-                            <ScheduleCreateForm {...routeProps} {...this.state.authentication} />
-                        </div>
+                        <ScheduleCreateForm {...routeProps} {...globalProps} />
                     );
                 }} />
 
                 <Route exact path="/admin/schedule/edit/:id" render={(routeProps) => {
                     return (
-                        <div className="container-fluid">
-                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
-                            <ScheduleEditForm {...routeProps} {...this.state.authentication} />
-                        </div>
+                        <ScheduleEditForm {...routeProps} {...globalProps} />
                     );
                 }} />
 
                 <Route exact path="/admin/users" render={(routeProps) => {
                     return (
-                        <div className="container-fluid">
-                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
-                            <UserFormList {...routeProps} {...this.state.authentication} />
-                        </div>
+                        <UserFormList {...routeProps} {...globalProps}  />
                     );
                 }} />
 
                 <Route exact path="/admin/contact" render={(routeProps) => {
                     return (
-                        <div className="container-fluid">
-                            <Nav className="row inner" {...routeProps} {...this.state.authentication} />
-                            <ContactForm {...routeProps} {...this.state.authentication} />
-                        </div>
+                        <ContactForm {...routeProps} {...globalProps}  />
                     );
                 }} />
             </Router>

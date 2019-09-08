@@ -1,8 +1,8 @@
-import { IStatus } from "../../util/TypeUtils";
 import { AdminViewState, AdminViewProps } from "./Admin";
 import { ISchedule } from "../../interfaces/Schedule";
+import { BasePageProps } from "./BasePage";
 
-export interface ScheduleFormState extends AdminViewState  {
+export interface ScheduleFormState extends AdminViewState, BasePageProps {
     name: string;
     type: string;
     startDateTime: Date | null;
@@ -12,13 +12,11 @@ export interface ScheduleFormState extends AdminViewState  {
     cost: string;
     location: string;
     description: string;
-    message: IStatus;
     isFull: boolean;
 };
 
 export interface ScheduleViewAllState extends AdminViewState {
     items: ISchedule[];
-    message: IStatus;
 };
 
 export interface ScheduleViewOneState extends AdminViewState  {
@@ -32,23 +30,22 @@ export interface ScheduleViewOneState extends AdminViewState  {
     isFull: boolean;
     location: string;
     description: string;
-    message: IStatus;
     modal?: {
         title: string;
         message: string;
     };
 };
 
-export interface ScheduleFormProps extends AdminViewProps {
+export interface ScheduleFormProps extends AdminViewProps, BasePageProps {
     match?: any;
     id: string;
 };
 
-export interface ScheduleViewOneProps extends AdminViewProps {
+export interface ScheduleViewOneProps extends AdminViewProps, BasePageProps {
     id?: string;
     match?: any;
 }
 
-export interface ScheduleViewAllProps extends AdminViewProps {
+export interface ScheduleViewAllProps extends AdminViewProps, BasePageProps {
 
 }

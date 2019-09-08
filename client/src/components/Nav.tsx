@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import SigImg from "../img/sig-white-with-glow.png";
-
 export default class Nav extends React.Component<any, any> {
     constructor(props:any) {
         super(props);
@@ -40,7 +38,6 @@ export default class Nav extends React.Component<any, any> {
         return (
             <nav className={this.getNavClassName()}>
                 <button onClick={this.onToggleMenu} className={this.getMenuClassName()}/>
-                <Link to="/"><img alt="Jenna Lilley" src={SigImg} /></Link>
                 <Link className="nav-item" to="/about/">About</Link>
                 <Link className="nav-item" to="/blogs/">Blogs</Link>
                 <Link className="nav-item" to="/schedule/">Schedule</Link>

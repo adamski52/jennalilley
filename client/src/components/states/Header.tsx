@@ -1,5 +1,3 @@
-import { IStatus } from "../../util/TypeUtils";
-
 export interface HeaderProps {
     
 };
@@ -10,5 +8,4 @@ export interface HeaderState {
     phone: string;
     email: string;
     instagram: string;
-    message: IStatus;
 };

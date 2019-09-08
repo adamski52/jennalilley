@@ -1,9 +1,11 @@
-import React, { FormEvent } from 'react';
+import React, { MouseEvent } from 'react';
 import BlogForm from './BlogForm';import { BlogFormProps } from '../../states/Blogs';
 import HttpService from '../../../util/HttpService';
 import { STATUS } from '../../StatusBar';
 import RefUtil from '../../../util/RefUtil';
-import { Link } from "react-router-dom";
+import NevermindButton from '../../buttons/NevermindButton';
+import DeleteButton from '../../buttons/DeleteButton';
+import SaveButton from '../../buttons/SaveButton';
 
 export default class BlogEditForm extends BlogForm {
     constructor(props:BlogFormProps) {
@@ -29,12 +31,7 @@ export default class BlogEditForm extends BlogForm {
                 endDateTime: json.endDateTime ? new Date(json.endDateTime) : null
             });
         }).catch(() => {
-            this.setState({
-                message: {
-                    message: "Failed to load blog.",
-                    type: STATUS.ERROR
-                }
-            });
+            this.props.setGlobalMessage(STATUS.ERROR, "Failed to load blog.");
         });
     }
 
@@ -44,26 +41,16 @@ export default class BlogEditForm extends BlogForm {
         }
 
         HttpService.delete("/api/blogs/" + this.props.match.params.id).then(() => {
-            this.setState({
-                message: {
-                    type: STATUS.SUCCESS,
-                    message: "Blog deleted successfully."
-                }
-            });
-
+            this.props.setGlobalMessage(STATUS.SUCCESS, "Blog deleted successfully.");
+            
             this.onFetch();
         }).catch(() => {
-            this.setState({
-                message: {
-                    type: STATUS.ERROR,
-                    message: "Failed to delete blog."
-                }
-            });
+            this.props.setGlobalMessage(STATUS.ERROR, "Failed to delete blog.");
         });
     }
 
 
-    protected onSubmit(e:FormEvent<HTMLFormElement>) {
+    protected onSubmit(e:MouseEvent<HTMLButtonElement>) {
         e.preventDefault();
         if(!this.props.match.params || !this.props.match.params.id) {
             return;
@@ -78,32 +65,18 @@ export default class BlogEditForm extends BlogForm {
         };
 
         HttpService.put("/api/blogs/" + this.props.match.params.id, payload).then(() => {
-            this.setState({
-                message: {
-                    type: STATUS.SUCCESS,
-                    message: "Blog updated."
-                }
-            });
+            this.props.setGlobalMessage(STATUS.SUCCESS, "Blog updated successfully.");
         }).catch(() => {
-            this.setState({
-                message: {
-                    type: STATUS.ERROR,
-                    message: "Failed to update blog."
-                }
-            });
+            this.props.setGlobalMessage(STATUS.ERROR, "Failed to update blog.");
         });
     }
 
     protected renderButton() {
         return (
-            <div className="row admin-buttons">
-                <div className="col-6">
-                    <Link to="/admin" className="btn btn-admin icon-undo">Nevermind</Link>
-                </div>
-                <div className="col-6 text-right">
-                    <button className="btn btn-admin icon-trash" onClick={this.onDelete}>Delete Blog</button>
-                    <button className="btn btn-admin icon-floppy-o">Update Blog</button>
-                </div>
+            <div>
+                <NevermindButton authentication={this.props.authentication} />
+                <DeleteButton authentication={this.props.authentication} />
+                <SaveButton authentication={this.props.authentication} />
             </div>
         );
     }

@@ -1,10 +1,12 @@
-import React, { FormEvent } from 'react';
+import React, { MouseEvent } from 'react';
 import ScheduleForm from './ScheduleForm';
 import { ScheduleFormProps } from '../../states/Schedule';
 import HttpService from '../../../util/HttpService';
 import { STATUS } from '../../StatusBar';
 import RefUtil from '../../../util/RefUtil';
-import { Link } from "react-router-dom";
+import NevermindButton from '../../buttons/NevermindButton';
+import SaveButton from '../../buttons/SaveButton';
+import DeleteButton from '../../buttons/DeleteButton';
 
 export default class ScheduleEditForm extends ScheduleForm {
   constructor(props:ScheduleFormProps) {
@@ -27,21 +29,11 @@ export default class ScheduleEditForm extends ScheduleForm {
     }
 
     HttpService.delete("/api/schedule/" + this.props.match.params.id).then(() => {
-        this.setState({
-            message: {
-                type: STATUS.SUCCESS,
-                message: "Event deleted successfully."
-            }
-        });
-
+        this.props.setGlobalMessage(STATUS.ERROR, "Event deleted successfully.");
+        
         this.onFetch();
     }).catch(() => {
-        this.setState({
-            message: {
-                type: STATUS.ERROR,
-                message: "Failed to delete event."
-            }
-        });
+        this.props.setGlobalMessage(STATUS.ERROR, "Failed to delete event.");
     });
   }
 
@@ -62,24 +54,16 @@ export default class ScheduleEditForm extends ScheduleForm {
             cost: json.cost,
             location: json.location,
             description: json.description,
-            isFull: json.isFull,
-            message: {
-                message: "",
-                type: ""
-            }
+            isFull: json.isFull
         });
     }).catch(() => {
-        this.setState({
-            message: {
-                message: "Failed to load event.",
-                type: STATUS.ERROR
-            }
-        });
+        this.props.setGlobalMessage(STATUS.ERROR, "Failed to load event.");
     });
   }
 
-  protected onSubmit(e:FormEvent<HTMLFormElement>) {
+  protected onSubmit(e:MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
+
     if(!this.props.match.params || !this.props.match.params.id) {
         return;
     }
@@ -99,32 +83,18 @@ export default class ScheduleEditForm extends ScheduleForm {
     };
 
     HttpService.put("/api/schedule/" + this.props.match.params.id, payload).then(() => {
-        this.setState({
-            message: {
-                type: STATUS.SUCCESS,
-                message: "Event updated."
-            }
-        });
+        this.props.setGlobalMessage(STATUS.SUCCESS, "Event updated successfully.");
     }).catch(() => {
-        this.setState({
-            message: {
-                type: STATUS.ERROR,
-                message: "Failed to update event."
-            }
-        });
+        this.props.setGlobalMessage(STATUS.ERROR, "Failed to update event.");
     });
   }
 
   protected renderButton() {
     return (
-        <div className="row admin-buttons">
-            <div className="col-6">
-                <Link to="/admin" className="btn btn-admin icon-undo">Nevermind</Link>
-            </div>
-            <div className="col-6 text-right">
-                <button className="btn btn-admin icon-trash" onClick={this.onDelete}>Delete Event</button>
-                <button className="btn btn-admin icon-floppy-o">Update Event</button>
-            </div>
+        <div>
+            <NevermindButton authentication={this.props.authentication} />
+            <DeleteButton onClick={this.onDelete} authentication={this.props.authentication} />
+            <SaveButton onClick={this.onSubmit} authentication={this.props.authentication} />
         </div>
     );
   }

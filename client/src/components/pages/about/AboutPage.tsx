@@ -1,19 +1,14 @@
 import React from "react";
 import HttpService from "../../../util/HttpService";
-import StatusBar, { STATUS } from "../../StatusBar";
+import { STATUS } from "../../StatusBar";
 import { AboutViewProps, AboutViewState } from "../../states/About";
-import { AdminViewProps } from "../../states/Admin";
 
 export default class AboutPage extends React.Component<AboutViewProps, AboutViewState> {
-    constructor(props:AdminViewProps) {
+    constructor(props:AboutViewProps) {
         super(props);
 
         this.state = {
-            item: undefined,
-            message: {
-                message: "",
-                type: ""
-            }
+            item: undefined
         };
     }
 
@@ -27,12 +22,7 @@ export default class AboutPage extends React.Component<AboutViewProps, AboutView
                 item: json[0]
             });
         }).catch((e) => {
-            this.setState({
-                message: {
-                    message: "Failed to load content.",
-                    type: STATUS.ERROR
-                }
-            });
+            this.props.setGlobalMessage(STATUS.ERROR, "Failed to load content.");
         });
     }
 
@@ -44,9 +34,7 @@ export default class AboutPage extends React.Component<AboutViewProps, AboutView
 
     public render() {
         return (
-            <div className="main-content">
-                <StatusBar {...this.state.message} />
-                
+            <div>
                 <h2>About Me</h2>
                 {this.renderItem()}
             </div>

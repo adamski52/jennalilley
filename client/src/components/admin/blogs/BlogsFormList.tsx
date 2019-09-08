@@ -1,23 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { BlogFormProps, BlogViewAllState } from '../../states/Blogs';
 import HttpService from '../../../util/HttpService';
-import StatusBar, { STATUS } from '../../StatusBar';
+import { STATUS } from '../../StatusBar';
 import { IBlog } from '../../../interfaces/Blog';
 import BaseAdminPage from '../BaseAdminPage';
+import DeleteButton from '../../buttons/DeleteButton';
+import EditButton from '../../buttons/EditButton';
 
 export default class BlogsFormList extends BaseAdminPage<BlogFormProps, BlogViewAllState> {
     constructor(props: BlogFormProps) {
         super(props);
 
         this.state = {
-            isAuthenticated: !!props.isAuthenticated,
-            isAdmin: !!props.isAdmin,
-            items: [],
-            message: {
-                message: "",
-                type: ""
-            }
+            authenticated: props.authentication,
+            items: []
         };
 
         this.onDelete = this.onDelete.bind(this);
@@ -31,12 +27,7 @@ export default class BlogsFormList extends BaseAdminPage<BlogFormProps, BlogView
                 items: json
             });
         }).catch((e) => {
-            this.setState({
-                message: {
-                    message: "Failed to load blogs.",
-                    type: STATUS.ERROR
-                }
-            });
+            this.props.setGlobalMessage(STATUS.ERROR, "Failed to load blogs.");
         });
     }
 
@@ -44,40 +35,22 @@ export default class BlogsFormList extends BaseAdminPage<BlogFormProps, BlogView
         return (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             e.preventDefault();
             HttpService.delete("/api/blogs/" + blog._id).then(() => {
-                this.setState({
-                    message: {
-                        type: STATUS.SUCCESS,
-                        message: "Blog deleted successfully."
-                    }
-                });
-
+                this.props.setGlobalMessage(STATUS.ERROR, "Blog deleted successfully.");
+                
                 this.onFetch();
             }).catch(() => {
-                this.setState({
-                    message: {
-                        type: STATUS.ERROR,
-                        message: "Failed to delete blog."
-                    }
-                });
+                this.props.setGlobalMessage(STATUS.ERROR, "Failed to delete blog.");
             });
         };
     }
 
     private renderItem(blog: any) {
         return (
-            <div className="row" key={blog._id}>
-                <div className="col-xs-6">
-                    <Link to={"/admin/blogs/edit/" + blog._id}>{blog.title}</Link>
-                </div>
-                <div className="col-xs-2">
-                    {blog.startDateTime}
-                </div>
-                <div className="col-xs-2">
-                    {blog.endDateTime}
-                </div>
-                <div className="col-xs-2">
-                    <button onClick={this.onDelete(blog)}>Delete</button>
-                </div>
+            <div key={blog._id}>
+                <EditButton to={"/admin/blogs/edit/" + blog._id} label={blog.title} authentication={this.props.authentication} />
+                {blog.startDateTime}
+                {blog.endDateTime}
+                <DeleteButton onClick={this.onDelete(blog)} authentication={this.props.authentication} />
             </div>
         );
     }
@@ -91,10 +64,7 @@ export default class BlogsFormList extends BaseAdminPage<BlogFormProps, BlogView
     protected renderAuthenticatedView() {
         return (
             <div>
-                <StatusBar {...this.state.message} />
-                <div>
-                    {this.renderItems()}
-                </div>
+                {this.renderItems()}
             </div>
         );
     }

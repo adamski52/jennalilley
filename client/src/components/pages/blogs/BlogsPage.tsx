@@ -1,7 +1,7 @@
 import React from "react";
 import HttpService from "../../../util/HttpService";
 import { BlogViewAllProps, BlogViewAllState } from "../../states/Blogs";
-import StatusBar, { STATUS } from "../../StatusBar";
+import { STATUS } from "../../StatusBar";
 import { IBlog } from "../../../interfaces/Blog";
 
 export default class BlogsPage extends React.Component<BlogViewAllProps, BlogViewAllState> {
@@ -9,11 +9,7 @@ export default class BlogsPage extends React.Component<BlogViewAllProps, BlogVie
         super(props);
 
         this.state = {
-            items: [],
-            message: {
-                message: "",
-                type: ""
-            }
+            items: []
         };
     }
 
@@ -48,12 +44,7 @@ export default class BlogsPage extends React.Component<BlogViewAllProps, BlogVie
                 items: items
             });
         }).catch(() => {
-            this.setState({
-                message: {
-                    type: STATUS.ERROR,
-                    message: "Failed to fetch blogs."
-                }
-            });
+            this.props.setGlobalMessage(STATUS.ERROR, "Failed to fetch blogs.");
         });
     }
 
@@ -63,13 +54,13 @@ export default class BlogsPage extends React.Component<BlogViewAllProps, BlogVie
         }
 
         return (
-            <p className="blog-title">{new Date(item.startDateTime).toLocaleString()}</p>
+            <p>{new Date(item.startDateTime).toLocaleString()}</p>
         );
     }
 
     private renderItem(item:IBlog) {
         return (
-          <div className="col-12 blog-post" key={item._id}>
+          <div key={item._id}>
               <h3>{item.title}</h3>
               {this.renderPostedAt(item)}
               <div dangerouslySetInnerHTML={{__html: item.content}} />
@@ -80,7 +71,7 @@ export default class BlogsPage extends React.Component<BlogViewAllProps, BlogVie
     private renderItems() {
         if(this.state.items.length <= 0) {
             return (
-                <p className="note">There are currently no blog postings.</p>
+                <p>There are currently no blog postings.</p>
             );
         }
 
@@ -91,8 +82,7 @@ export default class BlogsPage extends React.Component<BlogViewAllProps, BlogVie
   
     public render() {
       return (
-        <div className="main-content">
-              <StatusBar {...this.state.message} />
+          <div>
               <h2>Blogs</h2>
               {this.renderItems()}
           </div>

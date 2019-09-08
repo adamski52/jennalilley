@@ -1,34 +1,31 @@
-import { IStatus } from "../../util/TypeUtils";
 import { AdminViewProps } from "./Admin";
 import { IBlog } from "../../interfaces/Blog";
+import { BasePageProps } from "./BasePage";
 
 export interface BlogFormState {
     content: string;
     title: string;
     startDateTime: Date | null;
     endDateTime: Date | null;
-    message: IStatus;
 };
 
 export interface BlogViewAllState {
     items: IBlog[];
-    message: IStatus;
 };
 
 export interface BlogViewOneState {
     item?: IBlog;
-    message: IStatus;
 };
 
-export interface BlogFormProps extends AdminViewProps {
+export interface BlogFormProps extends AdminViewProps, BasePageProps {
     match?: any;
     id: string;
 };
 
-export interface BlogViewOneProps {
+export interface BlogViewOneProps extends AdminViewProps, BasePageProps {
     id?: string;
 }
 
-export interface BlogViewAllProps {
+export interface BlogViewAllProps extends AdminViewProps, BasePageProps {
 
 }

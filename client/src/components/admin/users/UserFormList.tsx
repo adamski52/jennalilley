@@ -1,22 +1,18 @@
-import React from 'react';
+import React, {MouseEvent} from 'react';
 import HttpService from '../../../util/HttpService';
-import StatusBar, { STATUS } from '../../StatusBar';
+import { STATUS } from '../../StatusBar';
 import { UserViewAllProps, UserViewAllState } from '../../states/User';
 import { IUser } from '../../../interfaces/User';
 import BaseAdminPage from '../BaseAdminPage';
+import DeleteButton from '../../buttons/DeleteButton';
 
 export default class UserFormList extends BaseAdminPage<UserViewAllProps, UserViewAllState> {
     constructor(props: UserViewAllProps) {
         super(props);
 
         this.state = {
-            isAuthenticated: !!props.isAuthenticated,
-            isAdmin: !!props.isAdmin,
-            items: [],
-            message: {
-                message: "",
-                type: ""
-            }
+            authentication: props.authentication,
+            items: []
         };
 
         this.onDelete = this.onDelete.bind(this);
@@ -29,19 +25,10 @@ export default class UserFormList extends BaseAdminPage<UserViewAllProps, UserVi
     private onFetch() {
         HttpService.get("/api/users").then((json) => {
             this.setState({
-                items: json,
-                message: {
-                    message: "",
-                    type: ""
-                }
+                items: json
             });
         }).catch(() => {
-            this.setState({
-                message: {
-                    message: "Failed to load users.",
-                    type: STATUS.ERROR
-                }
-            });
+            this.props.setGlobalMessage(STATUS.ERROR, "Failed to load users.");
         });
     }
 
@@ -57,12 +44,7 @@ export default class UserFormList extends BaseAdminPage<UserViewAllProps, UserVi
         HttpService.put("/api/users/" + user._id + "/promote", user).then((response: Response) => {
             return this.onFetch();
         }).catch(() => {
-            this.setState({
-                message: {
-                    message: "Failed to promote user.",
-                    type: STATUS.ERROR
-                }
-            });
+            this.props.setGlobalMessage(STATUS.ERROR, "Failed to promote user.");
         });
     }
 
@@ -72,32 +54,24 @@ export default class UserFormList extends BaseAdminPage<UserViewAllProps, UserVi
         }
 
         HttpService.put("/api/users/" + user._id + "/demote", user).then((response: Response) => {
-            return this.onFetch();
+            this.onFetch();
         }).catch(() => {
-            this.setState({
-                message: {
-                    message: "Failed to demote user.",
-                    type: STATUS.ERROR
-                }
-            });
+            this.props.setGlobalMessage(STATUS.ERROR, "Failed to demote user.");
         });
     }
 
     private onDelete(user: IUser) {
-        if (!window.confirm("Deleting a user will break any connections they have to this site.\n\nThey will have to re-create their account from scratch.\n\nAre you sure you want to do this?")) {
-            return;
-        }
+        return (e:MouseEvent<HTMLButtonElement>) => {
+            if (!window.confirm("Deleting a user will break any connections they have to this site.\n\nThey will have to re-create their account from scratch.\n\nAre you sure you want to do this?")) {
+                return;
+            }
 
-        HttpService.delete("/api/users/" + user._id).then(() => {
-            return this.onFetch();
-        }).catch(() => {
-            this.setState({
-                message: {
-                    message: "Failed to delete user.",
-                    type: STATUS.ERROR
-                }
+            HttpService.delete("/api/users/" + user._id).then(() => {
+                this.onFetch();
+            }).catch(() => {
+                this.props.setGlobalMessage(STATUS.ERROR, "Failed to delete user.");
             });
-        });
+        };
     }
 
     private getRoleButton(user: IUser) {
@@ -117,14 +91,6 @@ export default class UserFormList extends BaseAdminPage<UserViewAllProps, UserVi
             <button className="btn btn-status-warn icon-user-times" onClick={(e) => {
                 return this.onDemote(user);
             }}>Demote</button>
-        );
-    }
-
-    private getDeleteButton(user: IUser) {
-        return (
-            <button className="btn btn-status-error icon-trash" onClick={(e) => {
-                return this.onDelete(user);
-            }}>Delete</button>
         );
     }
 
@@ -167,17 +133,13 @@ export default class UserFormList extends BaseAdminPage<UserViewAllProps, UserVi
 
     private renderItem(item: IUser) {
         return (
-            <div key={item._id} className="admin-section">
-                <p className="text-large">{item.name}</p>
+            <div key={item._id}>
+                <p>{item.name}</p>
                 <p>{item.email}</p>
-                <div className="admin-subsection">
-                    {this.getProviderDetails(item)}
-                    {this.renderRoles(item)}
-                </div>
-                <div className="admin-subsection text-right">
-                    {this.getRoleButton(item)}
-                    {this.getDeleteButton(item)}
-                </div>
+                {this.getProviderDetails(item)}
+                {this.renderRoles(item)}
+                {this.getRoleButton(item)}
+                <DeleteButton onClick={this.onDelete(item)} authentication={this.props.authentication} />
             </div>
         );
     }
@@ -190,8 +152,7 @@ export default class UserFormList extends BaseAdminPage<UserViewAllProps, UserVi
 
     public render() {
         return (
-            <div className="main-content">
-                <StatusBar {...this.state.message} />
+            <div>
                 {this.renderItems()}
             </div>
         );

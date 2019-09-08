@@ -1,9 +1,10 @@
-import { AdminAuthentication } from "./Admin";
+import { AdminAuthentication, AdminViewProps, AdminViewState } from "./Admin";
+import { BasePageProps } from "./BasePage";
 
-export interface LoginProps extends AdminAuthentication{
+export interface LoginProps extends AdminViewProps, BasePageProps {
 
 };
 
-export interface LoginState extends AdminAuthentication {
+export interface LoginState extends AdminViewState {
 
 };

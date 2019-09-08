@@ -1,12 +1,13 @@
-import React, { FormEvent } from 'react';
+import React, { MouseEvent } from 'react';
 import ScheduleForm from './ScheduleForm';
 import RefUtil from '../../../util/RefUtil';
 import HttpService from '../../../util/HttpService';
 import { STATUS } from '../../StatusBar';
-import { Link } from "react-router-dom";
+import NevermindButton from '../../buttons/NevermindButton';
+import SaveButton from '../../buttons/SaveButton';
 
 export default class ScheduleCreateForm extends ScheduleForm {
-  protected onSubmit(e:FormEvent<HTMLFormElement>) {
+  protected onSubmit(e:MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     let payload = {
         name: RefUtil.getValue(this.nameRef, ""),
@@ -22,31 +23,17 @@ export default class ScheduleCreateForm extends ScheduleForm {
     };
 
     HttpService.post("/api/schedule", payload).then(() => {
-        this.setState({
-            message: {
-                type: STATUS.SUCCESS,
-                message: "Event created."
-            }
-        });
+        this.props.setGlobalMessage(STATUS.SUCCESS, "Event created successfully.");
     }).catch(() => {
-        this.setState({
-            message: {
-                type: STATUS.ERROR,
-                message: "Failed to create event."
-            }
-        });
+        this.props.setGlobalMessage(STATUS.ERROR, "Failed to create event.");
     });
   }
 
   protected renderButton() {
     return (
-        <div className="row admin-buttons">
-            <div className="col-6">
-                <Link to="/admin" className="btn btn-admin icon-undo">Nevermind</Link>
-            </div>
-            <div className="col-6 text-right">
-                <button className="btn btn-admin icon-floppy-o">Create Event</button>
-            </div>
+        <div>
+            <NevermindButton authentication={this.props.authentication} />
+            <SaveButton onClick={this.onSubmit} authentication={this.props.authentication} />
         </div>
     );
   }

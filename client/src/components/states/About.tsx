@@ -1,21 +1,20 @@
-import { IStatus } from "../../util/TypeUtils";
 import { AdminViewProps } from "./Admin";
+import { BasePageProps } from "./BasePage";
+
 import { IAbout } from "../../interfaces/About";
 
-export interface AboutFormProps extends AdminViewProps {
+export interface AboutFormProps extends AdminViewProps, BasePageProps {
 
 };
 
-export interface AboutViewProps {
+export interface AboutViewProps extends AdminViewProps, BasePageProps {
 
 };
 
 export interface AboutFormState {
     content: string;
-    message: IStatus;
 };
 
 export interface AboutViewState {
   item?: IAbout;
-  message: IStatus;
 };

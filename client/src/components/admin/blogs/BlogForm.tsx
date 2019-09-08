@@ -1,7 +1,6 @@
-import React, { FormEvent } from 'react';
+import React, { MouseEvent } from 'react';
 import DatePicker from "react-datepicker";
 import { BlogFormProps, BlogFormState } from '../../states/Blogs';
-import StatusBar from '../../StatusBar';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import UploadAdapter from '../../../image-upload/UploadAdapter';
@@ -14,16 +13,11 @@ export default class BlogForm extends BaseAdminPage<BlogFormProps, BlogFormState
     super(props);
 
     this.state = {
-        isAuthenticated: !!props.isAuthenticated,
-        isAdmin: !!props.isAdmin,
+        authentication: props.authentication,
         content: "",
         title: "",
         startDateTime: null,
-        endDateTime: null,
-        message: {
-            message: "",
-            type: ""
-        }
+        endDateTime: null
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -33,26 +27,23 @@ export default class BlogForm extends BaseAdminPage<BlogFormProps, BlogFormState
     return null;
   }
 
-  protected onSubmit(e:FormEvent<HTMLFormElement>) {
+  protected onSubmit(e:MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
   }
 
   protected renderAuthenticatedView() {
     return (
-        <div className="main-content">
-            <StatusBar {...this.state.message} />
-
+        <div>
             <h2>Schedule / Event</h2>
-            <form onSubmit={this.onSubmit}>
-                <label className="form-group col-12">
+            <form>
+                <label>
                     <span>Blog Title</span>
-                    <input className="form-control" defaultValue={this.state.title} type="text" ref={this.titleRef} placeholder="Blog Title" />
+                    <input defaultValue={this.state.title} type="text" ref={this.titleRef} placeholder="Blog Title" />
                 </label>
 
-                <label className="form-group col-12">
+                <label>
                     <span>Publish Date</span>
                     <DatePicker
-                        className="form-control"
                         showTimeSelect
                         timeIntervals={15}
                         minDate={new Date()}
@@ -68,10 +59,9 @@ export default class BlogForm extends BaseAdminPage<BlogFormProps, BlogFormState
                     />
                 </label>
 
-                <label className="form-group col-12">
+                <label>
                     <span>Unpublish Date</span>
                     <DatePicker
-                        className="form-control"
                         showTimeSelect
                         timeIntervals={15}
                         minDate={this.state.endDateTime ? this.state.endDateTime : new Date()}
@@ -87,7 +77,7 @@ export default class BlogForm extends BaseAdminPage<BlogFormProps, BlogFormState
                     />
                 </label>
 
-                <div className="form-group col-12">
+                <div>
                     <CKEditor
                         editor={ClassicEditor}
                         data={this.state.content}

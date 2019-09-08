@@ -1,6 +1,6 @@
 import React from "react";
 import HttpService from "../../../util/HttpService";
-import StatusBar, { STATUS } from "../../StatusBar";
+import { STATUS } from "../../StatusBar";
 import { ContactViewProps, ContactViewState } from "../../states/Contact";
 import EmailForm from "./EmailForm";
 
@@ -9,11 +9,7 @@ export default class ContactPage extends React.Component<ContactViewProps, Conta
         super(props);
 
         this.state = {
-            item: undefined,
-            message: {
-                message: "",
-                type: ""
-            }
+            item: undefined
         };
     }
 
@@ -27,9 +23,7 @@ export default class ContactPage extends React.Component<ContactViewProps, Conta
         }
         
         return (
-            <div className="col-12">
-                <EmailForm />
-            </div>
+            <EmailForm />
         );
     }
 
@@ -39,12 +33,7 @@ export default class ContactPage extends React.Component<ContactViewProps, Conta
                 item: json[0]
             });
         }).catch((e) => {
-            this.setState({
-                message: {
-                    message: "Failed to load content.",
-                    type: STATUS.ERROR
-                }
-            });
+            this.props.setGlobalMessage(STATUS.ERROR, "Failed to load content.");
         });
     }
 
@@ -54,19 +43,16 @@ export default class ContactPage extends React.Component<ContactViewProps, Conta
         }
 
         return (
-            <div>
-                <div className="col-12" dangerouslySetInnerHTML={{__html: this.state.item ? this.state.item.content : ""}} />
-                {this.drawEmailForm()}
-            </div>
+            <div dangerouslySetInnerHTML={{__html: this.state.item ? this.state.item.content : ""}} />
         );
     }
 
     public render() {
         return (
-            <div className="main-content">
-                <StatusBar {...this.state.message} />
+            <div>
                 <h2>Contact Me</h2>                
                 {this.renderItem()}
+                {this.drawEmailForm()}
             </div>
         );
     }

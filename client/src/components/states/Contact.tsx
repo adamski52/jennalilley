@@ -1,12 +1,12 @@
-import { IStatus } from "../../util/TypeUtils";
 import { AdminViewState, AdminViewProps } from "./Admin";
 import { IContact } from "../../interfaces/Contact";
+import { BasePageProps } from "./BasePage";
 
-export interface ContactFormProps extends AdminViewProps {
+export interface ContactFormProps extends AdminViewProps, BasePageProps {
 
 };
 
-export interface ContactViewProps {
+export interface ContactViewProps extends AdminViewProps, BasePageProps {
 
 };
 
@@ -17,14 +17,11 @@ export interface ContactFormState extends AdminViewState {
   phone: string;
   email: string;
   instagram: string;
-  message: IStatus;
 };
 
 export interface ContactViewState {
   item?: IContact;
-  message: IStatus;
 };
 
 export interface EmailFormState {
-  message: IStatus;
 };

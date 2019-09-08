@@ -5,25 +5,19 @@ export default abstract class BaseAdminPage<P, S> extends React.Component<any, a
         super(props);
 
         this.state = {
-            isAuthenticated: true,//!!props.isAuthenticated,
-            isAdmin: true,//!!props.isAdmin,
-            message: {
-                message: "",
-                type: ""
-            }
+            authentication: props.authentication
         };
     }
 
     public componentWillReceiveProps(props:any) {
         this.setState({
-            isAuthenticated: true,//!!props.isAuthenticated,
-            isAdmin: true//!!props.isAdmin
+            authentication: props.authentication
         });
     }
 
     protected renderUnauthenticatedView():JSX.Element | null {
         return (
-            <div className="unauthenticated">
+            <div>
                 You need to login to an admin account to access this page.
             </div>
         );
@@ -35,9 +29,9 @@ export default abstract class BaseAdminPage<P, S> extends React.Component<any, a
 
     public render() {
         return (
-            <div className="col-12">
-                {this.state.isAdmin === true && this.renderAuthenticatedView()}
-                {this.state.isAdmin !== true && this.renderUnauthenticatedView()}
+            <div>
+                {this.state.authentication.isAdmin === true && this.renderAuthenticatedView()}
+                {this.state.authentication.isAdmin !== true && this.renderUnauthenticatedView()}
             </div>
         );
     }

@@ -1,7 +1,6 @@
-import React, { FormEvent } from 'react';
+import React, { MouseEvent } from 'react';
 import DatePicker from "react-datepicker";
 import { ScheduleFormProps, ScheduleFormState } from '../../states/Schedule';
-import StatusBar from '../../StatusBar';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import UploadAdapter from '../../../image-upload/UploadAdapter';
@@ -20,8 +19,7 @@ export default class ScheduleForm extends BaseAdminPage<ScheduleFormProps, Sched
     super(props);
 
     this.state = {
-        isAuthenticated: !!props.isAuthenticated,
-        isAdmin: !!props.isAdmin,
+        authentication: props.authentication,
         name: "",
         type: "",
         startDateTime: null,
@@ -31,17 +29,13 @@ export default class ScheduleForm extends BaseAdminPage<ScheduleFormProps, Sched
         cost: "",
         location: "",
         description: "",
-        isFull: false,
-        message: {
-            message: "",
-            type: ""
-        }
+        isFull: false
     };
 
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  protected onSubmit(e:FormEvent<HTMLFormElement>) {
+  protected onSubmit(e:MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
   }
 
@@ -51,22 +45,20 @@ export default class ScheduleForm extends BaseAdminPage<ScheduleFormProps, Sched
 
   protected renderAuthenticatedView() {
     return (
-        <div className="main-content">
-            <StatusBar {...this.state.message} />
-
+        <div>
             <h2>Schedule / Event</h2>
-            <form onSubmit={this.onSubmit}>
-                <label className="form-group col-12">
+            <form >
+                <label>
                     <span>Event Name</span>
-                    <input className="form-control" defaultValue={this.state.name} type="text" ref={this.nameRef} placeholder="Event Name" />
+                    <input defaultValue={this.state.name} type="text" ref={this.nameRef} placeholder="Event Name" />
                 </label>
 
-                <label className="form-group col-12">
+                <label>
                     <span>Event Type (e.g. Hitting, Fielding, etc.)</span>
-                    <input className="form-control" defaultValue={this.state.type} type="text" ref={this.typeRef} placeholder="Event Type" />
+                    <input defaultValue={this.state.type} type="text" ref={this.typeRef} placeholder="Event Type" />
                 </label>
 
-                <label className="form-group col-12">
+                <label>
                     <span>Start Date</span>
                     <DatePicker
                         className="form-control"
@@ -85,7 +77,7 @@ export default class ScheduleForm extends BaseAdminPage<ScheduleFormProps, Sched
                     />
                 </label>
 
-                <label className="form-group col-12">
+                <label>
                     <span>End Date</span>
                     <DatePicker
                         className="form-control"
@@ -104,31 +96,31 @@ export default class ScheduleForm extends BaseAdminPage<ScheduleFormProps, Sched
                     />
                 </label>
 
-                <label className="form-group col-12">
+                <label>
                     <span>Capacity</span>
-                    <input className="form-control" defaultValue={this.state.capacity} type="text" ref={this.capacityRef} placeholder="Capacity" />
+                    <input defaultValue={this.state.capacity} type="text" ref={this.capacityRef} placeholder="Capacity" />
                 </label>
 
-                <label className="form-group col-12">
+                <label>
                     <span>Age Restrictions (e.g. 10+, none, etc.)</span>
-                    <input className="form-control" defaultValue={this.state.ageRestrictions} type="text" ref={this.ageRestrictionsRef} placeholder="Age Restrictions (e.g. 10+, none, etc.)" />
+                    <input defaultValue={this.state.ageRestrictions} type="text" ref={this.ageRestrictionsRef} placeholder="Age Restrictions (e.g. 10+, none, etc.)" />
                 </label>
 
-                <label className="form-group col-12">
+                <label>
                     <span>Cost (e.g. $100/person, $100/group, etc.)</span>
-                    <input className="form-control" defaultValue={this.state.cost} type="text" ref={this.costRef} placeholder="Cost (e.g. $100/person, $100/group, etc.)" />
+                    <input defaultValue={this.state.cost} type="text" ref={this.costRef} placeholder="Cost (e.g. $100/person, $100/group, etc.)" />
                 </label>
 
-                <label className="form-group col-12">
+                <label>
                     <span>Location</span>
-                    <input className="form-control" defaultValue={this.state.location} type="text" ref={this.locationRef} placeholder="Location" />
+                    <input defaultValue={this.state.location} type="text" ref={this.locationRef} placeholder="Location" />
                 </label>
 
-                <label className="form-group col-12">
-                    <input className="form-control" type="checkbox" defaultChecked={true} ref={this.isFullRef} value="1" /> <span>This course is full</span>
+                <label>
+                    <input type="checkbox" defaultChecked={true} ref={this.isFullRef} value="1" /> <span>This course is full</span>
                 </label>
 
-                <div className="form-group col-12">
+                <div>
                     <CKEditor
                         editor={ClassicEditor}
                         data={this.state.description}

@@ -1,8 +1,7 @@
 import React from 'react';
-import StatusBar, { STATUS } from '../../StatusBar';
+import { STATUS } from '../../StatusBar';
 import HttpService from '../../../util/HttpService';
 import { Link } from 'react-router-dom';
-// import Calendar from './Calendar';
 import { ScheduleViewAllState, ScheduleViewAllProps } from '../../states/Schedule';
 import { ISchedule } from '../../../interfaces/Schedule';
 
@@ -11,12 +10,7 @@ export default class SchedulePage extends React.Component<ScheduleViewAllProps, 
         super(props);
 
         this.state = {
-            isAuthenticated: !!props.isAuthenticated,
-            isAdmin: !!props.isAdmin,
-            message: {
-                message: "",
-                type: ""
-            },
+            authentication: props.authentication,
             items: []
         };
     }
@@ -50,19 +44,14 @@ export default class SchedulePage extends React.Component<ScheduleViewAllProps, 
                 items: items
             });
         }).catch(() => {
-            this.setState({
-                message: {
-                    type: STATUS.ERROR,
-                    message: "Failed to fetch events."
-                }
-            });
+            this.props.setGlobalMessage(STATUS.ERROR, "Failed to fetch events.");
         });
     }
 
     private renderItems() {
         if(this.state.items.length <= 0) {
             return (
-                <p className="note">There are no upcoming events currently scheduled.</p>
+                <p>There are no upcoming events currently scheduled.</p>
             );
         }
 
@@ -73,7 +62,7 @@ export default class SchedulePage extends React.Component<ScheduleViewAllProps, 
 
     private renderItem(item:ISchedule) {
         return (
-            <div className="schedule-item">
+            <div>
                 <Link to={"/schedule/" + item._id}>{item.name}</Link>
                 <p><strong>Event Type:</strong> {item.type}</p>
                 <p><strong>Start Date:</strong> {item.startDateTime ? new Date(item.startDateTime).toLocaleString() : ""}</p>
@@ -88,9 +77,7 @@ export default class SchedulePage extends React.Component<ScheduleViewAllProps, 
     
     public render() {
         return (
-            <div className="main-content">
-                <StatusBar {...this.state.message} />
-
+            <div>
                 <h2>Upcoming Events</h2>
                 
                 {this.renderItems()}

@@ -1,21 +1,19 @@
-import { IStatus } from "../../util/TypeUtils";
 import { IHome } from "../../interfaces/Home";
 import { AdminViewProps } from "./Admin";
+import { BasePageProps } from "./BasePage";
 
-export interface HomeFormProps extends AdminViewProps {
+export interface HomeFormProps extends AdminViewProps, BasePageProps {
 
 };
 
-export interface HomeViewProps {
+export interface HomeViewProps extends AdminViewProps, BasePageProps {
 
 };
 
 export interface HomeFormState {
     content: string;
-    message: IStatus;
 };
 
 export interface HomeViewState {
   item?: IHome;
-  message: IStatus;
 };

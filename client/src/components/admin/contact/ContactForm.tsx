@@ -1,13 +1,14 @@
-import React, { FormEvent } from 'react';
+import React, { MouseEvent } from 'react';
 import { ContactFormProps, ContactFormState } from '../../states/Contact';
 import HttpService from '../../../util/HttpService';
-import StatusBar, { STATUS } from '../../StatusBar';
+import { STATUS } from '../../StatusBar';
 import RefUtil from '../../../util/RefUtil';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import UploadAdapter from '../../../image-upload/UploadAdapter';
-import { Link } from "react-router-dom";
 import BaseAdminPage from '../BaseAdminPage';
+import NevermindButton from '../../buttons/NevermindButton';
+import SaveButton from '../../buttons/SaveButton';
 
 export default class ContactForm extends BaseAdminPage<ContactFormProps, ContactFormState> {
   private serviceUrl = "/api/contact";
@@ -22,18 +23,13 @@ export default class ContactForm extends BaseAdminPage<ContactFormProps, Contact
     super(props);
 
     this.state = {
-        isAuthenticated: !!props.isAuthenticated,
-        isAdmin: !!props.isAdmin,
+        authentication: props.authentication,
         content: "",
         twitter: "",
         facebook: "",
         phone: "",
         email: "",
-        instagram: "",
-        message: {
-            message: "",
-            type: ""
-        }
+        instagram: ""
     };
 
     this.onChange = this.onChange.bind(this);
@@ -55,12 +51,7 @@ export default class ContactForm extends BaseAdminPage<ContactFormProps, Contact
           instagram: json[0].instagram || null
       });
     }).catch(() => {
-      this.setState({
-        message: {
-          type: STATUS.ERROR,
-          message: "Failed to fetch contact info."
-        }
-      });
+        this.props.setGlobalMessage(STATUS.ERROR, "Failed to fetch conteact info.");
     });
   }
 
@@ -70,7 +61,7 @@ export default class ContactForm extends BaseAdminPage<ContactFormProps, Contact
     });
   }
 
-  private onSubmit(e:FormEvent<HTMLFormElement>) {
+  private onSubmit(e:MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     let payload = {
         twitter: RefUtil.getValue(this.twitterRef, ""),
@@ -81,64 +72,52 @@ export default class ContactForm extends BaseAdminPage<ContactFormProps, Contact
         content: this.state.content
     };
 
-    return HttpService.post(this.serviceUrl, payload).then(() => {
-        this.setState({
-            message: {
-                type: STATUS.SUCCESS,
-                message: "Contact information updated."
-            }
-        });
+    HttpService.post(this.serviceUrl, payload).then(() => {
+        this.props.setGlobalMessage(STATUS.SUCCESS, "Contact information updated successfully.");
     }).catch(() => {
-        this.setState({
-            message: {
-                type: STATUS.ERROR,
-                message: "Failed to save contact information."
-            }
-        });
+        this.props.setGlobalMessage(STATUS.ERROR, "Failed to save contact information.");
     });
   }
 
   protected renderAuthenticatedView() {
     return (
-        <div className="main-content">
-            <StatusBar {...this.state.message} />
-
+        <div>
             <h2>Contact Page</h2>
 
-            <div className="note">
+            <div>
                 <h5>Hey.  Read this.</h5>
                 <p>Filling stuff in here will place publically accessible links to whatever you fill in on the header/footer of every page.  <strong>This means, for instance, that your phone number will be visible to everyone in the world</strong>.</p>
                 <p>To remove those links, remove the values from the corresponding box below.</p>
                 <p>Your email address will be used for receiving emails sent from the form.  There will never be a direct link to your email address on the page.  If you have a blank email address, the email form will not display.</p>
             </div>
 
-            <form onSubmit={this.onSubmit}>
-                <label className="form-group col-12">
+            <form>
+                <label>
                     <span>Twitter Feed URL</span>
-                    <input className="form-control" defaultValue={this.state.twitter} type="text" ref={this.twitterRef} placeholder="Twitter Feed URL" />
+                    <input defaultValue={this.state.twitter} type="text" ref={this.twitterRef} placeholder="Twitter Feed URL" />
                 </label>
 
-                <label className="form-group col-12">
+                <label>
                     <span>Facebook URL</span>
-                    <input className="form-control" defaultValue={this.state.facebook} type="text" ref={this.facebookRef} placeholder="Facebook URL" />
+                    <input defaultValue={this.state.facebook} type="text" ref={this.facebookRef} placeholder="Facebook URL" />
                 </label>
 
-                <label className="form-group col-12">
+                <label>
                     <span>Instagram URL</span>
-                    <input className="form-control" defaultValue={this.state.instagram} type="text" ref={this.instagramRef} placeholder="Instagram URL" />
+                    <input defaultValue={this.state.instagram} type="text" ref={this.instagramRef} placeholder="Instagram URL" />
                 </label>
 
-                <label className="form-group col-12">
+                <label>
                     <span>Phone Number</span>
-                    <input className="form-control" defaultValue={this.state.phone} type="text" ref={this.phoneRef} placeholder="Phone Number" />
+                    <input defaultValue={this.state.phone} type="text" ref={this.phoneRef} placeholder="Phone Number" />
                 </label>
 
-                <label className="form-group col-12">
+                <label>
                     <span>Email Address</span>
-                    <input className="form-control" defaultValue={this.state.email} type="text" ref={this.emailRef} placeholder="Email Address" />
+                    <input defaultValue={this.state.email} type="text" ref={this.emailRef} placeholder="Email Address" />
                 </label>
 
-                <div className="form-group col-12">
+                <div>
                     <CKEditor
                         editor={ClassicEditor}
                         data={this.state.content}
@@ -160,15 +139,8 @@ export default class ContactForm extends BaseAdminPage<ContactFormProps, Contact
                         }}
                     />
                 </div>
-
-                <div className="row admin-buttons">
-                    <div className="col-6">
-                        <Link to="/admin" className="btn btn-admin icon-undo">Nevermind</Link>
-                    </div>
-                    <div className="col-6 text-right">
-                        <button className="btn btn-admin icon-floppy-o">Update Contact Info</button>
-                    </div>
-                </div>
+                <NevermindButton authentication={this.props.authentication} />
+                <SaveButton onClick={this.onSubmit} authentication={this.props.authentication} />
             </form>
         </div>
     );

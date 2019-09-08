@@ -1,25 +1,21 @@
-import React, { FormEvent } from 'react';
+import React, { MouseEvent } from 'react';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import HttpService from '../../../util/HttpService';
-import StatusBar, { STATUS } from '../../StatusBar';
+import { STATUS } from '../../StatusBar';
 import UploadAdapter from '../../../image-upload/UploadAdapter';
-import { Link } from "react-router-dom";
 import BaseAdminPage from '../BaseAdminPage';
 import { HomeFormProps, HomeFormState } from '../../states/Home';
+import NevermindButton from '../../buttons/NevermindButton';
+import SaveButton from '../../buttons/SaveButton';
 
 export default class HomeForm extends BaseAdminPage<HomeFormProps, HomeFormState> {
   constructor(props: HomeFormProps) {
     super(props);
 
     this.state = {
-      isAuthenticated: !!props.isAuthenticated,
-      isAdmin: !!props.isAdmin,
-      content: "",
-      message: {
-        message: "",
-        type: ""
-      }
+      authentication: props.authentication,
+      content: ""
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -35,46 +31,29 @@ export default class HomeForm extends BaseAdminPage<HomeFormProps, HomeFormState
         content: json[0].content
       });
     }).catch(() => {
-      this.setState({
-        message: {
-          type: STATUS.ERROR,
-          message: "Failed to fetch content."
-        }
-      });
+      this.props.setGlobalMessage(STATUS.ERROR, "Failed to fetch content.");
     });
   }
 
-  private onSubmit(e: FormEvent<HTMLFormElement>) {
+  private onSubmit(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     let payload = {
       content: this.state.content
     };
 
-    return HttpService.post("/api/home", payload).then(() => {
-      this.setState({
-        message: {
-          type: STATUS.SUCCESS,
-          message: "Home section updated."
-        }
-      });
+    HttpService.post("/api/home", payload).then(() => {
+      this.props.setGlobalMessage(STATUS.SUCCESS, "Home section updated successfully.");
     }).catch(() => {
-      this.setState({
-        message: {
-          type: STATUS.ERROR,
-          message: "Failed to save content."
-        }
-      });
+      this.props.setGlobalMessage(STATUS.ERROR, "Failed to save content.");
     });
   }
 
   public render() {
     return (
-      <div className="main-content">
-        <StatusBar {...this.state.message} />
-
+      <div>
         <h2>Home Page</h2>
-        <form onSubmit={this.onSubmit}>
-          <div className="form-group col-12">
+        <form>
+          <div>
             <CKEditor
               editor={ClassicEditor}
               data={this.state.content}
@@ -96,14 +75,8 @@ export default class HomeForm extends BaseAdminPage<HomeFormProps, HomeFormState
               }}
             />
           </div>
-          <div className="row admin-buttons">
-            <div className="col-6">
-              <Link to="/admin" className="btn btn-admin icon-undo">Nevermind</Link>
-            </div>
-            <div className="col-6 text-right">
-              <button className="btn btn-admin icon-floppy-o">Update Home Page</button>
-            </div>
-          </div>
+          <NevermindButton authentication={this.props.authentication} />
+          <SaveButton onClick={this.onSubmit} authentication={this.props.authentication} />
         </form>
       </div>
     );

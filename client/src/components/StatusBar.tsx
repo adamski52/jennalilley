@@ -1,5 +1,6 @@
 import React from 'react';
 import { IStatus } from '../util/TypeUtils';
+
 export const STATUS = {
   ERROR: "error",
   SUCCESS: "success",

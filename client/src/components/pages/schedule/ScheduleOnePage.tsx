@@ -1,15 +1,15 @@
 import React, { MouseEvent } from 'react';
-import StatusBar, { STATUS } from '../../StatusBar';
+import { STATUS } from '../../StatusBar';
 import HttpService from '../../../util/HttpService';
 import { ScheduleViewOneState, ScheduleViewOneProps } from '../../states/Schedule';
+import Button from '../../buttons/Button';
 
 export default class ScheduleOnePage extends React.Component<ScheduleViewOneProps, ScheduleViewOneState> {
     constructor(props: ScheduleViewOneProps) {
         super(props);
 
         this.state = {
-            isAuthenticated: !!props.isAuthenticated,
-            isAdmin: !!props.isAdmin,
+            authentication: props.authentication,
             name: "",
             type: "",
             startDateTime: null,
@@ -19,17 +19,12 @@ export default class ScheduleOnePage extends React.Component<ScheduleViewOneProp
             ageRestrictions: "",
             cost: "",
             location: "",
-            description: "",
-            message: {
-                message: "",
-                type: ""
-            }
+            description: ""
         };
 
         this.onEnroll = this.onEnroll.bind(this);
         this.onDisenroll = this.onDisenroll.bind(this);
         this.onFull = this.onFull.bind(this);
-        this.onCloseModal = this.onCloseModal.bind(this);
     }
 
     public componentDidMount() {
@@ -52,19 +47,10 @@ export default class ScheduleOnePage extends React.Component<ScheduleViewOneProp
                 cost: json.cost,
                 isFull: json.isFull,
                 location: json.location,
-                description: json.description,
-                message: {
-                    message: "",
-                    type: ""
-                }
+                description: json.description
             });
         }).catch(() => {
-            this.setState({
-                message: {
-                    message: "Failed to load event.",
-                    type: STATUS.ERROR
-                }
-            });
+            this.props.setGlobalMessage(STATUS.ERROR, "Failed to laod content.");
         });
     }
 
@@ -79,108 +65,62 @@ export default class ScheduleOnePage extends React.Component<ScheduleViewOneProp
     private onFull(e:MouseEvent<HTMLSpanElement>) {
         e.preventDefault();
 
-        this.setState({
-            modal: {
-                title: "Course is Full",
-                message: "Unfortunately the course selected course is full.  Please select a different course or feel free to contact me for special considerations."
-            }
-        });
+        this.props.setModalMessage("Course is Full", "Unfortunately the course selected course is full.  Please select a different course or feel free to contact me for special considerations.");
     }
 
     private onEnroll(e:MouseEvent<HTMLSpanElement>) {
         e.preventDefault();
 
-        this.setState({
-            modal: {
-                title: "Confirm Enrollment",
-                message: "Are you sure you wish to enroll in the selected course?"
-            }
-        });
+        this.props.setModalMessage("Confirm Enrollment", "Are you sure you wish to enroll in the selected course?");
     }
 
     private onDisenroll(e:MouseEvent<HTMLSpanElement>) {
         e.preventDefault();
 
-        this.setState({
-            modal: {
-                title: "Confirm Disenrollment",
-                message: "Are you sure you wish to unenroll in the selected course?  The ability to re-enroll is not guarnteed."
-            }
-        });
+        this.props.setModalMessage("Confirm Disenrollment", "Are you sure you wish to unenroll in the selected course?  The ability to re-enroll is not guarnteed.");
     }
 
     private renderActionButton() {
         if(this.isFull()) {
             return (
-                <span className="btn btn-status-error icon-times" onClick={this.onFull}>Course Full</span>
+                <Button className="btn btn-status-error icon-times" onClick={this.onFull} label="Course Full" />
             );
         }
 
         if(this.isEnrolled()) {
             return (
-                <button className="btn btn-status-warn icon-sign-in" onClick={this.onEnroll}>Enroll</button>
+                <Button className="btn btn-status-warn icon-sign-in" onClick={this.onEnroll} label="Enroll" />
             );
         }
 
         return (
-            <button className="btn btn-status-success icon-sign-out" onClick={this.onDisenroll}>Disenroll</button>
+            <Button className="btn btn-status-success icon-sign-out" onClick={this.onDisenroll} label="Disenroll" />
         );
     }
 
-    private onCloseModal(e:MouseEvent<HTMLButtonElement>) {
-        e.preventDefault();
-        this.setState({
-            modal: undefined
-        });
-    }
-
-    private renderModal() {
-        if(!this.state.modal) {
-            return null;
-        }
-
-        return (
-            <div className="modal">
-                <div className="modal-content">
-                    <p className="text-large">{this.state.modal.title}</p>
-                    <p>{this.state.modal.message}</p>
-                    <div className="modal-buttons text-right">
-                        <button onClick={this.onCloseModal} className="btn btn-status-warn icon-check">OK</button>
-                    </div>
-                </div>
-            </div>
-        );
-    }
     
     public render() {
         return (
-            <div className="main-content">
-                
-                <StatusBar {...this.state.message} />
-
+            <div>
                 <h2>Upcoming Events</h2>
 
-                <div className="schedule-item">
+                <div>
                     <h3>{this.state.name}</h3>
 
-                    <p><strong>Event Type:</strong> {this.state.type}</p>
-                    <p><strong>Start Date:</strong> {this.state.startDateTime ? new Date(this.state.startDateTime).toLocaleString() : ""}</p>
-                    <p><strong>End Date:</strong> {this.state.endDateTime ? new Date(this.state.endDateTime).toLocaleString() : ""}</p>
-                    <p><strong>Capacity:</strong> {this.state.capacity}</p>
-                    <p><strong>Age Restrictions:</strong> {this.state.ageRestrictions}</p>
-                    <p><strong>Cost:</strong> {this.state.cost}</p>
-                    <p><strong>Location:</strong> {this.state.location}</p>
+                    <p>Event Type: {this.state.type}</p>
+                    <p>Start Date: {this.state.startDateTime ? new Date(this.state.startDateTime).toLocaleString() : ""}</p>
+                    <p>End Date: {this.state.endDateTime ? new Date(this.state.endDateTime).toLocaleString() : ""}</p>
+                    <p>Capacity: {this.state.capacity}</p>
+                    <p>Age Restrictions: {this.state.ageRestrictions}</p>
+                    <p>Cost: {this.state.cost}</p>
+                    <p>Location: {this.state.location}</p>
 
                     <div dangerouslySetInnerHTML={{
                         __html: this.state.description
                     }}/>
 
-                    <div className="col-12 admin-buttons text-right">
-                        {this.renderActionButton()}
-                    </div>
+                    {this.renderActionButton()}
                 </div>
-
-                {this.renderModal()}
             </div>
         );
     }

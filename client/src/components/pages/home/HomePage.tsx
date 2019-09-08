@@ -1,6 +1,6 @@
 import React from "react";
 import HttpService from "../../../util/HttpService";
-import StatusBar, { STATUS } from "../../StatusBar";
+import { STATUS } from "../../StatusBar";
 import { HomeViewProps, HomeViewState } from "../../states/Home";
 
 export default class HomePage extends React.Component<HomeViewProps, HomeViewState> {
@@ -8,11 +8,7 @@ export default class HomePage extends React.Component<HomeViewProps, HomeViewSta
         super(props);
 
         this.state = {
-            item: undefined,
-            message: {
-                message: "",
-                type: ""
-            }
+            item: undefined
         };
     }
 
@@ -26,12 +22,7 @@ export default class HomePage extends React.Component<HomeViewProps, HomeViewSta
                 item: json[0]
             });
         }).catch((e) => {
-            this.setState({
-                message: {
-                    message: "Failed to load content.",
-                    type: STATUS.ERROR
-                }
-            });
+            this.props.setGlobalMessage(STATUS.ERROR, "Failed to load content.");
         });
     }
 
@@ -43,9 +34,7 @@ export default class HomePage extends React.Component<HomeViewProps, HomeViewSta
 
     public render() {
         return (
-            <div className="main-content">
-                <StatusBar {...this.state.message} />
-                
+            <div>
                 {this.renderItem()}
             </div>
         );

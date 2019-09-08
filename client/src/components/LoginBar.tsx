@@ -1,16 +1,18 @@
 import React from "react";
 import HttpService from "../util/HttpService";
-import { AdminAuthentication } from "./states/Admin";
-import { LoginProps } from "./states/Login";
-import { Link } from "react-router-dom";
+import { LoginProps, LoginState } from "./states/Login";
+import LogoutButton from "./buttons/LogoutButton";
+import GoogleLoginButton from "./buttons/GoogleLoginButton";
+import FacebookLoginButton from "./buttons/FacebookLoginButton";
+import AccountButton from "./buttons/AccountButton";
+import AdminButton from "./buttons/AdminButton";
 
-export default class LoginBar extends React.Component<LoginProps, AdminAuthentication> {
+export default class LoginBar extends React.Component<LoginProps, LoginState> {
     constructor(props:LoginProps) {
         super(props);
 
         this.state = {
-            isAuthenticated: !!props.isAuthenticated,
-            isAdmin: !!props.isAdmin
+            authentication: props.authentication
         };
     }
 
@@ -25,78 +27,29 @@ export default class LoginBar extends React.Component<LoginProps, AdminAuthentic
             });
 
             this.setState({
-                isAdmin: isAdmin,
-                isAuthenticated: true
+                authentication: {
+                    isAdmin: isAdmin,
+                    isAuthenticated: true
+                }
             });
         }).catch(() => {
             this.setState({
-                isAdmin: true,
-                isAuthenticated: true
+                authentication: {
+                    isAdmin: false,
+                    isAuthenticated: false
+                }
             });
         });
     }
 
-    private renderLogoutButton() {
-        if(!this.state.isAuthenticated) {
-            return null;
-        }
-
-        return (
-            <a href="/api/auth/logout" className="btn btn-logout icon-unlock-alt">Logout</a>
-        );
-    }
-
-    private renderAccountButton() {
-        if(!this.state.isAuthenticated) {
-            return null;
-        }
-
-        return (
-            <Link className="btn btn-account icon-lock" to="/account">My Account</Link>
-        );
-    }
-
-    private renderAdminButton() {
-        if(!this.state.isAdmin) {
-            return null;
-        }
-
-        return (
-            <Link className="btn btn-admin icon-cog" to="/admin">Admin</Link>
-        );
-    }
-
-
-    private renderLoginGoogleButton() {
-        if(this.state.isAuthenticated) {
-            return null;
-        }
-
-        return (
-            <a className="btn btn-google icon-google" href="/api/auth/google/start">Login with Google</a>
-        );
-    }
-
-    private renderLoginFacebookButton() {
-        if(this.state.isAuthenticated) {
-            return null;
-        }
-
-        return (
-            <a className="btn btn-facebook icon-facebook" href="/api/auth/facebook/start">Login with Facebook</a>
-        );
-    }
-
     public render() {
         return (
-            <div className="text-right login-bar">
-                {this.renderAdminButton()}
-                {this.renderAccountButton()}
-
-                {this.renderLoginFacebookButton()}
-                {this.renderLoginGoogleButton()}
-
-                {this.renderLogoutButton()}
+            <div>
+                <AdminButton authentication={this.state.authentication} />
+                <AccountButton authentication={this.state.authentication} />
+                <FacebookLoginButton authentication={this.state.authentication} />
+                <GoogleLoginButton authentication={this.state.authentication} />
+                <LogoutButton authentication={this.state.authentication} />
             </div>
         );
     }
