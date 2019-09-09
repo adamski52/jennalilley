@@ -1,7 +1,6 @@
 import React, { MouseEvent } from 'react';
-import HttpService from '../../../util/HttpService';
-import { STATUS } from '../../StatusBar';
-import { AccountViewProps, AccountViewState } from '../../states/Account';
+import AccountService from '../../../services/AccountService';
+import { AccountViewProps, AccountViewState } from '../../../states/Account';
 import { ISchedule } from '../../../interfaces/Schedule';
 import BaseSecurePage from '../../admin/BaseSecurePage';
 import EditButton from '../../buttons/EditButton';
@@ -23,32 +22,10 @@ export default class AccountPage extends BaseSecurePage<AccountViewProps, Accoun
         this.onFetch();
     }
 
-    private onFetch() {
-        HttpService.get("/api/account").then((json) => {
-            let events = json.events || [],
-                today = new Date();
-
-            events = events.filter((event: ISchedule) => {
-                return event.startDateTime && event.startDateTime < today;
-            }).sort((lhs: ISchedule, rhs: ISchedule) => {
-                if (lhs.startDateTime != null && rhs.startDateTime != null) {
-                    if (lhs.startDateTime < rhs.startDateTime) {
-                        return -1;
-                    }
-
-                    if (lhs.startDateTime > rhs.startDateTime) {
-                        return 1;
-                    }
-                }
-
-                return 0;
-            });
-
-            this.setState({
-                events: events
-            });
-        }).catch((e) => {
-            this.props.setGlobalMessage(STATUS.ERROR, "Failed to load events.");
+    private async onFetch() {
+        let json = await AccountService.readAll(this.props.setGlobalMessage);
+        this.setState({
+            events: json
         });
     }
 

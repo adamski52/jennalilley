@@ -1,5 +1,5 @@
 import React from 'react';
-import { BaseLinkProps, BaseLinkState } from '../states/Button';
+import { BaseLinkProps, BaseLinkState } from '../../states/Button';
 import { Link } from 'react-router-dom';
 
 export default abstract class BaseLink extends React.Component<BaseLinkProps, BaseLinkState> {

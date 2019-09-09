@@ -1,4 +1,4 @@
-import { BaseButtonProps } from '../states/Button';
+import { BaseButtonProps } from '../../states/Button';
 import BaseAdminButton from './BaseAdminButton';
 
 export default class DemoteUserButton extends BaseAdminButton {

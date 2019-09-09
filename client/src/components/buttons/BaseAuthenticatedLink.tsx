@@ -1,5 +1,5 @@
 import BaseLink from "./BaseLink";
-import { BaseLinkProps } from "../states/Button";
+import { BaseLinkProps } from "../../states/Button";
 
 export default abstract class BaseAuthenticatedLink extends BaseLink {
     constructor(props:BaseLinkProps) {

@@ -1,4 +1,4 @@
-import { IHome } from "../../interfaces/Home";
+import { IHome } from "../interfaces/Home";
 import { AdminViewProps } from "./Admin";
 import { BasePageProps } from "./BasePage";
 

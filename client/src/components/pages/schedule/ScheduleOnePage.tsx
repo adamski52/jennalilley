@@ -1,8 +1,8 @@
 import React, { MouseEvent } from 'react';
-import { STATUS } from '../../StatusBar';
-import HttpService from '../../../util/HttpService';
-import { ScheduleViewOneState, ScheduleViewOneProps } from '../../states/Schedule';
+import { ScheduleViewOneState, ScheduleViewOneProps } from '../../../states/Schedule';
 import Button from '../../buttons/Button';
+import ScheduleService from '../../../services/ScheduleService';
+import { ISchedule } from '../../../interfaces/Schedule';
 
 export default class ScheduleOnePage extends React.Component<ScheduleViewOneProps, ScheduleViewOneState> {
     constructor(props: ScheduleViewOneProps) {
@@ -31,26 +31,23 @@ export default class ScheduleOnePage extends React.Component<ScheduleViewOneProp
         this.onFetch();
     }
     
-    private onFetch() {
+    private async onFetch() {
         if(!this.props.match.params || !this.props.match.params.id) {
             return;
         }
-        
-        HttpService.get("/api/schedule/" + this.props.match.params.id).then((json:any) => {
-            this.setState({
-                name: json.name,
-                type: json.type,
-                startDateTime: json.startDateTime ? new Date(json.startDateTime) : null,
-                endDateTime: json.endDateTime ? new Date(json.endDateTime) : null,
-                capacity: json.capacity,
-                ageRestrictions: json.ageRestrictions,
-                cost: json.cost,
-                isFull: json.isFull,
-                location: json.location,
-                description: json.description
-            });
-        }).catch(() => {
-            this.props.setGlobalMessage(STATUS.ERROR, "Failed to laod content.");
+
+        let json:ISchedule = await ScheduleService.readOne(this.props.setGlobalMessage, this.props.match.params.id);
+        this.setState({
+            name: json.name,
+            type: json.type,
+            startDateTime: json.startDateTime ? new Date(json.startDateTime) : null,
+            endDateTime: json.endDateTime ? new Date(json.endDateTime) : null,
+            capacity: json.capacity,
+            ageRestrictions: json.ageRestrictions,
+            cost: json.cost,
+            isFull: json.isFull,
+            location: json.location,
+            description: json.description
         });
     }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { IStatus } from '../util/TypeUtils';
+import { IStatus } from '../interfaces/Status';
 
 export const STATUS = {
   ERROR: "error",

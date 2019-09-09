@@ -1,15 +1,15 @@
 import React, { MouseEvent } from 'react';
 import ScheduleForm from './ScheduleForm';
 import RefUtil from '../../../util/RefUtil';
-import HttpService from '../../../util/HttpService';
-import { STATUS } from '../../StatusBar';
+import ScheduleService from '../../../services/ScheduleService';
 import NevermindButton from '../../buttons/NevermindButton';
 import SaveButton from '../../buttons/SaveButton';
 
 export default class ScheduleCreateForm extends ScheduleForm {
-  protected onSubmit(e:MouseEvent<HTMLButtonElement>) {
+  protected async onSubmit(e:MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    let payload = {
+    try {
+      await ScheduleService.create(this.props.setGlobalMessage, {
         name: RefUtil.getValue(this.nameRef, ""),
         type: RefUtil.getValue(this.typeRef, ""),
         startDateTime: this.state.startDateTime,
@@ -20,13 +20,8 @@ export default class ScheduleCreateForm extends ScheduleForm {
         location: RefUtil.getValue(this.locationRef, ""),
         isFull: RefUtil.getValue(this.isFullRef, "") === "1",
         description: this.state.description
-    };
-
-    HttpService.post("/api/schedule", payload).then(() => {
-        this.props.setGlobalMessage(STATUS.SUCCESS, "Event created successfully.");
-    }).catch(() => {
-        this.props.setGlobalMessage(STATUS.ERROR, "Failed to create event.");
-    });
+      });
+    } catch(e) {}
   }
 
   protected renderButton() {

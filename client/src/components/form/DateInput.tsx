@@ -1,5 +1,5 @@
 import React from 'react';
-import { DateInputProps, DateInputState } from '../states/DateInput';
+import { DateInputProps, DateInputState } from '../../states/DateInput';
 import DatePicker from "react-datepicker";
 
 export default class DateInput extends React.Component<DateInputProps, DateInputState> {

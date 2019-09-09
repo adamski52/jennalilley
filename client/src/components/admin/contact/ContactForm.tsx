@@ -1,17 +1,14 @@
 import React, { MouseEvent } from 'react';
-import { ContactFormProps, ContactFormState } from '../../states/Contact';
-import HttpService from '../../../util/HttpService';
-import { STATUS } from '../../StatusBar';
+import { ContactFormProps, ContactFormState } from '../../../states/Contact';
 import RefUtil from '../../../util/RefUtil';
 import BaseAdminPage from '../BaseAdminPage';
 import NevermindButton from '../../buttons/NevermindButton';
 import SaveButton from '../../buttons/SaveButton';
 import TextInput from '../../form/TextInput';
 import RichTextInput from '../../form/RichTextInput';
+import ContactService from '../../../services/ContactService';
 
 export default class ContactForm extends BaseAdminPage<ContactFormProps, ContactFormState> {
-  private serviceUrl = "/api/contact";
-
   private twitterRef = React.createRef<HTMLInputElement>();
   private facebookRef = React.createRef<HTMLInputElement>();
   private phoneRef = React.createRef<HTMLInputElement>();
@@ -39,8 +36,9 @@ export default class ContactForm extends BaseAdminPage<ContactFormProps, Contact
     this.onFetch();
   }
 
-  private onFetch() {
-    HttpService.get(this.serviceUrl).then((json) => {
+  private async onFetch() {
+    try {
+      let json = await ContactService.readAll(this.props.setGlobalMessage);
       this.setState({
           content: json[0].content || "",
           twitter: json[0].twitter || null,
@@ -49,9 +47,7 @@ export default class ContactForm extends BaseAdminPage<ContactFormProps, Contact
           email: json[0].email || null,
           instagram: json[0].instagram || null
       });
-    }).catch(() => {
-        this.props.setGlobalMessage(STATUS.ERROR, "Failed to fetch conteact info.");
-    });
+    } catch(e) {}
   }
 
   private onChange(value:string) {
@@ -60,22 +56,18 @@ export default class ContactForm extends BaseAdminPage<ContactFormProps, Contact
     });
   }
 
-  private onSubmit(e:MouseEvent<HTMLButtonElement>) {
+  private async onSubmit(e:MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    let payload = {
-        twitter: RefUtil.getValue(this.twitterRef, ""),
-        facebook: RefUtil.getValue(this.facebookRef, ""),
-        email: RefUtil.getValue(this.emailRef, ""),
-        phone: RefUtil.getValue(this.phoneRef, ""),
-        instagram: RefUtil.getValue(this.instagramRef, ""),
-        content: this.state.content
-    };
-
-    HttpService.post(this.serviceUrl, payload).then(() => {
-        this.props.setGlobalMessage(STATUS.SUCCESS, "Contact information updated successfully.");
-    }).catch(() => {
-        this.props.setGlobalMessage(STATUS.ERROR, "Failed to save contact information.");
-    });
+    try {
+      await ContactService.update(this.props.setGlobalMessage, {
+          twitter: RefUtil.getValue(this.twitterRef, ""),
+          facebook: RefUtil.getValue(this.facebookRef, ""),
+          email: RefUtil.getValue(this.emailRef, ""),
+          phone: RefUtil.getValue(this.phoneRef, ""),
+          instagram: RefUtil.getValue(this.instagramRef, ""),
+          content: this.state.content
+      });
+    } catch(e) {}
   }
 
   protected renderAuthenticatedView() {

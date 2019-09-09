@@ -1,4 +1,4 @@
-import { BaseButtonProps } from '../states/Button';
+import { BaseButtonProps } from '../../states/Button';
 import BaseButton from './BaseButton';
 
 export default class SendEmailButton extends BaseButton {

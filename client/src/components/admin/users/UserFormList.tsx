@@ -1,7 +1,6 @@
 import React, {MouseEvent} from 'react';
-import HttpService from '../../../util/HttpService';
-import { STATUS } from '../../StatusBar';
-import { UserViewAllProps, UserViewAllState } from '../../states/User';
+import UserService from '../../../services/UserService';
+import { UserViewAllProps, UserViewAllState } from '../../../states/User';
 import { IUser } from '../../../interfaces/User';
 import BaseAdminPage from '../BaseAdminPage';
 import DeleteButton from '../../buttons/DeleteButton';
@@ -22,17 +21,14 @@ export default class UserFormList extends BaseAdminPage<UserViewAllProps, UserVi
         this.onFetch();
     }
 
-    private onFetch() {
-        HttpService.get("/api/users").then((json) => {
-            this.setState({
-                items: json
-            });
-        }).catch(() => {
-            this.props.setGlobalMessage(STATUS.ERROR, "Failed to load users.");
+    private async onFetch() {
+        let json = await UserService.readAll(this.props.setGlobalMessage);
+        this.setState({
+            items: json
         });
     }
 
-    private onPromote(user: IUser) {
+    private async onPromote(user: IUser) {
         if (!window.confirm("Granting a user admin rights will give them full control of this site's admin area, including the ability to revoke your admin rights.\n\nAre you sure you want to do this?")) {
             return;
         }
@@ -41,36 +37,27 @@ export default class UserFormList extends BaseAdminPage<UserViewAllProps, UserVi
             return;
         }
 
-        HttpService.put("/api/users/" + user._id + "/promote", user).then((response: Response) => {
-            return this.onFetch();
-        }).catch(() => {
-            this.props.setGlobalMessage(STATUS.ERROR, "Failed to promote user.");
-        });
+        await UserService.promote(this.props.setGlobalMessage, user);
+        return this.onFetch();
     }
 
-    private onDemote(user: IUser) {
+    private async onDemote(user: IUser) {
         if (!window.confirm("Revoking a user's admin rights will make them unable to access the admin area.\n\nAre you sure you want to do this?")) {
             return;
         }
 
-        HttpService.put("/api/users/" + user._id + "/demote", user).then((response: Response) => {
-            this.onFetch();
-        }).catch(() => {
-            this.props.setGlobalMessage(STATUS.ERROR, "Failed to demote user.");
-        });
+        await UserService.demote(this.props.setGlobalMessage, user);
+        this.onFetch();
     }
 
     private onDelete(user: IUser) {
-        return (e:MouseEvent<HTMLButtonElement>) => {
+        return async (e:MouseEvent<HTMLButtonElement>) => {
             if (!window.confirm("Deleting a user will break any connections they have to this site.\n\nThey will have to re-create their account from scratch.\n\nAre you sure you want to do this?")) {
                 return;
             }
 
-            HttpService.delete("/api/users/" + user._id).then(() => {
-                this.onFetch();
-            }).catch(() => {
-                this.props.setGlobalMessage(STATUS.ERROR, "Failed to delete user.");
-            });
+            await UserService.delete(this.props.setGlobalMessage, user._id);
+            this.onFetch();
         };
     }
 

@@ -1,6 +1,6 @@
 import { MouseEvent } from 'react';
 import BaseAuthenticatedButton from './BaseAuthenticatedButton';
-import { BaseButtonProps } from '../states/Button';
+import { BaseButtonProps } from '../../states/Button';
 
 export default class GoogleLoginButton extends BaseAuthenticatedButton {
     constructor(props:BaseButtonProps) {

@@ -1,7 +1,7 @@
 import { AdminViewProps } from "./Admin";
 import { BasePageProps } from "./BasePage";
 
-import { IAbout } from "../../interfaces/About";
+import { IAbout } from "../interfaces/About";
 
 export interface AboutFormProps extends AdminViewProps, BasePageProps {
 

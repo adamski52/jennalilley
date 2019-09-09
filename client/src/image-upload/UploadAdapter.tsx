@@ -1,4 +1,4 @@
-import HttpService from "../util/HttpService";
+import HttpService from "../services/HttpService";
 
 export default class UploadAdapter {
     private loader:any;

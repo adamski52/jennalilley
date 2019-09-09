@@ -1,7 +1,6 @@
 import React from "react";
-import HttpService from "../../../util/HttpService";
-import { STATUS } from "../../StatusBar";
-import { HomeViewProps, HomeViewState } from "../../states/Home";
+import { HomeViewProps, HomeViewState } from "../../../states/Home";
+import HomeService from "../../../services/HomeService";
 
 export default class HomePage extends React.Component<HomeViewProps, HomeViewState> {
     constructor(props:HomeViewProps) {
@@ -16,13 +15,10 @@ export default class HomePage extends React.Component<HomeViewProps, HomeViewSta
         this.onFetch();
     }
 
-    private onFetch() {
-        HttpService.get("/api/home").then((json) => {
-            this.setState({
-                item: json[0]
-            });
-        }).catch((e) => {
-            this.props.setGlobalMessage(STATUS.ERROR, "Failed to load content.");
+    private async onFetch() {
+        let json = await HomeService.readAll(this.props.setGlobalMessage);
+        this.setState({
+            item: json[0]
         });
     }
 

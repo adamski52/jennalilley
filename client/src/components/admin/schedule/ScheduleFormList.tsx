@@ -1,11 +1,10 @@
 import React, {MouseEvent} from 'react';
-import HttpService from '../../../util/HttpService';
-import { STATUS } from '../../StatusBar';
-import { ScheduleFormProps, ScheduleViewAllState } from '../../states/Schedule';
+import { ScheduleFormProps, ScheduleViewAllState } from '../../../states/Schedule';
 import { ISchedule } from '../../../interfaces/Schedule';
 import BaseAdminPage from '../BaseAdminPage';
 import EditButton from '../../buttons/EditButton';
 import DeleteButton from '../../buttons/DeleteButton';
+import ScheduleService from '../../../services/ScheduleService';
 
 export default class ScheduleFormList extends BaseAdminPage<ScheduleFormProps, ScheduleViewAllState> {
     constructor(props:ScheduleFormProps) {
@@ -23,26 +22,23 @@ export default class ScheduleFormList extends BaseAdminPage<ScheduleFormProps, S
     this.onFetch();
   }
 
-  private onFetch() {
-    HttpService.get("/api/schedule").then((json) => {
-        this.setState({
-            items: json
-        });
-    }).catch((e) => {
-        this.props.setGlobalMessage(STATUS.ERROR, "Failed to load events.");
-    });
+  private async onFetch() {
+    try {
+      let json = await ScheduleService.readAll(this.props.setGlobalMessage);
+      this.setState({
+          items: json
+      });
+    }
+    catch(e) {}
   }
 
   private onDelete(item:ISchedule) {
-    return (e:MouseEvent<HTMLButtonElement>) => {
+    return async (e:MouseEvent<HTMLButtonElement>) => {
+      try {
         e.preventDefault();
-        HttpService.delete("/api/schedule/" + item._id).then(() => {
-            this.props.setGlobalMessage(STATUS.SUCCESS, "Event deleted successfully.");
-            
-            this.onFetch();
-        }).catch(() => {
-            this.props.setGlobalMessage(STATUS.ERROR, "Failed to delete event.");
-        });
+        await ScheduleService.delete(this.props.setGlobalMessage, item._id);
+        this.onFetch();
+      } catch(e) {}
     };
   }
 

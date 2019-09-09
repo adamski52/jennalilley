@@ -1,5 +1,5 @@
 import { AdminViewProps } from "./Admin";
-import { IBlog } from "../../interfaces/Blog";
+import { IBlog } from "../interfaces/Blog";
 import { BasePageProps } from "./BasePage";
 
 export interface BlogFormState {

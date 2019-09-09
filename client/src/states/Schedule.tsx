@@ -1,5 +1,5 @@
 import { AdminViewState, AdminViewProps } from "./Admin";
-import { ISchedule } from "../../interfaces/Schedule";
+import { ISchedule } from "../interfaces/Schedule";
 import { BasePageProps } from "./BasePage";
 
 export interface ScheduleFormState extends AdminViewState, BasePageProps {

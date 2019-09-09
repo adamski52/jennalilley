@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInputProps, TextInputState } from '../states/TextInput';
+import { TextInputProps, TextInputState } from '../../states/TextInput';
 
 export default class TextInput extends React.Component<TextInputProps, TextInputState> {
     public render() {

@@ -1,5 +1,5 @@
 import { MouseEvent } from 'react';
-import { BaseButtonProps } from '../states/Button';
+import { BaseButtonProps } from '../../states/Button';
 import BaseAuthenticatedButton from './BaseAuthenticatedButton';
 
 export default class FacebookLoginButton extends BaseAuthenticatedButton {

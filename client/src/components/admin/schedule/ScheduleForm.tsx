@@ -1,5 +1,5 @@
 import React, { MouseEvent } from 'react';
-import { ScheduleFormProps, ScheduleFormState } from '../../states/Schedule';
+import { ScheduleFormProps, ScheduleFormState } from '../../../states/Schedule';
 import BaseAdminPage from '../BaseAdminPage';
 import TextInput from '../../form/TextInput';
 import DateInput from '../../form/DateInput';

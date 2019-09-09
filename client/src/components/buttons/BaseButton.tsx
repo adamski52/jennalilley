@@ -1,5 +1,5 @@
 import React from 'react';
-import { BaseButtonProps, BaseButtonState } from '../states/Button';
+import { BaseButtonProps, BaseButtonState } from '../../states/Button';
 
 export default abstract class BaseButton extends React.Component<BaseButtonProps, BaseButtonState> {
     public render():JSX.Element | null {

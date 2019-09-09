@@ -1,8 +1,7 @@
 import React, { RefObject, FormEvent } from "react";
-import HttpService from "../../../util/HttpService";
-import { STATUS } from "../../StatusBar";
-import { EmailFormState } from "../../states/Contact";
+import { EmailFormState } from "../../../states/Contact";
 import SendEmailButton from "../../buttons/SendEmailButton";
+import ContactService from "../../../services/ContactService";
 
 export default class EmailForm extends React.Component<any, EmailFormState> {
     private nameRef:RefObject<HTMLInputElement> = React.createRef();
@@ -15,38 +14,16 @@ export default class EmailForm extends React.Component<any, EmailFormState> {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    private onSubmit(e:FormEvent) {
+    private async onSubmit(e:FormEvent) {
         e.preventDefault();
 
-        if(!this.nameRef.current || !this.nameRef.current.value) {
-            this.props.setGlobalMessage(STATUS.ERROR, "Please provide your name.");
-            return;
-        }
+        let payload = {
+            name: this.nameRef,
+            email: this.emailRef,
+            message: this.messageRef
+        };
 
-        if(!this.emailRef.current || !this.emailRef.current.value) {
-            this.props.setGlobalMessage(STATUS.ERROR, "Please provide your email address.");
-            return;
-        }
-        
-        if(this.emailRef.current.value.indexOf("@") < 0 || this.emailRef.current.value.indexOf(".") < 0) {
-            this.props.setGlobalMessage(STATUS.ERROR, "Please provide a valid email address.");
-            return;
-        }
-        
-        if(!this.messageRef.current || !this.messageRef.current.value) {
-            this.props.setGlobalMessage(STATUS.ERROR, "Please provide your message.");
-            return;
-        }
-
-        HttpService.post("/api/email", {
-            name: this.nameRef.current.value,
-            email: this.emailRef.current.value,
-            message: this.messageRef.current.value
-        }).then(() => {
-            this.props.setGlobalMessage(STATUS.SUCCESS, "Message sent.");
-        }).catch(() => {
-            this.props.setGlobalMessage(STATUS.ERROR, "Failed to send email.  Please try again.");
-        });
+        await ContactService.sendEmail(this.props.setGlobalMessage, payload);
     }
 
     public render() {

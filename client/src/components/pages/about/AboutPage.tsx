@@ -1,7 +1,6 @@
 import React from "react";
-import HttpService from "../../../util/HttpService";
-import { STATUS } from "../../StatusBar";
-import { AboutViewProps, AboutViewState } from "../../states/About";
+import { AboutViewProps, AboutViewState } from "../../../states/About";
+import AboutService from "../../../services/AboutService";
 
 export default class AboutPage extends React.Component<AboutViewProps, AboutViewState> {
     constructor(props:AboutViewProps) {
@@ -16,27 +15,18 @@ export default class AboutPage extends React.Component<AboutViewProps, AboutView
         this.onFetch();
     }
 
-    private onFetch() {
-        HttpService.get("/api/about").then((json) => {
-            this.setState({
-                item: json[0]
-            });
-        }).catch((e) => {
-            this.props.setGlobalMessage(STATUS.ERROR, "Failed to load content.");
+    private async onFetch() {
+        let json = await AboutService.readAll(this.props.setGlobalMessage);
+        this.setState({
+            item: json[0]
         });
-    }
-
-    private renderItem() {
-        return (
-            <div dangerouslySetInnerHTML={{__html: this.state.item ? this.state.item.content : ""}} />
-        );
     }
 
     public render() {
         return (
             <div>
                 <h2>About Me</h2>
-                {this.renderItem()}
+                <div dangerouslySetInnerHTML={{__html: this.state.item ? this.state.item.content : ""}} />
             </div>
         );
     }

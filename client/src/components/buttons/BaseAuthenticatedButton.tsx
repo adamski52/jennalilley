@@ -1,5 +1,5 @@
 import BaseButton from "./BaseButton";
-import { BaseButtonProps } from '../states/Button';
+import { BaseButtonProps } from '../../states/Button';
 
 export default abstract class BaseAuthenticatedButton extends BaseButton {
     constructor(props:BaseButtonProps) {

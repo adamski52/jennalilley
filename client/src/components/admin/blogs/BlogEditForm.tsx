@@ -1,11 +1,10 @@
 import React, { MouseEvent } from 'react';
-import BlogForm from './BlogForm';import { BlogFormProps } from '../../states/Blogs';
-import HttpService from '../../../util/HttpService';
-import { STATUS } from '../../StatusBar';
+import BlogForm from './BlogForm';import { BlogFormProps } from '../../../states/Blogs';
 import RefUtil from '../../../util/RefUtil';
 import NevermindButton from '../../buttons/NevermindButton';
 import DeleteButton from '../../buttons/DeleteButton';
 import SaveButton from '../../buttons/SaveButton';
+import BlogsService from '../../../services/BlogsService';
 
 export default class BlogEditForm extends BlogForm {
     constructor(props:BlogFormProps) {
@@ -18,57 +17,50 @@ export default class BlogEditForm extends BlogForm {
         this.onFetch();
     }
 
-    private onFetch() {
+    private async onFetch() {
         if(!this.props.match.params || !this.props.match.params.id) {
             return;
         }
 
-        HttpService.get("/api/blogs/" + this.props.match.params.id).then((json) => {
+        try {
+            let json = await BlogsService.readOne(this.props.setGlobalMessage, this.props.match.params.id);
             this.setState({
                 content: json.content,
                 title: json.title,
                 startDateTime: json.startDateTime ? new Date(json.startDateTime) : null,
                 endDateTime: json.endDateTime ? new Date(json.endDateTime) : null
             });
-        }).catch(() => {
-            this.props.setGlobalMessage(STATUS.ERROR, "Failed to load blog.");
-        });
+        } catch(e) {}
     }
 
-    private onDelete() {
+    private async onDelete() {
         if(!this.props.match.params || !this.props.match.params.id) {
             return;
         }
-
-        HttpService.delete("/api/blogs/" + this.props.match.params.id).then(() => {
-            this.props.setGlobalMessage(STATUS.SUCCESS, "Blog deleted successfully.");
-            
+        
+        try {
+            await BlogsService.delete(this.props.setGlobalMessage, this.props.match.params.id);
             this.onFetch();
-        }).catch(() => {
-            this.props.setGlobalMessage(STATUS.ERROR, "Failed to delete blog.");
-        });
+        }
+        catch(e) {}
     }
 
 
-    protected onSubmit(e:MouseEvent<HTMLButtonElement>) {
+    protected async onSubmit(e:MouseEvent<HTMLButtonElement>) {
         e.preventDefault();
         if(!this.props.match.params || !this.props.match.params.id) {
             return;
         }
 
-        let payload = {
-            _id: this.props.match.params.id,
-            title: RefUtil.getValue(this.titleRef, ""),
-            content: this.state.content,
-            startDateTime: this.state.startDateTime,
-            endDateTime: this.state.endDateTime
-        };
-
-        HttpService.put("/api/blogs/" + this.props.match.params.id, payload).then(() => {
-            this.props.setGlobalMessage(STATUS.SUCCESS, "Blog updated successfully.");
-        }).catch(() => {
-            this.props.setGlobalMessage(STATUS.ERROR, "Failed to update blog.");
-        });
+        try {
+            await BlogsService.update(this.props.setGlobalMessage, {
+                _id: this.props.match.params.id,
+                title: RefUtil.getValue(this.titleRef, ""),
+                content: this.state.content,
+                startDateTime: this.state.startDateTime,
+                endDateTime: this.state.endDateTime
+            });
+        } catch(e) {}
     }
 
     protected renderButton() {

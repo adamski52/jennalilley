@@ -1,9 +1,8 @@
 import React from 'react';
-import { STATUS } from '../../StatusBar';
-import HttpService from '../../../util/HttpService';
 import { Link } from 'react-router-dom';
-import { ScheduleViewAllState, ScheduleViewAllProps } from '../../states/Schedule';
+import { ScheduleViewAllState, ScheduleViewAllProps } from '../../../states/Schedule';
 import { ISchedule } from '../../../interfaces/Schedule';
+import ScheduleService from '../../../services/ScheduleService';
 
 export default class SchedulePage extends React.Component<ScheduleViewAllProps, ScheduleViewAllState> {
     constructor(props: ScheduleViewAllProps) {
@@ -19,32 +18,10 @@ export default class SchedulePage extends React.Component<ScheduleViewAllProps, 
         this.onFetch();
     }
 
-    private onFetch() {
-        HttpService.get("/api/schedule").then((json:ISchedule[]) => {
-            let items = json || [],
-                today = new Date();
-
-            items = items.filter((item) => {
-                return item.startDateTime && item.startDateTime < today;
-            }).sort((lhs:ISchedule, rhs:ISchedule) => {
-                if(lhs.startDateTime != null && rhs.startDateTime != null) {
-                    if(lhs.startDateTime < rhs.startDateTime) {
-                        return -1;
-                    }
-
-                    if(lhs.startDateTime > rhs.startDateTime) {
-                        return 1;
-                    }
-                }
-
-                return 0;
-            });
-
-            this.setState({
-                items: items
-            });
-        }).catch(() => {
-            this.props.setGlobalMessage(STATUS.ERROR, "Failed to fetch events.");
+    private async onFetch() {
+        let json = await ScheduleService.readAllActive(this.props.setGlobalMessage);
+        this.setState({
+            items: json as ISchedule[]
         });
     }
 

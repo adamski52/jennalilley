@@ -1,5 +1,5 @@
 import React from "react";
-import { AdminViewProps, AdminViewState } from "../states/Admin";
+import { AdminViewProps, AdminViewState } from "../../states/Admin";
 import BaseAdminPage from "./BaseAdminPage";
 import EditHomeButton from "../buttons/EditHomeButton";
 import EditAboutSectionButton from "../buttons/EditAboutSectionButton";

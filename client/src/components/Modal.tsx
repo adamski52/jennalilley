@@ -1,5 +1,5 @@
 import React from 'react';
-import {ModalProps, ModalState} from "./states/Modal";
+import {ModalProps, ModalState} from "../states/Modal";
 import OKButton from "./buttons/OKButton";
 
 export default class Modal extends React.Component<ModalProps, ModalState> {

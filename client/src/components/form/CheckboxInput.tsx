@@ -1,5 +1,5 @@
 import React from 'react';
-import {CheckboxInputProps, CheckboxInputState} from "../states/CheckboxInput";
+import {CheckboxInputProps, CheckboxInputState} from "../../states/CheckboxInput";
 
 export default class TextInput extends React.Component<CheckboxInputProps, CheckboxInputState> {
     public render() {

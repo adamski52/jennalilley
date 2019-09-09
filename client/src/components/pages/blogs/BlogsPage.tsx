@@ -1,8 +1,7 @@
 import React from "react";
-import HttpService from "../../../util/HttpService";
-import { BlogViewAllProps, BlogViewAllState } from "../../states/Blogs";
-import { STATUS } from "../../StatusBar";
+import { BlogViewAllProps, BlogViewAllState } from "../../../states/Blogs";
 import { IBlog } from "../../../interfaces/Blog";
+import BlogsService from "../../../services/BlogsService";
 
 export default class BlogsPage extends React.Component<BlogViewAllProps, BlogViewAllState> {
     constructor(props:BlogViewAllProps) {
@@ -17,34 +16,10 @@ export default class BlogsPage extends React.Component<BlogViewAllProps, BlogVie
         this.onFetch();
     }
 
-    private onFetch() {
-        HttpService.get("/api/blogs/").then((json:IBlog[]) => {
-            let items = json || [],
-                today = new Date();
-
-            items = items.filter((item) => {
-                return item.startDateTime == null || item.startDateTime > today;
-            }).filter((item) => {
-                return item.endDateTime == null || item.endDateTime < today;
-            }).sort((lhs, rhs) => {
-                if(lhs.startDateTime != null && rhs.startDateTime != null) {
-                    if(lhs.startDateTime < rhs.startDateTime) {
-                        return -1;
-                    }
-
-                    if(lhs.startDateTime > rhs.startDateTime) {
-                        return 1;
-                    }
-                }
-
-                return 0;
-            });
-
-            this.setState({
-                items: items
-            });
-        }).catch(() => {
-            this.props.setGlobalMessage(STATUS.ERROR, "Failed to fetch blogs.");
+    private async onFetch() {
+        let json = await BlogsService.readAllActive(this.props.setGlobalMessage);
+        this.setState({
+            items: json as IBlog[]
         });
     }
 

@@ -1,8 +1,7 @@
 import React, { MouseEvent } from 'react';
-import HttpService from '../../../util/HttpService';
-import { STATUS } from '../../StatusBar';
+import HomeService from '../../../services/HomeService';
 import BaseAdminPage from '../BaseAdminPage';
-import { HomeFormProps, HomeFormState } from '../../states/Home';
+import { HomeFormProps, HomeFormState } from '../../../states/Home';
 import NevermindButton from '../../buttons/NevermindButton';
 import SaveButton from '../../buttons/SaveButton';
 import RichTextInput from '../../form/RichTextInput';
@@ -23,26 +22,23 @@ export default class HomeForm extends BaseAdminPage<HomeFormProps, HomeFormState
     this.onFetch();
   }
 
-  private onFetch() {
-    HttpService.get("/api/home").then((json) => {
+  private async onFetch() {
+    try {
+      let json = await HomeService.readAll(this.props.setGlobalMessage);
       this.setState({
         content: json[0].content
       });
-    }).catch(() => {
-      this.props.setGlobalMessage(STATUS.ERROR, "Failed to fetch content.");
-    });
+    } catch(e) {
+      this.setState({
+        content: ""
+      });
+    }
   }
 
-  private onSubmit(e: MouseEvent<HTMLButtonElement>) {
+  private async onSubmit(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    let payload = {
+    await HomeService.update(this.props.setGlobalMessage, {
       content: this.state.content
-    };
-
-    HttpService.post("/api/home", payload).then(() => {
-      this.props.setGlobalMessage(STATUS.SUCCESS, "Home section updated successfully.");
-    }).catch(() => {
-      this.props.setGlobalMessage(STATUS.ERROR, "Failed to save content.");
     });
   }
 

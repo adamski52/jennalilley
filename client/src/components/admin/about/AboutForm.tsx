@@ -1,7 +1,6 @@
 import React, { MouseEvent } from 'react';
-import { AboutFormProps, AboutFormState } from '../../states/About';
-import HttpService from '../../../util/HttpService';
-import { STATUS } from '../../StatusBar';
+import { AboutFormProps, AboutFormState } from '../../../states/About';
+import AboutService from '../../../services/AboutService';
 import BaseAdminPage from '../BaseAdminPage';
 import NevermindButton from '../../buttons/NevermindButton';
 import SaveButton from '../../buttons/SaveButton';
@@ -23,27 +22,29 @@ export default class AboutForm extends BaseAdminPage<AboutFormProps, AboutFormSt
     this.onFetch();
   }
 
-  private onFetch() {
-    HttpService.get("/api/about").then((json) => {
+  private async onFetch() {
+    try {
+      let json = await AboutService.readAll(this.props.setGlobalMessage);
       this.setState({
         content: json[0].content
       });
-    }).catch(() => {
-      this.props.setGlobalMessage(STATUS.ERROR, "Failed to fetch content.");
-    });
+    }
+    catch(e) {
+      this.setState({
+        content: []
+      });
+    }
   }
 
-  private onSubmit(e: MouseEvent<HTMLButtonElement>) {
+  private async onSubmit(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    let payload = {
-      content: this.state.content
-    };
 
-    HttpService.post("/api/about", payload).then(() => {
-      this.props.setGlobalMessage(STATUS.SUCCESS, "About section updated.");
-    }).catch(() => {
-      this.props.setGlobalMessage(STATUS.ERROR, "Failed to sav e content.");
-    });
+    try {
+      await AboutService.update(this.props.setGlobalMessage, {
+        content: this.state.content
+      });
+    }
+    catch(e) {}
   }
 
   public render() {

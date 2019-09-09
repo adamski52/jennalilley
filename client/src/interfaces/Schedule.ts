@@ -8,6 +8,7 @@ export interface ISchedule extends IBase {
     capacity: string,
     ageRestrictions: string,
     cost: string,
+    isFull: boolean;
     location: string,
     description: string
 };

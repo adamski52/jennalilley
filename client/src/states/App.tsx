@@ -1,6 +1,6 @@
 import { AdminAuthentication } from "./Admin";
-import { IStatus } from "../../util/TypeUtils";
 import { IModal } from "./Modal";
+import { IStatus } from "../interfaces/Status";
 
 export interface AppState {
     authentication: AdminAuthentication;

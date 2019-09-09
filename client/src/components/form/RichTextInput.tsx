@@ -2,7 +2,7 @@ import React from 'react';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import UploadAdapter from '../../image-upload/UploadAdapter';
-import { RichTextInputProps, RichTextInputState } from '../states/RichInputText';
+import { RichTextInputProps, RichTextInputState } from '../../states/RichInputText';
 
 export default class RichTextInput extends React.Component<RichTextInputProps, RichTextInputState> {
     public render() {

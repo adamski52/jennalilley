@@ -1,5 +1,5 @@
 import React, { MouseEvent } from 'react';
-import { BlogFormProps, BlogFormState } from '../../states/Blogs';
+import { BlogFormProps, BlogFormState } from '../../../states/Blogs';
 import BaseAdminPage from '../BaseAdminPage';
 import RichTextInput from '../../form/RichTextInput';
 import DateInput from "../../form/DateInput";

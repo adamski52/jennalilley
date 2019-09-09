@@ -1,11 +1,10 @@
 import React from 'react';
-import { BlogFormProps, BlogViewAllState } from '../../states/Blogs';
-import HttpService from '../../../util/HttpService';
-import { STATUS } from '../../StatusBar';
+import { BlogFormProps, BlogViewAllState } from '../../../states/Blogs';
 import { IBlog } from '../../../interfaces/Blog';
 import BaseAdminPage from '../BaseAdminPage';
 import DeleteButton from '../../buttons/DeleteButton';
 import EditButton from '../../buttons/EditButton';
+import BlogsService from '../../../services/BlogsService';
 
 export default class BlogsFormList extends BaseAdminPage<BlogFormProps, BlogViewAllState> {
     constructor(props: BlogFormProps) {
@@ -21,26 +20,20 @@ export default class BlogsFormList extends BaseAdminPage<BlogFormProps, BlogView
         this.onFetch();
     }
 
-    private onFetch() {
-        HttpService.get("/api/blogs").then((json) => {
-            this.setState({
-                items: json
-            });
-        }).catch((e) => {
-            this.props.setGlobalMessage(STATUS.ERROR, "Failed to load blogs.");
+    private async onFetch() {
+        let json = BlogsService.readAll(this.props.setGlobalMessage);
+        this.setState({
+            items: json
         });
     }
 
     private onDelete(blog: IBlog) {
-        return (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        return async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             e.preventDefault();
-            HttpService.delete("/api/blogs/" + blog._id).then(() => {
-                this.props.setGlobalMessage(STATUS.ERROR, "Blog deleted successfully.");
-                
+            try {
+                await BlogsService.delete(this.props.setGlobalMessage, blog._id);
                 this.onFetch();
-            }).catch(() => {
-                this.props.setGlobalMessage(STATUS.ERROR, "Failed to delete blog.");
-            });
+            } catch(e) {}
         };
     }
 

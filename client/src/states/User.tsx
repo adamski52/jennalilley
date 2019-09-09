@@ -1,5 +1,5 @@
 import { AdminViewProps } from "./Admin";
-import { IUser } from "../../interfaces/User";
+import { IUser } from "../interfaces/User";
 import { BasePageProps } from "./BasePage";
 
 export interface UserViewAllState {

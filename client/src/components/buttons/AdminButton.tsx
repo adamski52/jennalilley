@@ -1,4 +1,4 @@
-import { BaseLinkProps } from '../states/Button';
+import { BaseLinkProps } from '../../states/Button';
 import BaseAdminLink from './BaseAdminLink';
 
 export default class AdminButton extends BaseAdminLink {

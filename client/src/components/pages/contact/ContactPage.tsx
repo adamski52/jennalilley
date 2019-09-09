@@ -1,8 +1,7 @@
 import React from "react";
-import HttpService from "../../../util/HttpService";
-import { STATUS } from "../../StatusBar";
-import { ContactViewProps, ContactViewState } from "../../states/Contact";
+import { ContactViewProps, ContactViewState } from "../../../states/Contact";
 import EmailForm from "./EmailForm";
+import ContactService from "../../../services/ContactService";
 
 export default class ContactPage extends React.Component<ContactViewProps, ContactViewState> {
     constructor(props:ContactViewProps) {
@@ -27,13 +26,10 @@ export default class ContactPage extends React.Component<ContactViewProps, Conta
         );
     }
 
-    private onFetch() {
-        HttpService.get("/api/contact").then((json) => {
-            this.setState({
-                item: json[0]
-            });
-        }).catch((e) => {
-            this.props.setGlobalMessage(STATUS.ERROR, "Failed to load content.");
+    private async onFetch() {
+        let json = await ContactService.readAll(this.props.setGlobalMessage);
+        this.setState({
+            item: json[0]
         });
     }
 

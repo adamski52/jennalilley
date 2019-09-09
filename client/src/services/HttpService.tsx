@@ -2,8 +2,6 @@ import fetch from "cross-fetch";
 import Cookies from "js-cookie";
 
 export default class HttpService {
-    private static baseUrl = "";
-
     private static toJson(response:Response) {
         if(response.ok) {
             return response.json();
@@ -13,7 +11,7 @@ export default class HttpService {
     }
 
     public static get(url:string) {
-        return fetch(this.baseUrl + url, {
+        return fetch(url, {
             headers: {
                 "Authorization": "JWT " + Cookies.get("TOKEN"),
                 "Content-Type": "application/json"
@@ -22,7 +20,7 @@ export default class HttpService {
     }
 
     public static post(url:string, body:any) {
-        return fetch(this.baseUrl + url, {
+        return fetch(url, {
             method: "POST",
             body: JSON.stringify(body),
             headers: {
@@ -33,7 +31,7 @@ export default class HttpService {
     }
 
     public static put(url:string, body:any) {
-        return fetch(this.baseUrl + url, {
+        return fetch(url, {
             method: "PUT",
             body: JSON.stringify(body),
             headers: {
@@ -44,7 +42,7 @@ export default class HttpService {
     }
 
     public static delete(url:string) {
-        return fetch(this.baseUrl + url, {
+        return fetch(url, {
             method: "DELETE",
             headers: {
                 "Authorization": "JWT " + Cookies.get("TOKEN"),

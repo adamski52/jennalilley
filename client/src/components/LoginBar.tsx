@@ -1,6 +1,6 @@
 import React from "react";
-import HttpService from "../util/HttpService";
-import { LoginProps, LoginState } from "./states/Login";
+import HttpService from "../services/HttpService";
+import { LoginProps, LoginState } from "../states/Login";
 import LogoutButton from "./buttons/LogoutButton";
 import GoogleLoginButton from "./buttons/GoogleLoginButton";
 import FacebookLoginButton from "./buttons/FacebookLoginButton";
@@ -20,7 +20,7 @@ export default class LoginBar extends React.Component<LoginProps, LoginState> {
         this.onFetch();
     }
 
-    private onFetch() {
+    private async onFetch() {
         HttpService.get("/api/whoami").then((response) => {
             let isAdmin = response.roles.find((role:any) => {
                 return role.name.toUpperCase() === "ADMIN";

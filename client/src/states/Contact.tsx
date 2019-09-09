@@ -1,5 +1,5 @@
 import { AdminViewState, AdminViewProps } from "./Admin";
-import { IContact } from "../../interfaces/Contact";
+import { IContact } from "../interfaces/Contact";
 import { BasePageProps } from "./BasePage";
 
 export interface ContactFormProps extends AdminViewProps, BasePageProps {

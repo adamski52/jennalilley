@@ -1,5 +1,5 @@
 import BaseAuthenticatedLink from './BaseAuthenticatedLink';
-import { BaseLinkProps } from '../states/Button';
+import { BaseLinkProps } from '../../states/Button';
 
 export default class AccountButton extends BaseAuthenticatedLink {
     constructor(props:BaseLinkProps) {
