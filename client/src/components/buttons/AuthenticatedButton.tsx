@@ -1,14 +1,10 @@
+import {MouseEvent} from 'react';
 import Button from "./Button";
-import { BaseButtonProps } from "../../states/Button";
-import { MouseEvent } from 'react';
+import { BaseButtonProps } from '../../states/Button';
 
-export default abstract class AdminButton extends Button {
+export default abstract class AuthenticatedButton extends Button {
     constructor(props:BaseButtonProps) {
-        super({
-            onClick: props.onClick,
-            className: props.className,
-            label: props.label
-        });
+        super(props);
 
         this.state = {
             onClick: props.onClick || ((e:MouseEvent<HTMLButtonElement>) => {}),
@@ -34,23 +30,10 @@ export default abstract class AdminButton extends Button {
     }
 
     public render() {
-        if(!this.state.authentication || !this.state.authentication.isAdmin) {
+        if(!this.state.authentication || !this.state.authentication.isAuthenticated) {
             return null;
         }
 
         return super.render();
     }
-
-
-//     onstructor(props:BaseLinkProps) {
-//         super({
-//             ...props,
-//             to: "/admin",
-//             label: props.label || "Admin",
-//             className: props.className || "btn btn-admin icon-lock",
-//             authentication: props.authentication
-//         });
-//     }
-// }
-
 }

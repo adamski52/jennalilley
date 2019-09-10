@@ -1,7 +1,7 @@
 import BaseLink from "./BaseLink";
 import { BaseLinkProps } from "../../states/Button";
 
-export default abstract class BaseAuthenticatedLink extends BaseLink {
+export default abstract class AuthenticatedLink extends BaseLink {
     constructor(props:BaseLinkProps) {
         super({
             to: props.to,
@@ -10,13 +10,25 @@ export default abstract class BaseAuthenticatedLink extends BaseLink {
         });
 
         this.state = {
-            authentication: props.authentication
+            to: props.to || "",
+            className: props.className || "",
+            label: props.label || "",
+            authentication: props.authentication || {
+                isAdmin: false,
+                isAuthenticated: false
+            }
         };
     }
 
     public componentWillReceiveProps(props:BaseLinkProps) {
         this.setState({
-            authentication: props.authentication
+            to: props.to || "",
+            className: props.className || "",
+            label: props.label || "",
+            authentication: props.authentication || {
+                isAdmin: false,
+                isAuthenticated: false
+            }
         });
     }
 

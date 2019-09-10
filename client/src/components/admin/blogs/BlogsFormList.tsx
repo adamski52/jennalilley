@@ -21,10 +21,17 @@ export default class BlogsFormList extends BaseAdminPage<BlogFormProps, BlogView
     }
 
     private async onFetch() {
-        let json = BlogsService.readAll(this.props.setGlobalMessage);
-        this.setState({
-            items: json
-        });
+        try {
+            let json = BlogsService.readAll(this.props.setGlobalMessage);
+            this.setState({
+                items: json
+            });
+        }
+        catch(e) {
+            this.setState({
+                items: []
+            });
+        }
     }
 
     private onDelete(blog: IBlog) {

@@ -1,13 +1,14 @@
 import { BaseButtonProps } from '../../states/Button';
-import BaseAdminButton from './BaseAdminButton';
+import AdminButton from './AdminButton';
 
-export default class PromoteUserButton extends BaseAdminButton {
+export default class PromoteUserButton extends AdminButton {
     constructor(props:BaseButtonProps) {
-        super({
-            onClick: props.onClick,
+        super(props);
+
+        this.state = {
+            ...this.state,
             label: props.label || "Promote",
-            className: props.className || "btn btn-status-warn icon-user-plus",
-            authentication: props.authentication
-        });
+            className: props.className || "btn btn-status-warn icon-user-plus"
+        };
     }
 }

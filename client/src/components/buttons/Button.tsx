@@ -1,13 +1,10 @@
-import { BaseButtonProps } from '../../states/Button';
-import BaseButton from './BaseButton';
+import React from 'react';
+import { BaseButtonProps, BaseButtonState } from '../../states/Button';
 
-export default class Button extends BaseButton {
-    constructor(props:BaseButtonProps) {
-        super({
-            onClick: props.onClick,
-            label: props.label,
-            className: props.className || "btn",
-            authentication: props.authentication
-        });
+export default abstract class BaseButton extends React.Component<BaseButtonProps, BaseButtonState> {
+    public render():JSX.Element | null {
+        return (
+            <button onClick={this.props.onClick} className={this.props.className}>{this.props.label}</button>
+        );
     }
 }

@@ -9,7 +9,10 @@ export interface BaseButtonProps {
 };
 
 export interface BaseButtonState {
-    authentication?: AdminAuthentication;
+    onClick: (e:MouseEvent<HTMLButtonElement>) => void;
+    className: string;
+    label: string;
+    authentication: AdminAuthentication;
 }
 
 export interface BaseLinkProps {
@@ -20,5 +23,8 @@ export interface BaseLinkProps {
 };
 
 export interface BaseLinkState {
-    authentication?: AdminAuthentication;
+    to: string;
+    className: string;
+    label: string;
+    authentication: AdminAuthentication;
 }

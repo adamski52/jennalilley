@@ -37,9 +37,12 @@ export default class HomeForm extends BaseAdminPage<HomeFormProps, HomeFormState
 
   private async onSubmit(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    await HomeService.update(this.props.setGlobalMessage, {
-      content: this.state.content
-    });
+    try {
+      await HomeService.update(this.props.setGlobalMessage, {
+        content: this.state.content
+      });
+    }
+    catch(e) {}
   }
 
   public render() {

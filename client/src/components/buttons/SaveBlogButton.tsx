@@ -1,13 +1,14 @@
 import { BaseButtonProps } from "../../states/Button";
-import BaseAdminButton from "./BaseAdminButton";
+import AdminButton from "./AdminButton";
 
-export default class SaveBlogButton extends BaseAdminButton {
+export default class SaveBlogButton extends AdminButton {
     constructor(props:BaseButtonProps) {
-        super({
-            onClick: props.onClick,
+        super(props);
+
+        this.state = {
+            ...this.state,
             label: props.label || "Create New Blog",
-            className: props.className || "btn btn-admin icon-document-text-add",
-            authentication: props.authentication
-        });
+            className: props.className || "btn btn-admin icon-document-text-add"
+        };
     }
 }

@@ -16,10 +16,17 @@ export default class AboutPage extends React.Component<AboutViewProps, AboutView
     }
 
     private async onFetch() {
-        let json = await AboutService.readAll(this.props.setGlobalMessage);
-        this.setState({
-            item: json[0]
-        });
+        try {
+            let json = await AboutService.readAll(this.props.setGlobalMessage);
+            this.setState({
+                item: json[0]
+            });
+        }
+        catch(e) {
+            this.setState({
+                item: undefined
+            });
+        }
     }
 
     public render() {

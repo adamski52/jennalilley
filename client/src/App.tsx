@@ -78,10 +78,6 @@ export default class App extends React.Component<any, AppState> {
         });
     }
 
-    public componentWillUpdate() {
-        this.checkAuth();
-    }
-
     private setGlobalMessage(type:string, message:string) {
         this.setState({
             message: {

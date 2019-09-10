@@ -16,10 +16,17 @@ export default class HomePage extends React.Component<HomeViewProps, HomeViewSta
     }
 
     private async onFetch() {
-        let json = await HomeService.readAll(this.props.setGlobalMessage);
-        this.setState({
-            item: json[0]
-        });
+        try {
+            let json = await HomeService.readAll(this.props.setGlobalMessage);
+            this.setState({
+                item: json[0]
+            });
+        }
+        catch(e) {
+            this.setState({
+                item: undefined
+            });
+        }
     }
 
     private renderItem() {

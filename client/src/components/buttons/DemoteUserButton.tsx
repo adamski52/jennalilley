@@ -1,13 +1,14 @@
 import { BaseButtonProps } from '../../states/Button';
-import BaseAdminButton from './BaseAdminButton';
+import AdminButton from './AdminButton';
 
-export default class DemoteUserButton extends BaseAdminButton {
+export default class DemoteUserButton extends AdminButton {
     constructor(props:BaseButtonProps) {
-        super({
-            onClick: props.onClick,
+        super(props);
+
+        this.state = {
+            ...this.state,
             label: props.label || "Demote",
-            className: props.className || "btn btn-status-warn icon-user-times",
-            authentication: props.authentication
-        });
+            className: props.className || "btn btn-status-warn icon-user-times"
+        };
     }
 }

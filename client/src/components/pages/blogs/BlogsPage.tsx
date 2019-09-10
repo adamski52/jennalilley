@@ -17,10 +17,17 @@ export default class BlogsPage extends React.Component<BlogViewAllProps, BlogVie
     }
 
     private async onFetch() {
-        let json = await BlogsService.readAllActive(this.props.setGlobalMessage);
-        this.setState({
-            items: json as IBlog[]
-        });
+        try {
+            let json = await BlogsService.readAllActive(this.props.setGlobalMessage);
+            this.setState({
+                items: json as IBlog[]
+            });
+        }
+        catch(e) {
+            this.setState({
+                items: []
+            });
+        }
     }
 
     private renderPostedAt(item:IBlog) {

@@ -5,18 +5,20 @@ import { IBlog } from "../interfaces/Blog";
 
 export default class BlogsService {
     public static readOne(statusHandler:ISetGlobalMessage, id:any) {
-        return HttpService.get("/api/blogs/" + id).then((json) => {
-            return json;
-        }).catch(() => {
+        return HttpService.get("/api/blogs/" + id).then((response) => {
+            return response;
+        }).catch((e) => {
             statusHandler(STATUS.ERROR, "Failed to load blog.");
+            throw e;
         });
     }
 
     public static readAll(statusHandler:ISetGlobalMessage) {
-        return HttpService.get("/api/blogs").then((json) => {
-            return json;
-        }).catch(() => {
+        return HttpService.get("/api/blogs").then((response) => {
+            return response;
+        }).catch((e) => {
             statusHandler(STATUS.ERROR, "Failed to load blogs.");
+            throw e;
         });
     }
 
@@ -44,32 +46,39 @@ export default class BlogsService {
             });
 
             return items;
-        }).catch(() => {
+        }).catch((e) => {
             statusHandler(STATUS.ERROR, "Failed to load blogs.");
+            throw e;
         });
     }
 
     public static create(statusHandler:ISetGlobalMessage, payload:any) {
-        return HttpService.post("/api/blogs", payload).then(() => {
+        return HttpService.post("/api/blogs", payload).then((response) => {
             statusHandler(STATUS.SUCCESS, "Blog created successfully.");
-        }).catch(() => {
+            return response;
+        }).catch((e) => {
             statusHandler(STATUS.ERROR, "Failed to create blog.");
+            throw e;
         });
     }
 
     public static update(statusHandler:ISetGlobalMessage, payload:any) {
-        return HttpService.put("/api/blogs/" + payload._id, payload).then(() => {
+        return HttpService.put("/api/blogs/" + payload._id, payload).then((response) => {
             statusHandler(STATUS.SUCCESS, "Blog updated successfully.");
-        }).catch(() => {
+            return response;
+        }).catch((e) => {
             statusHandler(STATUS.ERROR, "Failed to update blog.");
+            throw e;
         });
     }
 
     public static delete(statusHandler:ISetGlobalMessage, id:any) {
-        return HttpService.delete("/api/blogs/" + id).then(() => {
+        return HttpService.delete("/api/blogs/" + id).then((response) => {
             statusHandler(STATUS.SUCCESS, "Blog deleted successfully.");
-        }).catch(() => {
+            return response;
+        }).catch((e) => {
             statusHandler(STATUS.ERROR, "Failed to delete blog.");
+            throw e;
         });
     }
 }

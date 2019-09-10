@@ -1,13 +1,15 @@
 import { BaseLinkProps } from '../../states/Button';
-import BaseAdminLink from './BaseAdminLink';
+import AdminLink from './AdminLink';
 
-export default class EditHomeButton extends BaseAdminLink {
+export default class EditHomeButton extends AdminLink {
     constructor(props:BaseLinkProps) {
-        super({
+        super(props);
+
+        this.state = {
+            ...this.state,
             to: "/admin/home",
             label: props.label || "Edit Home Section",
-            className: props.className || "btn btn-admin icon-home",
-            authentication: props.authentication
-        });
+            className: props.className || "btn btn-admin icon-home"
+        };
     }
 }

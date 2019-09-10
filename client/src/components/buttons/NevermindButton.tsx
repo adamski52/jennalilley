@@ -1,13 +1,15 @@
 import { BaseLinkProps } from '../../states/Button';
-import BaseAdminLink from './BaseAdminLink';
+import AdminLink from './AdminLink';
 
-export default class NevermindButton extends BaseAdminLink {
+export default class NevermindButton extends AdminLink {
     constructor(props:BaseLinkProps) {
-        super({
+        super(props);
+
+        this.state = {
+            ...this.state,
             to: "/admin",
             label: props.label || "Nevermind",
-            className: props.className || "btn btn-admin icon-undo",
-            authentication: props.authentication
-        });
+            className: props.className || "btn btn-admin icon-undo"
+        };
     }
 }

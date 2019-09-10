@@ -5,18 +5,20 @@ import { ISchedule } from "../interfaces/Schedule";
 
 export default class ScheduleService {
     public static readOne(statusHandler:ISetGlobalMessage, id:any) {
-        return HttpService.get("/api/schedule/" + id).then((json) => {
-            return json;
-        }).catch(() => {
+        return HttpService.get("/api/schedule/" + id).then((response) => {
+            return response;
+        }).catch((e) => {
             statusHandler(STATUS.ERROR, "Failed to load event.");
+            throw e;
         });
     }
 
     public static readAll(statusHandler:ISetGlobalMessage) {
-        return HttpService.get("/api/schedule").then((json) => {
-            return json;
-        }).catch(() => {
+        return HttpService.get("/api/schedule").then((response) => {
+            return response;
+        }).catch((e) => {
             statusHandler(STATUS.ERROR, "Failed to load events.");
+            throw e;
         });
     }
 
@@ -42,32 +44,39 @@ export default class ScheduleService {
             });
 
             return items;
-        }).catch(() => {
+        }).catch((e) => {
             statusHandler(STATUS.ERROR, "Failed to load events.");
+            throw e;
         });
     }
 
     public static create(statusHandler:ISetGlobalMessage, payload:any) {
-        return HttpService.post("/api/schedule", payload).then(() => {
+        return HttpService.post("/api/schedule", payload).then((response) => {
             statusHandler(STATUS.SUCCESS, "Event created successfully.");
-        }).catch(() => {
+            return response;
+        }).catch((e) => {
             statusHandler(STATUS.ERROR, "Failed to create event.");
+            throw e;
         });
     }
 
     public static update(statusHandler:ISetGlobalMessage, payload:any) {
-        return HttpService.put("/api/schedule/" + payload._id, payload).then(() => {
+        return HttpService.put("/api/schedule/" + payload._id, payload).then((response) => {
             statusHandler(STATUS.SUCCESS, "Event updated successfully.");
-        }).catch(() => {
+            return response;
+        }).catch((e) => {
             statusHandler(STATUS.ERROR, "Failed to update event.");
+            throw e;
         });
     }
 
     public static delete(statusHandler:ISetGlobalMessage, id:any) {
-        return HttpService.delete("/api/schedule/" + id).then(() => {
+        return HttpService.delete("/api/schedule/" + id).then((response) => {
             statusHandler(STATUS.SUCCESS, "Event deleted successfully.");
-        }).catch(() => {
+            return response;
+        }).catch((e) => {
             statusHandler(STATUS.ERROR, "Failed to delete event.");
+            throw e;
         });
     }
 }

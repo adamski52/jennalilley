@@ -16,7 +16,10 @@ export default class HttpService {
                 "Authorization": "JWT " + Cookies.get("TOKEN"),
                 "Content-Type": "application/json"
             }
-        }).then(this.toJson)
+        }).then(this.toJson).catch((e) => {
+            console.error(e);
+            throw e;
+        });
     }
 
     public static post(url:string, body:any) {
@@ -27,7 +30,10 @@ export default class HttpService {
                 "Authorization": "JWT " + Cookies.get("TOKEN"),
                 "Content-Type": "application/json"
             }
-        }).then(this.toJson);
+        }).then(this.toJson).catch((e) => {
+            console.error(e);
+            throw e;
+        });
     }
 
     public static put(url:string, body:any) {
@@ -38,7 +44,10 @@ export default class HttpService {
                 "Authorization": "JWT " + Cookies.get("TOKEN"),
                 "Content-Type": "application/json"
             }
-        }).then(this.toJson);
+        }).then(this.toJson).catch((e) => {
+            console.error(e);
+            throw e;
+        });
     }
 
     public static delete(url:string) {
@@ -48,6 +57,9 @@ export default class HttpService {
                 "Authorization": "JWT " + Cookies.get("TOKEN"),
                 "Content-Type": "application/json"
             }
-        }).then(this.toJson);
+        }).then(this.toJson).catch((e) => {
+            console.error(e);
+            throw e;
+        });
     }
 }

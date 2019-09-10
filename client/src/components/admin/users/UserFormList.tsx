@@ -22,10 +22,17 @@ export default class UserFormList extends BaseAdminPage<UserViewAllProps, UserVi
     }
 
     private async onFetch() {
-        let json = await UserService.readAll(this.props.setGlobalMessage);
-        this.setState({
-            items: json
-        });
+        try {
+            let json = await UserService.readAll(this.props.setGlobalMessage);
+            this.setState({
+                items: json
+            });
+        }
+        catch(e) {
+            this.setState({
+                items: []
+            });
+        }
     }
 
     private async onPromote(user: IUser) {
@@ -37,8 +44,10 @@ export default class UserFormList extends BaseAdminPage<UserViewAllProps, UserVi
             return;
         }
 
-        await UserService.promote(this.props.setGlobalMessage, user);
-        return this.onFetch();
+        try {
+            await UserService.promote(this.props.setGlobalMessage, user);
+            this.onFetch();
+        } catch(e) {}
     }
 
     private async onDemote(user: IUser) {
@@ -46,8 +55,10 @@ export default class UserFormList extends BaseAdminPage<UserViewAllProps, UserVi
             return;
         }
 
-        await UserService.demote(this.props.setGlobalMessage, user);
-        this.onFetch();
+        try {
+            await UserService.demote(this.props.setGlobalMessage, user);
+            this.onFetch();
+        } catch(e) {}
     }
 
     private onDelete(user: IUser) {
@@ -56,8 +67,10 @@ export default class UserFormList extends BaseAdminPage<UserViewAllProps, UserVi
                 return;
             }
 
-            await UserService.delete(this.props.setGlobalMessage, user._id);
-            this.onFetch();
+            try {
+                await UserService.delete(this.props.setGlobalMessage, user._id);
+                this.onFetch();
+            } catch(e) {}
         };
     }
 

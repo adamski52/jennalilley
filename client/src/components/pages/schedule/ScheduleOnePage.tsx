@@ -36,25 +36,42 @@ export default class ScheduleOnePage extends React.Component<ScheduleViewOneProp
             return;
         }
 
-        let json:ISchedule = await ScheduleService.readOne(this.props.setGlobalMessage, this.props.match.params.id);
-        this.setState({
-            name: json.name,
-            type: json.type,
-            startDateTime: json.startDateTime ? new Date(json.startDateTime) : null,
-            endDateTime: json.endDateTime ? new Date(json.endDateTime) : null,
-            capacity: json.capacity,
-            ageRestrictions: json.ageRestrictions,
-            cost: json.cost,
-            isFull: json.isFull,
-            location: json.location,
-            description: json.description
-        });
+        try {
+            let json:ISchedule = await ScheduleService.readOne(this.props.setGlobalMessage, this.props.match.params.id);
+            this.setState({
+                name: json.name,
+                type: json.type,
+                startDateTime: json.startDateTime ? new Date(json.startDateTime) : null,
+                endDateTime: json.endDateTime ? new Date(json.endDateTime) : null,
+                capacity: json.capacity,
+                ageRestrictions: json.ageRestrictions,
+                cost: json.cost,
+                isFull: !!json.isFull,
+                location: json.location,
+                description: json.description
+            });
+        }
+        catch(e) {
+            this.setState({
+                name: "",
+                type: "",
+                startDateTime: null,
+                endDateTime: null,
+                capacity: "",
+                isFull: false,
+                ageRestrictions: "",
+                cost: "",
+                location: "",
+                description: ""
+            });
+        }
     }
 
     private isFull() {
-        return false;
+        return !!this.state.isFull;
     }
 
+    // TODO: this
     private isEnrolled() {
         return false;
     }

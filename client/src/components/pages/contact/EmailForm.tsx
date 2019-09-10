@@ -23,7 +23,9 @@ export default class EmailForm extends React.Component<any, EmailFormState> {
             message: this.messageRef
         };
 
-        await ContactService.sendEmail(this.props.setGlobalMessage, payload);
+        try {
+            await ContactService.sendEmail(this.props.setGlobalMessage, payload);
+        } catch(e) {}
     }
 
     public render() {

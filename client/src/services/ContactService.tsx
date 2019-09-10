@@ -4,19 +4,22 @@ import { STATUS } from "../components/StatusBar";
 
 export default class ContactService {
     public static readAll(statusHandler:ISetGlobalMessage) {
-        return HttpService.get("/api/contact").then((json) => {
-            return json;
-        }).catch(() => {
+        return HttpService.get("/api/contact").then((response) => {
+            return response;
+        }).catch((e) => {
             statusHandler(STATUS.ERROR, "Failed to load contact information.");
+            throw e;
         });
     }
 
     // this is intentional -- for undelete-able things, update calls post
     public static update(statusHandler:ISetGlobalMessage, payload:any) {
-        return HttpService.post("/api/contact", payload).then(() => {
+        return HttpService.post("/api/contact", payload).then((response) => {
             statusHandler(STATUS.SUCCESS, "Contact information updated successfully.");
-        }).catch(() => {
+            return response;
+        }).catch((e) => {
             statusHandler(STATUS.ERROR, "Failed to update contact information.");
+            throw e;
         });
     }
 
@@ -55,10 +58,12 @@ export default class ContactService {
             message: payload.messageRef.current.value
         };
 
-        return HttpService.post("/api/email", email).then(() => {
+        return HttpService.post("/api/email", email).then((response) => {
             statusHandler(STATUS.SUCCESS, "Email sent successfully.");
-        }).catch(() => {
+            return response;
+        }).catch((e) => {
             statusHandler(STATUS.ERROR, "Failed to send email.  Please try again.");
+            throw e;
         });
     }
 }

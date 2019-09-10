@@ -1,18 +1,20 @@
 import { MouseEvent } from 'react';
-import BaseAuthenticatedButton from './BaseAuthenticatedButton';
+import AuthenticatedButton from './AuthenticatedButton';
 import { BaseButtonProps } from '../../states/Button';
 
-export default class GoogleLoginButton extends BaseAuthenticatedButton {
+export default class GoogleLoginButton extends AuthenticatedButton {
     constructor(props:BaseButtonProps) {
-        super({
+        super(props);
+
+        this.state = {
+            ...this.state,
             onClick: props.onClick || ((e:MouseEvent<HTMLButtonElement>) => {
                 e.preventDefault();
                 window.location.href = "/api/auth/google/start";
             }),
             label: props.label || "Login with Google",
-            className: props.className || "btn btn-google icon-google",
-            authentication: props.authentication
-        });
+            className: props.className || "btn btn-google icon-google"
+        };
     }
 
     public render() {

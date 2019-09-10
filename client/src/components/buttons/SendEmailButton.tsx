@@ -1,13 +1,14 @@
 import { BaseButtonProps } from '../../states/Button';
-import BaseButton from './BaseButton';
+import Button from './Button';
 
-export default class SendEmailButton extends BaseButton {
+export default class SendEmailButton extends Button {
     constructor(props:BaseButtonProps) {
-        super({
-            onClick: props.onClick,
+        super(props);
+
+        this.state = {
+            ...this.state,
             label: props.label || "Send Email",
-            className: props.className || "btn btn-email icon-envelope",
-            authentication: props.authentication
-        });
+            className: props.className || "btn btn-email icon-envelope"
+        };
     }
 }

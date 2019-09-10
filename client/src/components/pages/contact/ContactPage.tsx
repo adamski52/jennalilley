@@ -27,10 +27,17 @@ export default class ContactPage extends React.Component<ContactViewProps, Conta
     }
 
     private async onFetch() {
-        let json = await ContactService.readAll(this.props.setGlobalMessage);
-        this.setState({
-            item: json[0]
-        });
+        try {
+            let json = await ContactService.readAll(this.props.setGlobalMessage);
+            this.setState({
+                item: json[0]
+            });
+        }
+        catch(e) {
+            this.setState({
+                item: undefined
+            });
+        }
     }
 
     private renderItem() {

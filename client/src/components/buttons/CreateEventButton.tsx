@@ -1,13 +1,15 @@
 import { BaseLinkProps } from '../../states/Button';
-import BaseAdminLink from './BaseAdminLink';
+import AdminLink from './AdminLink';
 
-export default class CreateEventButton extends BaseAdminLink {
+export default class CreateEventButton extends AdminLink {
     constructor(props:BaseLinkProps) {
-        super({
+        super(props);
+        
+        this.state = {
+            ...this.state,
             to: "/admin/schedule/create",
             label: props.label || "Create New Event",
-            className: props.className || "btn btn-admin icon-calendar-plus-o",
-            authentication: props.authentication
-        });
+            className: props.className || "btn btn-admin icon-calendar-plus-o"
+        };
     }
 }

@@ -23,10 +23,17 @@ export default class AccountPage extends BaseSecurePage<AccountViewProps, Accoun
     }
 
     private async onFetch() {
-        let json = await AccountService.readAll(this.props.setGlobalMessage);
-        this.setState({
-            events: json
-        });
+        try {
+            let json = await AccountService.readAll(this.props.setGlobalMessage);
+            this.setState({
+                events: json
+            });
+        }
+        catch(e) {
+            this.setState({
+                events: []
+            });
+        }
     }
 
     private onDisenroll(e: MouseEvent<HTMLSpanElement>) {

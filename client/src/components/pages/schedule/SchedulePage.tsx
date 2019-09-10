@@ -19,10 +19,17 @@ export default class SchedulePage extends React.Component<ScheduleViewAllProps, 
     }
 
     private async onFetch() {
-        let json = await ScheduleService.readAllActive(this.props.setGlobalMessage);
-        this.setState({
-            items: json as ISchedule[]
-        });
+        try {
+            let json = await ScheduleService.readAllActive(this.props.setGlobalMessage);
+            this.setState({
+                items: json as ISchedule[]
+            });
+        }
+        catch(e) {
+            this.setState({
+                items: []
+            });
+        }
     }
 
     private renderItems() {
