@@ -11,14 +11,6 @@ import EditContactInfoButton from "../buttons/EditContactInfoButton";
 import EditUsersButton from "../buttons/EditUsersButton";
 
 export default class AdminNav extends BaseAdminPage<AdminViewProps, AdminViewState> {
-    constructor(props:AdminViewProps) {
-        super(props);
-
-        this.state = {
-            authentication: props.authentication
-        };
-    }
-
     protected renderAuthenticatedView() {
         return (
             <div className="main-content">

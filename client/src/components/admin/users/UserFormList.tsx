@@ -10,7 +10,7 @@ export default class UserFormList extends BaseAdminPage<UserViewAllProps, UserVi
         super(props);
 
         this.state = {
-            authentication: props.authentication,
+            ...this.state,
             items: []
         };
 

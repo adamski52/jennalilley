@@ -1,18 +1,14 @@
 import React from "react";
+import BaseReactiveElement from "../BaseReactiveElement";
 
-export default abstract class BaseAdminPage<P, S> extends React.Component<any, any> {
+export default abstract class BaseAdminPage<P, S> extends BaseReactiveElement<any, any> {
     constructor(props:any) {
         super(props);
 
         this.state = {
+            ...this.state,
             authentication: props.authentication
         };
-    }
-
-    public componentWillReceiveProps(props:any) {
-        this.setState({
-            authentication: props.authentication
-        });
     }
 
     protected renderUnauthenticatedView():JSX.Element | null {

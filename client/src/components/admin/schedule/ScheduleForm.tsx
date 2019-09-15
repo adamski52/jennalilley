@@ -19,7 +19,7 @@ export default class ScheduleForm extends BaseAdminPage<ScheduleFormProps, Sched
     super(props);
 
     this.state = {
-        authentication: props.authentication,
+        ...this.state,
         name: "",
         type: "",
         startDateTime: null,

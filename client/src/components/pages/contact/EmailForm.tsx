@@ -4,8 +4,9 @@ import SendEmailButton from "../../buttons/SendEmailButton";
 import ContactService from "../../../services/ContactService";
 import TextInput from "../../form/TextInput";
 import TextareaInput from "../../form/TextareaInput";
+import BaseReactiveElement from "../../BaseReactiveElement";
 
-export default class EmailForm extends React.Component<EmailFormProps, EmailFormState> {
+export default class EmailForm extends BaseReactiveElement<EmailFormProps, EmailFormState> {
     private nameRef:RefObject<HTMLInputElement> = React.createRef();
     private emailRef:RefObject<HTMLInputElement> = React.createRef();
     private messageRef:RefObject<HTMLTextAreaElement> = React.createRef();

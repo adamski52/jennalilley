@@ -1,12 +1,14 @@
 import React from "react";
 import { AboutViewProps, AboutViewState } from "../../../states/About";
 import AboutService from "../../../services/AboutService";
+import BaseReactiveElement from "../../BaseReactiveElement";
 
-export default class AboutPage extends React.Component<AboutViewProps, AboutViewState> {
+export default class AboutPage extends BaseReactiveElement<AboutViewProps, AboutViewState> {
     constructor(props:AboutViewProps) {
         super(props);
 
         this.state = {
+            ...this.state,
             item: undefined
         };
     }

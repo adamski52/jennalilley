@@ -1,12 +1,14 @@
 import React from 'react';
 import { BaseLinkProps, BaseLinkState } from '../../states/Button';
 import { Link } from 'react-router-dom';
+import BaseReactiveElement from '../BaseReactiveElement';
 
-export default abstract class BaseLink extends React.Component<BaseLinkProps, BaseLinkState> {
+export default abstract class BaseLink extends BaseReactiveElement<BaseLinkProps, BaseLinkState> {
     constructor(props:BaseLinkProps) {
         super(props);
 
         this.state = {
+            ...this.state,
             to: this.props.to || "",
             className: this.props.className || "",
             label: this.props.label || "",

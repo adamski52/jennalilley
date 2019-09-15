@@ -11,7 +11,7 @@ export default class AccountPage extends BaseSecurePage<AccountViewProps, Accoun
         super(props);
 
         this.state = {
-            authentication: props.authentication,
+            ...this.state,
             events: []
         };
 

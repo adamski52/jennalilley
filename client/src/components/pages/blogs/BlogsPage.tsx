@@ -2,12 +2,14 @@ import React from "react";
 import { BlogViewAllProps, BlogViewAllState } from "../../../states/Blogs";
 import { IBlog } from "../../../interfaces/Blog";
 import BlogsService from "../../../services/BlogsService";
+import BaseReactiveElement from "../../BaseReactiveElement";
 
-export default class BlogsPage extends React.Component<BlogViewAllProps, BlogViewAllState> {
+export default class BlogsPage extends BaseReactiveElement<BlogViewAllProps, BlogViewAllState> {
     constructor(props:BlogViewAllProps) {
         super(props);
 
         this.state = {
+            ...this.state,
             items: []
         };
     }

@@ -11,7 +11,7 @@ export default class AboutForm extends BaseAdminPage<AboutFormProps, AboutFormSt
     super(props);
 
     this.state = {
-      authentication: props.authentication,
+      ...this.state,
       content: ""
     };
 

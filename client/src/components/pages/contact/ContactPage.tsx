@@ -2,12 +2,14 @@ import React from "react";
 import { ContactViewProps, ContactViewState } from "../../../states/Contact";
 import EmailForm from "./EmailForm";
 import ContactService from "../../../services/ContactService";
+import BaseReactiveElement from "../../BaseReactiveElement";
 
-export default class ContactPage extends React.Component<ContactViewProps, ContactViewState> {
+export default class ContactPage extends BaseReactiveElement<ContactViewProps, ContactViewState> {
     constructor(props:ContactViewProps) {
         super(props);
 
         this.state = {
+            ...this.state,
             item: undefined
         };
     }

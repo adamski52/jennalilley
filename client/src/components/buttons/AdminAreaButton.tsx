@@ -8,7 +8,7 @@ export default class AdminAreaButton extends AdminLink {
         this.state = {
             ...this.state,
             to: props.to || "/admin",
-            label: props.label || "My Account",
+            label: props.label || "Admin",
             className: props.className || "icon-lock"
         };
     }

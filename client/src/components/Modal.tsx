@@ -1,8 +1,9 @@
 import React from 'react';
 import {ModalProps, ModalState} from "../states/Modal";
 import OKButton from "./buttons/OKButton";
+import BaseReactiveElement from './BaseReactiveElement';
 
-export default class Modal extends React.Component<ModalProps, ModalState> {
+export default class Modal extends BaseReactiveElement<ModalProps, ModalState> {
     public render() {
         if(!this.props.message || !this.props.title) {
             return null;

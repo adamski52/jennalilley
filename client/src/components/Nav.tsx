@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import BaseReactiveElement from "./BaseReactiveElement";
 
-export default class Nav extends React.Component<any, any> {
+export default class Nav extends BaseReactiveElement<any, any> {
     public render() {
         return (
             <nav className="col nav">

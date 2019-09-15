@@ -1,12 +1,14 @@
 import React from "react";
 import { HomeViewProps, HomeViewState } from "../../../states/Home";
 import HomeService from "../../../services/HomeService";
+import BaseReactiveElement from "../../BaseReactiveElement";
 
-export default class HomePage extends React.Component<HomeViewProps, HomeViewState> {
+export default class HomePage extends BaseReactiveElement<HomeViewProps, HomeViewState> {
     constructor(props:HomeViewProps) {
         super(props);
 
         this.state = {
+            ...this.state,
             item: undefined
         };
     }

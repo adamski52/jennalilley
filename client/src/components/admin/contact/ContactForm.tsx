@@ -19,7 +19,7 @@ export default class ContactForm extends BaseAdminPage<ContactFormProps, Contact
     super(props);
 
     this.state = {
-        authentication: props.authentication,
+        ...this.state,
         content: "",
         twitter: "",
         facebook: "",

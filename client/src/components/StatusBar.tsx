@@ -1,6 +1,7 @@
 import React from 'react';
 import { IStatus } from '../interfaces/Status';
 import OKButton from './buttons/OKButton';
+import BaseReactiveElement from './BaseReactiveElement';
 
 export const STATUS = {
   ERROR: "error",
@@ -8,11 +9,12 @@ export const STATUS = {
   WARN: "warn"
 };
 
-export default class StatusBar extends React.Component<IStatus, IStatus> {
+export default class StatusBar extends BaseReactiveElement<IStatus, IStatus> {
   constructor(props:any) {
     super(props);
 
     this.state = {
+      ...this.state,
       message: props.message || "",
       type: props.type || ""
     };

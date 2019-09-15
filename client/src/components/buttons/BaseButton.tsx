@@ -1,11 +1,13 @@
 import React, {MouseEvent} from 'react';
 import { BaseButtonProps, BaseButtonState } from '../../states/Button';
+import BaseReactiveElement from '../BaseReactiveElement';
 
-export default abstract class BaseButton extends React.Component<BaseButtonProps, BaseButtonState> {
+export default abstract class BaseButton extends BaseReactiveElement<BaseButtonProps, BaseButtonState> {
     constructor(props:BaseButtonProps) {
         super(props);
 
         this.state = {
+            ...this.state,
             onClick: this.props.onClick || ((e:MouseEvent<HTMLButtonElement>) => {}),
             className: this.props.className || "",
             label: this.props.label || "",

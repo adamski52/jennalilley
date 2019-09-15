@@ -3,13 +3,14 @@ import { ScheduleViewOneState, ScheduleViewOneProps } from '../../../states/Sche
 import Button from '../../buttons/BaseButton';
 import ScheduleService from '../../../services/ScheduleService';
 import { ISchedule } from '../../../interfaces/Schedule';
+import BaseReactiveElement from '../../BaseReactiveElement';
 
-export default class ScheduleOnePage extends React.Component<ScheduleViewOneProps, ScheduleViewOneState> {
+export default class ScheduleOnePage extends BaseReactiveElement<ScheduleViewOneProps, ScheduleViewOneState> {
     constructor(props: ScheduleViewOneProps) {
         super(props);
 
         this.state = {
-            authentication: props.authentication,
+            ...this.state,
             name: "",
             type: "",
             startDateTime: null,

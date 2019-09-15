@@ -12,7 +12,7 @@ export default class BlogForm extends BaseAdminPage<BlogFormProps, BlogFormState
     super(props);
 
     this.state = {
-        authentication: props.authentication,
+        ...this.state,
         content: "",
         title: "",
         startDateTime: null,

@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom';
 import { ScheduleViewAllState, ScheduleViewAllProps } from '../../../states/Schedule';
 import { ISchedule } from '../../../interfaces/Schedule';
 import ScheduleService from '../../../services/ScheduleService';
+import BaseReactiveElement from '../../BaseReactiveElement';
 
-export default class SchedulePage extends React.Component<ScheduleViewAllProps, ScheduleViewAllState> {
+export default class SchedulePage extends BaseReactiveElement<ScheduleViewAllProps, ScheduleViewAllState> {
     constructor(props: ScheduleViewAllProps) {
         super(props);
 
         this.state = {
-            authentication: props.authentication,
+            ...this.state,
             items: []
         };
     }

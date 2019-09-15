@@ -11,8 +11,8 @@ export default class ScheduleFormList extends BaseAdminPage<ScheduleFormProps, S
     super(props);
 
     this.state = {
-        authentication: props.authentication,
-        items: []
+      ...this.state,
+      items: []
     };
 
     this.onDelete = this.onDelete.bind(this);

@@ -11,7 +11,7 @@ export default class BlogsFormList extends BaseAdminPage<BlogFormProps, BlogView
         super(props);
 
         this.state = {
-            authenticated: props.authentication,
+            ...this.state,
             items: []
         };
 

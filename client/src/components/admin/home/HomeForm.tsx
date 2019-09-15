@@ -11,7 +11,7 @@ export default class HomeForm extends BaseAdminPage<HomeFormProps, HomeFormState
     super(props);
 
     this.state = {
-      authentication: props.authentication,
+      ...this.state,
       content: ""
     };
 

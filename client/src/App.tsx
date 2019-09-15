@@ -119,7 +119,9 @@ export default class App extends React.Component<any, AppState> {
 
     public render() {
         let globalProps = {
-            authentication: this.state.authentication,
+            authentication: {
+                ...this.state.authentication
+            },
             setModalMessage: this.setModalMessage,
             setGlobalMessage: this.setGlobalMessage,
             clearGlobalMessage: this.clearGlobalMessage,
