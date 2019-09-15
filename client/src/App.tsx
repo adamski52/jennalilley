@@ -28,9 +28,7 @@ import AboutForm from './components/admin/about/AboutForm';
 import BlogsFormList from './components/admin/blogs/BlogsFormList';
 import HomeForm from './components/admin/home/HomeForm';
 import AccountPage from './components/pages/account/AccountPage';
-import HeroImg from "./img/hero.jpg";
 import StatusBar from './components/StatusBar';
-
 
 export default class App extends React.Component<any, AppState> {
     constructor(props: any) {
@@ -141,10 +139,7 @@ export default class App extends React.Component<any, AppState> {
                         <Nav {...globalProps} />
                     </div>
                     <div className="row">
-                        <div className="col-4 layout-tight hero-img">
-                            <img alt="" src={HeroImg} />
-                        </div>
-                        <div className="col-8">
+                        <div className="col">
                             <Route path="/" exact render={(routeProps) => {
                                 return (
                                     <HomePage {...routeProps} {...globalProps} />
