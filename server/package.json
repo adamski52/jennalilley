@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "express": "^4.15.3",
-    "mongodb": "^3.2.5"
+    "mongodb": "^3.2.5",
+    "nodemailer": "^6.3.0"
   },
   "devDependencies": {
     "@types/convict": "^4.2.1",
@@ -19,6 +20,7 @@
     "@types/express": "^4.16.1",
     "@types/mongodb": "^3.1.27",
     "@types/mongoose": "^5.5.1",
+    "@types/nodemailer": "^6.2.1",
     "@types/passport": "^1.0.0",
     "@types/passport-facebook": "^2.1.9",
     "@types/passport-google-oauth": "^1.0.41",

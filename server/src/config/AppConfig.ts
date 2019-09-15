@@ -19,6 +19,28 @@ export default class AppConfig {
                 doc: "Database password",
                 default: "mongo",
                 env: "JNA_MONGO_PASSWORD"
+            }            
+        },
+        email: {
+            username: {
+                doc: "AWS SMTP Username",
+                default: "jennalilley",
+                env: "JENNALILLEY_SMTP_USERNAME"
+            },
+            password: {
+                doc: "AWS SMTP Password",
+                default: "jennalilley",
+                env: "JENNALILLEY_SMTP_PASSWORD"
+            },
+            host: {
+                doc: "AWS SMTP Host",
+                default: "email-smtp.us-east-1.amazonaws.com",
+                env: "JENNALILLEY_SMTP_HOST"
+            },
+            port: {
+                doc: "AWS SMTP Port",
+                default: 587, //25, 465 or 587
+                env: "JENNALILLEY_SMTP_PORT"
             }
         },
         authentication: {
