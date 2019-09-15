@@ -8,15 +8,16 @@ nav,
     background: $theme-primary;
 
     .nav-item {
+        font-size: $sizing-large;
+        font-family: $font-accent;
+        padding-right: $spacing-xlarge;
+
         &:hover,
         &:focus,
         &:visited,
         &:link {
-            font-family: $font-accent;
             color: $theme-secondary;
             text-decoration: none;
-            font-size: $sizing-large;
-            padding-right: $spacing-xlarge;
         }
 
         &:hover {
@@ -29,3 +30,15 @@ nav,
         }
     }
 }
+
+@include media-breakpoint-down(xs) { 
+    nav,
+    .nav {
+        text-align: center;
+        .nav-item {
+            font-size: $sizing-small;
+            padding: 0 $spacing-medium;
+        }
+    }
+}
+

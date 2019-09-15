@@ -1,5 +1,6 @@
 import React from 'react';
 import { IStatus } from '../interfaces/Status';
+import OKButton from './buttons/OKButton';
 
 export const STATUS = {
   ERROR: "error",
@@ -21,8 +22,7 @@ export default class StatusBar extends React.Component<IStatus, IStatus> {
 
   private onClose() {
     this.setState({
-      message: "",
-      type: ""
+      message: ""
     });
   }
 
@@ -33,24 +33,15 @@ export default class StatusBar extends React.Component<IStatus, IStatus> {
     });
   }
 
-  public getButtonClassName() {
-    return "btn btn-status-" + this.state.type + " btn-small icon-times";
-  }
-
-  public getStatusBarClassName() {
-    return "row status-bar status-bar-" + this.state.type;
-  }
 
   public render() {
-    if(!this.state.message) {
-      return null;
-    }
+    let open = this.state.message ? "open" : "closed";
 
     return (
-      <div className={this.getStatusBarClassName()}>
-        <div className="col-10">{this.state.message}</div>
-        <div className="col-2 text-right">
-          <button className={this.getButtonClassName()} onClick={this.onClose}>Dismiss</button>
+      <div className={"row status-bar layout-tight status-" + this.state.type + " status-" + open}>
+        <div className="col text-center">{this.state.message}</div>
+        <div className="w-150 text-right">
+          <OKButton onClick={this.onClose} />
         </div>
       </div>
     );

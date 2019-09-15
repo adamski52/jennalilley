@@ -17,7 +17,7 @@ export default class LoginBar extends React.Component<LoginProps, LoginState> {
 
     public render() {
         return (
-            <div className="col-12 text-right login-bar">
+            <div className="col login-bar">
                 <AdminAreaButton authentication={this.state.authentication} />
                 <AccountButton authentication={this.state.authentication} />
                 <FacebookLoginButton authentication={this.state.authentication} />

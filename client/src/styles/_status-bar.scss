@@ -1,0 +1,34 @@
+@import "variables";
+
+.status-bar {
+    position: fixed;
+    bottom: -100px;
+    transition: .2s all linear;
+    width: 100%;
+    z-index: 999999;
+    padding: $spacing-medium;
+    align-items: center;
+    border-top: 3px double transparent;
+
+    &.status-open {
+        bottom: 0;
+    }
+}
+
+.status-error {
+    background: $theme-error;
+    color: $theme-error-text;
+    border-top-color: $theme-error-text;
+}
+
+.status-warn {
+    background: $theme-warn;
+    color: $theme-warn-text;
+    border-top-color: $theme-warn-text;
+}
+
+.status-success {
+    background: $theme-success;
+    color: $theme-success-text;
+    border-top-color: $theme-success-text;
+}

@@ -25,8 +25,6 @@ export default class EmailForm extends React.Component<EmailFormProps, EmailForm
             message: this.messageRef
         };
 
-        console.log(payload);
-
         try {
             await ContactService.sendEmail(this.props.setGlobalMessage, payload);
         } catch(e) {}
@@ -38,7 +36,7 @@ export default class EmailForm extends React.Component<EmailFormProps, EmailForm
                 <TextInput reference={this.nameRef} title="Your Name" />
                 <TextInput reference={this.emailRef} title="Your Email Address" />
                 <TextareaInput reference={this.messageRef} title="Your Message" />
-                <div className="col-12 text-right layout-tight">
+                <div className="text-right layout-tight">
                     <SendEmailButton onClick={this.onSubmit} />
                 </div>
             </form>

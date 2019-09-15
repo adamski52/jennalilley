@@ -29,6 +29,7 @@ import BlogsFormList from './components/admin/blogs/BlogsFormList';
 import HomeForm from './components/admin/home/HomeForm';
 import AccountPage from './components/pages/account/AccountPage';
 import HeroImg from "./img/hero.jpg";
+import StatusBar from './components/StatusBar';
 
 
 export default class App extends React.Component<any, AppState> {
@@ -129,9 +130,10 @@ export default class App extends React.Component<any, AppState> {
 
         return (
             <Router>
-                <Modal message={this.state.modal.message} title={this.state.modal.title} onClose={this.clearModalMessage} />
-
+                <Modal message={this.state.modal.message} title={this.state.modal.title} onClose={this.clearModalMessage} />                
                 <div className="container-fluid">
+                    <StatusBar message={this.state.message.message} type={this.state.message.type} />
+
                     <div className="row">
                         <LoginBar {...globalProps} />
                     </div>

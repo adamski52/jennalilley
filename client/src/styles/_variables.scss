@@ -10,17 +10,25 @@ $spacing-xlarge: 30px;
 
 $sizing-large: 1.25rem;
 $sizing-xlarge: 2rem;
+$sizing-medium: 1rem;
+$sizing-small: .8rem;
 
 $theme-primary: #040a1c;
 $theme-secondary: #3ab1e3;
 $theme-accent: #81efc5;
-$theme-subtle: #f0f0f0;
+$theme-subtle: #dff4fd;
 
 $theme-facebook: #1e3b87;
 $theme-google: #96272d;
-$theme-success: #00460f;
-$theme-error: #460000;
-$theme-warn: #b3711b;
+
+$theme-success: #93cca2;
+$theme-success-text: #226432;
+
+$theme-error: #f7bdbd;
+$theme-error-text: #a76666;
+
+$theme-warn: #eccb9f;
+$theme-warn-text: #976e39;
 
 $font-accent: 'Pacifico', cursive;
 $font-primary: 'Shadows Into Light', sans-serif;
