@@ -9,7 +9,7 @@ export default class EditContactInfoButton extends AdminLink {
             ...this.state,
             to: "/admin/contact",
             label: props.label || "Edit Contact Info",
-            className: props.className || "btn btn-admin icon-comments"
+            className: props.className || "icon-comments"
         };
     }
 }

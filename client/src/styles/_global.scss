@@ -9,6 +9,7 @@ html,
   padding: 0;
   margin: 0;
   position: relative;
+  color: #202020;
 }
 
 body {
@@ -18,169 +19,39 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: $font-accent;
+  font-size: $sizing-xlarge;
+  color: $theme-secondary;
+  margin-top: $spacing-medium;
+  font-weight: normal;
+}
+
+p {
+  font-size: $sizing-large;
+  margin: $spacing-small 0;
+  padding: 0;
 }
 
 .login-bar {
-  padding: $spacing-medium 0;
-  text-align: right;
-  background: $theme-primary;  
+  padding: $spacing-small;
+  background: $theme-subtle;
 }
 
 .main-content {
-  padding: $spacing-xlarge $spacing-medium $spacing-medium $spacing-medium;
+  padding: 0;
 }
 
-@include media-breakpoint-down(xs) {
-  .main-content {
-    padding-top: $spacing-medium;
-  }
+.layout-tight {
+  padding: 0;
+}
 
-  .left-bar {
-    padding-top: $spacing-medium;
+.hero-img {
+  img {
+    width: 100%;
   }
 }
 
 .note {
   padding: $spacing-medium;
-  background: $theme-note;
   margin: $spacing-medium 0;
-  border-radius: $spacing-medium;
-
-  strong {
-    text-decoration: underline;
-  }
-}
-
-.form-group {
-  margin: $spacing-medium 0;
-  padding: 0;
-}
-
-@include media-breakpoint-down(sm) {
-  .login-bar {
-    .btn {
-      &:before {
-        font-size: 1em;
-      }
-    }
-  }
-}
-
-.ck-editor__editable_inline {
-  min-height: 400px;
-}
-
-.rbc-calendar {
-  min-height: 100vh;
-  margin-top: $spacing-large;
-
-  .rbc-toolbar {
-      .rbc-toolbar-label {
-          font-size: 1.5rem;
-      }
-  }
-
-  .rbc-month-header {
-      background: $theme-table-header;
-      text-transform: uppercase;
-
-      .rbc-header {
-          padding: 10px 0;
-      }
-  }
-}
-
-.react-datepicker__time-container {
-  .react-datepicker__time {
-    .react-datepicker__time-box {
-      ul.react-datepicker__time-list {
-        li.react-datepicker__time-list-item {
-          font-size: .7rem;
-        }
-      }
-    }
-  }
-}
-
-.react-datepicker-wrapper,
-.react-datepicker__input-container {
-  width: 100%;
-  display: block;
-}
-
-.left-bar {
-  background: $theme-subtle;
-  padding-top: 50px;
-  
-  .btn {
-    margin-top: $spacing-medium;
-  }
-}
-
-.home-page {
-  .left-bar {
-    padding-top: 0;
-  }
-}
-
-.status-bar {
-  width: 100%;
-  padding: $spacing-medium;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  z-index: 9999;
-
-  &.status-bar-success {
-    background: $theme-success;
-    color: lighten($theme-success, 60%);
-  }
-
-  &.status-bar-error {
-    background: $theme-error;
-    color: lighten($theme-error, 60%);
-  }
-
-  &.status-bar-warn {
-    background: $theme-warn;
-    color: lighten($theme-warn, 60%);
-  }
-}
-
-.schedule-page {
-  padding: 0 $spacing-large;
-
-  .schedule-table {
-    width: 100%;
-  }
-}
-
-.blog-post {
-  padding: $spacing-medium;
-  margin-bottom: $spacing-medium;
-  border-bottom: 1px dotted #ccc;
-}
-
-figure.image {
-  width: 100%;
-  padding: $spacing-medium 0;
-
-  img {
-    width: 100%;
-  }
-
-  &.image-style-align-left {
-    width: 40%;
-    min-width: 300px;
-    max-width: 600px;
-    float: left;
-  }
-  
-  &.image-style-side,
-  &.image-style-align-right {
-    width: 40%;
-    min-width: 300px;
-    max-width: 600px;
-    float: right;
-  }
+  background: rgba($theme-secondary, .1);
 }

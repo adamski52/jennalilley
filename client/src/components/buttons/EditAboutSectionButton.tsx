@@ -9,7 +9,7 @@ export default class EditAboutSectionButton extends AdminLink {
             ...this.state,
             to: "/admin/about",
             label: props.label || "Edit About Section",
-            className: props.className || "btn btn-admin icon-info-circle"
+            className: props.className || "icon-info-circle"
         };
     }
 }

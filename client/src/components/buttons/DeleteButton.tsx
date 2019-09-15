@@ -8,7 +8,7 @@ export default class DeleteButton extends AdminButton {
         this.state = {
             ...this.state,
             label: props.label || "Delete",
-            className: props.className || "btn btn-admin icon-trash",
+            className: props.className || "icon-trash",
         };
     }
 }

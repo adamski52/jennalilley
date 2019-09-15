@@ -8,7 +8,7 @@ export default class EditButton extends AdminLink {
         this.state = {
             ...this.state,
             label: props.label || "Edit",
-            className: props.className || "btn btn-admin icon-pencil"
+            className: props.className || "icon-pencil"
         };
     }
 }

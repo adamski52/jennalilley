@@ -28,6 +28,8 @@ import AboutForm from './components/admin/about/AboutForm';
 import BlogsFormList from './components/admin/blogs/BlogsFormList';
 import HomeForm from './components/admin/home/HomeForm';
 import AccountPage from './components/pages/account/AccountPage';
+import HeroImg from "./img/hero.jpg";
+
 
 export default class App extends React.Component<any, AppState> {
     constructor(props: any) {
@@ -56,11 +58,12 @@ export default class App extends React.Component<any, AppState> {
         this.clearModalMessage = this.clearModalMessage.bind(this);
     }
 
-    private checkAuth() {
-        HttpService.get("/api/whoami").then((response) => {
-            let isAdmin = response.roles.find((role: any) => {
-                return role.name.toUpperCase() === "ADMIN";
-            });
+    private async checkAuth() {
+        try {
+            let response = await HttpService.get("/api/whoami"),
+                isAdmin = response.roles.find((role: any) => {
+                    return role.name.toUpperCase() === "ADMIN";
+                });
 
             this.setState({
                 authentication: {
@@ -68,14 +71,15 @@ export default class App extends React.Component<any, AppState> {
                     isAuthenticated: true
                 }
             });
-        }).catch(() => {
+        }
+        catch(e) {
             this.setState({
                 authentication: {
                     isAdmin: false,
                     isAuthenticated: false
                 }
             });
-        });
+        }
     }
 
     private setGlobalMessage(type:string, message:string) {
@@ -127,117 +131,128 @@ export default class App extends React.Component<any, AppState> {
             <Router>
                 <Modal message={this.state.modal.message} title={this.state.modal.title} onClose={this.clearModalMessage} />
 
-                <LoginBar {...globalProps} />
+                <div className="container-fluid">
+                    <div className="row">
+                        <LoginBar {...globalProps} />
+                    </div>
+                    <div className="row">
+                        <Nav {...globalProps} />
+                    </div>
+                    <div className="row">
+                        <div className="col-4 layout-tight hero-img">
+                            <img alt="" src={HeroImg} />
+                        </div>
+                        <div className="col-8">
+                            <Route path="/" exact render={(routeProps) => {
+                                return (
+                                    <HomePage {...routeProps} {...globalProps} />
+                                );
+                            }} />
 
-                <Nav {...globalProps} />
-                
-                <Route path="/" exact render={(routeProps) => {
-                    return (
-                        <HomePage {...routeProps} {...globalProps} />
-                    );
-                }} />
+                            <Route path="/about/" exact render={(routeProps) => {
+                                return (
+                                    <AboutPage {...routeProps} {...globalProps} />
+                                );
+                            }} />
 
-                <Route path="/about/" exact render={(routeProps) => {
-                    return (
-                        <AboutPage {...routeProps} {...globalProps} />
-                    );
-                }} />
+                            <Route path="/blogs/" exact render={(routeProps) => {
+                                return (
+                                    <BlogsPage {...routeProps} {...globalProps} />
+                                );
+                            }} />
 
-                <Route path="/blogs/" exact render={(routeProps) => {
-                    return (
-                        <BlogsPage {...routeProps} {...globalProps} />
-                    );
-                }} />
+                            <Route path="/schedule/" exact render={(routeProps) => {
+                                return (
+                                    <SchedulePage {...routeProps} {...globalProps} />
+                                );
+                            }} />
 
-                <Route path="/schedule/" exact render={(routeProps) => {
-                    return (
-                        <SchedulePage {...routeProps} {...globalProps} />
-                    );
-                }} />
+                            <Route path="/schedule/:id" exact render={(routeProps) => {
+                                return (
+                                    <ScheduleOnePage {...routeProps} {...globalProps} />
+                                );
+                            }} />
 
-                <Route path="/schedule/:id" exact render={(routeProps) => {
-                    return (
-                        <ScheduleOnePage {...routeProps} {...globalProps} />
-                    );
-                }} />
+                            <Route path="/contact/" exact render={(routeProps) => {
+                                return (
+                                    <ContactPage {...routeProps} {...globalProps} />
+                                );
+                            }} />
 
-                <Route path="/contact/" exact render={(routeProps) => {
-                    return (
-                        <ContactPage {...routeProps} {...globalProps} />
-                    );
-                }} />
+                            <Route path="/account/" exact render={(routeProps) => {
+                                return (
+                                    <AccountPage {...routeProps} {...globalProps} />
+                                );
+                            }} />
 
-                <Route path="/account/" exact render={(routeProps) => {
-                    return (
-                        <AccountPage {...routeProps} {...globalProps} />
-                    );
-                }} />
+                            <Route path="/admin/" exact render={(routeProps) => {
+                                return (
+                                    <AdminNav {...routeProps} {...globalProps} />
+                                );
+                            }} />
 
-                <Route path="/admin/" exact render={(routeProps) => {
-                    return (
-                        <AdminNav {...routeProps} {...globalProps} />
-                    );
-                }} />
+                            <Route exact path="/admin/home" render={(routeProps) => {
+                                return (
+                                    <HomeForm {...routeProps} {...globalProps} />
+                                );
+                            }} />
 
-                <Route exact path="/admin/home" render={(routeProps) => {
-                    return (
-                        <HomeForm {...routeProps} {...globalProps} />
-                    );
-                }} />
+                            <Route exact path="/admin/about" render={(routeProps) => {
+                                return (
+                                    <AboutForm {...routeProps} {...globalProps} />
+                                );
+                            }} />
 
-                <Route exact path="/admin/about" render={(routeProps) => {
-                    return (
-                        <AboutForm {...routeProps} {...globalProps} />
-                    );
-                }} />
+                            <Route exact path="/admin/blogs" render={(routeProps) => {
+                                return (
+                                    <BlogsFormList {...routeProps} {...globalProps} />
+                                );
+                            }} />
 
-                <Route exact path="/admin/blogs" render={(routeProps) => {
-                    return (
-                        <BlogsFormList {...routeProps} {...globalProps} />
-                    );
-                }} />
+                            <Route exact path="/admin/blogs/create" render={(routeProps) => {
+                                return (
+                                    <BlogCreateForm {...routeProps} {...globalProps} />
+                                );
+                            }} />
 
-                <Route exact path="/admin/blogs/create" render={(routeProps) => {
-                    return (
-                        <BlogCreateForm {...routeProps} {...globalProps} />
-                    );
-                }} />
+                            <Route exact path="/admin/blogs/edit/:id" render={(routeProps) => {
+                                return (
+                                    <BlogEditForm {...routeProps} {...globalProps} />
+                                );
+                            }} />
 
-                <Route exact path="/admin/blogs/edit/:id" render={(routeProps) => {
-                    return (
-                        <BlogEditForm {...routeProps} {...globalProps} />
-                    );
-                }} />
+                            <Route exact path="/admin/schedule" render={(routeProps) => {
+                                return (
+                                    <ScheduleFormList {...routeProps} {...globalProps} />
+                                );
+                            }} />
 
-                <Route exact path="/admin/schedule" render={(routeProps) => {
-                    return (
-                        <ScheduleFormList {...routeProps} {...globalProps} />
-                    );
-                }} />
+                            <Route exact path="/admin/schedule/create" render={(routeProps) => {
+                                return (
+                                    <ScheduleCreateForm {...routeProps} {...globalProps} />
+                                );
+                            }} />
 
-                <Route exact path="/admin/schedule/create" render={(routeProps) => {
-                    return (
-                        <ScheduleCreateForm {...routeProps} {...globalProps} />
-                    );
-                }} />
+                            <Route exact path="/admin/schedule/edit/:id" render={(routeProps) => {
+                                return (
+                                    <ScheduleEditForm {...routeProps} {...globalProps} />
+                                );
+                            }} />
 
-                <Route exact path="/admin/schedule/edit/:id" render={(routeProps) => {
-                    return (
-                        <ScheduleEditForm {...routeProps} {...globalProps} />
-                    );
-                }} />
+                            <Route exact path="/admin/users" render={(routeProps) => {
+                                return (
+                                    <UserFormList {...routeProps} {...globalProps}  />
+                                );
+                            }} />
 
-                <Route exact path="/admin/users" render={(routeProps) => {
-                    return (
-                        <UserFormList {...routeProps} {...globalProps}  />
-                    );
-                }} />
-
-                <Route exact path="/admin/contact" render={(routeProps) => {
-                    return (
-                        <ContactForm {...routeProps} {...globalProps}  />
-                    );
-                }} />
+                            <Route exact path="/admin/contact" render={(routeProps) => {
+                                return (
+                                    <ContactForm {...routeProps} {...globalProps}  />
+                                );
+                            }} />
+                        </div>
+                    </div>
+                </div>
             </Router>
         );
     }

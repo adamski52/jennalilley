@@ -1,9 +1,11 @@
 import React, { RefObject, FormEvent } from "react";
-import { EmailFormState } from "../../../states/Contact";
+import { EmailFormState, EmailFormProps } from "../../../states/Contact";
 import SendEmailButton from "../../buttons/SendEmailButton";
 import ContactService from "../../../services/ContactService";
+import TextInput from "../../form/TextInput";
+import TextareaInput from "../../form/TextareaInput";
 
-export default class EmailForm extends React.Component<any, EmailFormState> {
+export default class EmailForm extends React.Component<EmailFormProps, EmailFormState> {
     private nameRef:RefObject<HTMLInputElement> = React.createRef();
     private emailRef:RefObject<HTMLInputElement> = React.createRef();
     private messageRef:RefObject<HTMLTextAreaElement> = React.createRef();
@@ -23,6 +25,8 @@ export default class EmailForm extends React.Component<any, EmailFormState> {
             message: this.messageRef
         };
 
+        console.log(payload);
+
         try {
             await ContactService.sendEmail(this.props.setGlobalMessage, payload);
         } catch(e) {}
@@ -31,16 +35,12 @@ export default class EmailForm extends React.Component<any, EmailFormState> {
     public render() {
         return (
             <form onSubmit={this.onSubmit}>
-                <span>Your Name</span>
-                <input type="text" ref={this.nameRef} />
-
-                <span>Your Email Address</span>
-                <input type="text" ref={this.emailRef} />
-
-                <span>Your Message</span>
-                <textarea ref={this.messageRef} />
-
-                <SendEmailButton onClick={this.onSubmit} />
+                <TextInput reference={this.nameRef} title="Your Name" />
+                <TextInput reference={this.emailRef} title="Your Email Address" />
+                <TextareaInput reference={this.messageRef} title="Your Message" />
+                <div className="col-12 text-right layout-tight">
+                    <SendEmailButton onClick={this.onSubmit} />
+                </div>
             </form>
         );
     }

@@ -1,8 +1,8 @@
 import {MouseEvent} from 'react';
-import Button from "./Button";
+import BaseButton from "./BaseButton";
 import { BaseButtonProps } from '../../states/Button';
 
-export default abstract class AuthenticatedButton extends Button {
+export default abstract class AuthenticatedButton extends BaseButton {
     constructor(props:BaseButtonProps) {
         super(props);
 

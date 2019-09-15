@@ -9,7 +9,7 @@ export default class NevermindButton extends AdminLink {
             ...this.state,
             to: "/admin",
             label: props.label || "Nevermind",
-            className: props.className || "btn btn-admin icon-undo"
+            className: props.className || "icon-undo"
         };
     }
 }

@@ -3,24 +3,28 @@ import { ISetGlobalMessage } from "../interfaces/Global";
 import { STATUS } from "../components/StatusBar";
 
 export default class ContactService {
-    public static readAll(statusHandler:ISetGlobalMessage) {
-        return HttpService.get("/api/contact").then((response) => {
+    public static async readAll(statusHandler:ISetGlobalMessage) {
+        try {
+            let response = await HttpService.get("/api/contact");
             return response;
-        }).catch((e) => {
+        }
+        catch(e) {
             statusHandler(STATUS.ERROR, "Failed to load contact information.");
             throw e;
-        });
+        }
     }
 
     // this is intentional -- for undelete-able things, update calls post
-    public static update(statusHandler:ISetGlobalMessage, payload:any) {
-        return HttpService.post("/api/contact", payload).then((response) => {
+    public static async update(statusHandler:ISetGlobalMessage, payload:any) {
+        try {
+            let response = await HttpService.post("/api/contact", payload);
             statusHandler(STATUS.SUCCESS, "Contact information updated successfully.");
             return response;
-        }).catch((e) => {
+        }
+        catch(e) {
             statusHandler(STATUS.ERROR, "Failed to update contact information.");
             throw e;
-        });
+        }
     }
 
     private static isPayloadValid(statusHandler:ISetGlobalMessage, payload:any) {
@@ -47,23 +51,25 @@ export default class ContactService {
         return true;
     }
 
-    public static sendEmail(statusHandler:ISetGlobalMessage, payload:any) {
+    public static async sendEmail(statusHandler:ISetGlobalMessage, payload:any) {
         if(!this.isPayloadValid(statusHandler, payload)) {
             return;
         }
-        
-        let email = {
-            name: payload.nameRef.current.value,
-            email: payload.emailRef.current.value,
-            message: payload.messageRef.current.value
-        };
 
-        return HttpService.post("/api/email", email).then((response) => {
+        try {
+            let email = {
+                name: payload.nameRef.current.value,
+                email: payload.emailRef.current.value,
+                message: payload.messageRef.current.value
+            };
+
+            let response = await HttpService.post("/api/email", email);
             statusHandler(STATUS.SUCCESS, "Email sent successfully.");
             return response;
-        }).catch((e) => {
+        }
+        catch(e) {
             statusHandler(STATUS.ERROR, "Failed to send email.  Please try again.");
             throw e;
-        });
+        }
     }
 }

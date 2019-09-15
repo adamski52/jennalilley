@@ -9,7 +9,7 @@ export default class EditBlogsButton extends AdminLink {
             ...this.state,
             to: "/admin/blogs",
             label: props.label || "Edit Blogs",
-            className: props.className || "btn btn-admin icon-document-text-edit"
+            className: props.className || "icon-document-text-edit"
         };
     }
 }

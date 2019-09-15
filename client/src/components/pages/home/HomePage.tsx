@@ -37,7 +37,7 @@ export default class HomePage extends React.Component<HomeViewProps, HomeViewSta
 
     public render() {
         return (
-            <div>
+            <div className="main-content">
                 {this.renderItem()}
             </div>
         );

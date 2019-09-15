@@ -1,5 +1,5 @@
 import { BaseButtonProps } from '../../states/Button';
-import Button from './Button';
+import Button from './BaseButton';
 
 export default class OKButton extends Button {
     constructor(props:BaseButtonProps) {
@@ -8,7 +8,7 @@ export default class OKButton extends Button {
         this.state = {
             ...this.state,
             label: props.label || "OK",
-            className: props.className || "btn btn-status-warn icon-check"
+            className: props.className || "icon-check"
         };
     }
 }

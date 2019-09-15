@@ -3,11 +3,7 @@ import { BaseLinkProps } from "../../states/Button";
 
 export default abstract class AuthenticatedLink extends BaseLink {
     constructor(props:BaseLinkProps) {
-        super({
-            to: props.to,
-            className: props.className,
-            label: props.label
-        });
+        super(props);
 
         this.state = {
             to: props.to || "",

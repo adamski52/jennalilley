@@ -7,7 +7,7 @@ import { RichTextInputProps, RichTextInputState } from '../../states/RichInputTe
 export default class RichTextInput extends React.Component<RichTextInputProps, RichTextInputState> {
     public render() {
         return (
-            <div>
+            <div className="input-group">
                 <span>{this.props.title}</span>
                 <div>
                     <CKEditor

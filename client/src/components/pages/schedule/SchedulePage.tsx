@@ -35,7 +35,9 @@ export default class SchedulePage extends React.Component<ScheduleViewAllProps, 
     private renderItems() {
         if(this.state.items.length <= 0) {
             return (
-                <p>There are no upcoming events currently scheduled.</p>
+                <div className="note">
+                    <p>There are no upcoming events currently scheduled.</p>
+                </div>
             );
         }
 

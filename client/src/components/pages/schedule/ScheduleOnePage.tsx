@@ -1,6 +1,6 @@
 import React, { MouseEvent } from 'react';
 import { ScheduleViewOneState, ScheduleViewOneProps } from '../../../states/Schedule';
-import Button from '../../buttons/Button';
+import Button from '../../buttons/BaseButton';
 import ScheduleService from '../../../services/ScheduleService';
 import { ISchedule } from '../../../interfaces/Schedule';
 

@@ -8,7 +8,7 @@ export default class PromoteUserButton extends AdminButton {
         this.state = {
             ...this.state,
             label: props.label || "Promote",
-            className: props.className || "btn btn-status-warn icon-user-plus"
+            className: props.className || "icon-user-plus"
         };
     }
 }

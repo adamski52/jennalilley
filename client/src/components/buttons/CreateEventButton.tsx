@@ -9,7 +9,7 @@ export default class CreateEventButton extends AdminLink {
             ...this.state,
             to: "/admin/schedule/create",
             label: props.label || "Create New Event",
-            className: props.className || "btn btn-admin icon-calendar-plus-o"
+            className: props.className || "icon-calendar-plus-o"
         };
     }
 }

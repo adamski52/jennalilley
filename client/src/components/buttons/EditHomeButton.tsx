@@ -9,7 +9,7 @@ export default class EditHomeButton extends AdminLink {
             ...this.state,
             to: "/admin/home",
             label: props.label || "Edit Home Section",
-            className: props.className || "btn btn-admin icon-home"
+            className: props.className || "icon-home"
         };
     }
 }

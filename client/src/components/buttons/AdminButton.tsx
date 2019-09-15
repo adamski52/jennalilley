@@ -1,14 +1,10 @@
-import Button from "./Button";
+import BaseButton from "./BaseButton";
 import { BaseButtonProps } from "../../states/Button";
 import { MouseEvent } from 'react';
 
-export default abstract class AdminButton extends Button {
+export default abstract class AdminButton extends BaseButton {
     constructor(props:BaseButtonProps) {
-        super({
-            onClick: props.onClick,
-            className: props.className,
-            label: props.label
-        });
+        super(props);
 
         this.state = {
             onClick: props.onClick || ((e:MouseEvent<HTMLButtonElement>) => {}),
@@ -40,17 +36,4 @@ export default abstract class AdminButton extends Button {
 
         return super.render();
     }
-
-
-//     onstructor(props:BaseLinkProps) {
-//         super({
-//             ...props,
-//             to: "/admin",
-//             label: props.label || "Admin",
-//             className: props.className || "btn btn-admin icon-lock",
-//             authentication: props.authentication
-//         });
-//     }
-// }
-
 }

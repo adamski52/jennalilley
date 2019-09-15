@@ -7,31 +7,19 @@ export default abstract class BaseLink extends React.Component<BaseLinkProps, Ba
         super(props);
 
         this.state = {
-            to: props.to || "",
-            className: props.className || "",
-            label: props.label || "",
-            authentication: props.authentication || {
+            to: this.props.to || "",
+            className: this.props.className || "",
+            label: this.props.label || "",
+            authentication: this.props.authentication || {
                 isAdmin: false,
                 isAuthenticated: false
             }
         };
     }
 
-    public componentWillReceiveProps(props:BaseLinkProps) {
-        this.setState({
-            to: props.to || "",
-            className: props.className || "",
-            label: props.label || "",
-            authentication: props.authentication || {
-                isAdmin: false,
-                isAuthenticated: false
-            }
-        });
-    }
-
     public render():JSX.Element | null {
         return (
-            <Link to={this.state.to} className={this.state.className}>{this.state.label}</Link>
+            <Link to={this.state.to} className={"btn btn-secondary " + this.state.className}>{this.state.label}</Link>
         );
     }
 }

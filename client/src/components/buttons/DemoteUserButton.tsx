@@ -8,7 +8,7 @@ export default class DemoteUserButton extends AdminButton {
         this.state = {
             ...this.state,
             label: props.label || "Demote",
-            className: props.className || "btn btn-status-warn icon-user-times"
+            className: props.className || "icon-user-times"
         };
     }
 }

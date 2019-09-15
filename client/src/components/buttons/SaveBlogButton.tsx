@@ -8,7 +8,7 @@ export default class SaveBlogButton extends AdminButton {
         this.state = {
             ...this.state,
             label: props.label || "Create New Blog",
-            className: props.className || "btn btn-admin icon-document-text-add"
+            className: props.className || "icon-document-text-add"
         };
     }
 }

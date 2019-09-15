@@ -28,6 +28,57 @@
       transition: all .2s linear;
     }
 
+  &.btn-primary {
+    background: $theme-primary;
+
+    &::before {
+      background: darken($theme-primary, 10%);
+    }
+
+    &:hover,
+    &:focus {
+      &:before {
+        background: $theme-primary;
+      }
+
+      background: darken($theme-primary, 10%);
+    }
+  }
+
+  &.btn-secondary {
+    background: $theme-secondary;
+
+    &::before {
+      background: darken($theme-secondary, 10%);
+    }
+
+    &:hover,
+    &:focus {
+      &:before {
+        background: $theme-secondary;
+      }
+
+      background: darken($theme-secondary, 10%);
+    }
+  }
+
+  &.btn-accent {
+    background: $theme-accent;
+
+    &::before {
+      background: darken($theme-accent, 10%);
+    }
+
+    &:hover,
+    &:focus {
+      &:before {
+        background: $theme-accent;
+      }
+
+      background: darken($theme-accent, 10%);
+    }
+  }
+
   &.btn-facebook {
     background: $theme-facebook;
 
@@ -62,216 +113,6 @@
     }
   }
 
-  &.btn-unknown {
-    background: $theme-unknown;
-
-    &:before {
-      background: darken($theme-unknown, 10%);
-    }
-
-    &:hover,
-    &:focus {
-      &:before {
-        background: $theme-unknown;
-      }
-
-      background: darken($theme-unknown, 10%);
-    }
-  }
-
-
-  &.btn-logout {
-    background: $theme-logout;
-
-    &:before {
-      background: darken($theme-logout, 10%);
-    }
-
-    &:hover,
-    &:focus {
-      &:before {
-        background: $theme-logout;
-      }
-
-      background: darken($theme-logout, 10%);
-    }
-  }
-
-  &.btn-account { 
-    background: $theme-account;
-
-    &:before {
-      background: darken($theme-account, 10%);
-    }
-
-    &:hover,
-    &:focus {
-      &:before {
-        background: $theme-account;
-      }
-
-      background: darken($theme-account, 10%);
-    }
-  }
-
-  &.btn-admin {
-    background: $theme-admin;
-
-    &:before {
-      background: darken($theme-admin, 10%);
-    }
-
-    &:hover,
-    &:focus {
-      &:before {
-        background: $theme-admin;
-      }
-
-      background: darken($theme-admin, 10%);
-    }
-  }
-
-  &.btn-menu {
-    position: absolute;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    color: #fff;
-    line-height: 46px;
-    padding: 0;
-    width: 46px;
-    height: 46px;
-    left: 297px;
-    background: $theme-secondary;
-    margin: 0;
-
-    &:hover,
-    &:focus {
-        box-shadow: none;
-    }
-  }
-  
-  &.btn-twitter {
-    background: $theme-twitter;
-
-    &:before {
-      background: darken($theme-twitter, 10%);
-    }
-
-    &:hover,
-    &:focus {
-      &:before {
-        background: $theme-twitter;
-      }
-
-      background: darken($theme-twitter, 10%);
-    }
-  }
-
-  &.btn-instagram {
-    background: $theme-instagram;
-
-    &:before {
-      background: darken($theme-instagram, 10%);
-    }
-
-    &:hover,
-    &:focus {
-      &:before {
-        background: $theme-instagram;
-      }
-
-      background: darken($theme-instagram, 10%);
-    }
-  }
-
-  &.btn-phone {
-    background: $theme-phone;
-
-    &:before {
-      background: darken($theme-phone, 10%);
-    }
-
-    &:hover,
-    &:focus {
-      &:before {
-        background: $theme-phone;
-      }
-
-      background: darken($theme-phone, 10%);
-    }
-  }
-
-  &.btn-email {
-    background: $theme-email;
-
-    &:before {
-      background: darken($theme-email, 10%);
-    }
-
-    &:hover,
-    &:focus {
-      &:before {
-        background: $theme-email;
-      }
-
-      background: darken($theme-email, 10%);
-    }
-  }
-
-  &.btn-status-success {
-    $bg: lighten($theme-success, 20%);
-    background: $bg;
-
-    &:before {
-      background: darken($bg, 10%);
-    }
-
-    &:hover,
-    &:focus {
-      &:before {
-        background: $bg;
-      }
-
-      background: darken($bg, 10%);
-    }
-  }
-
-  &.btn-status-error {
-    $bg: lighten($theme-error, 20%);
-    background: $bg;
-
-    &:before {
-      background: darken($bg, 10%);
-    }
-
-    &:hover,
-    &:focus {
-      &:before {
-        background: $bg;
-      }
-
-      background: darken($bg, 10%);
-    }
-  }
-
-  &.btn-status-warn {
-    $bg: lighten($theme-warn, 20%);
-    background: $bg;
-
-    &:before {
-      background: darken($bg, 10%);
-    }
-
-    &:hover,
-    &:focus {
-      &:before {
-        background: $bg;
-      }
-
-      background: darken($bg, 10%);
-    }
-  }
-
   &.btn-small {
     padding-right: $spacing-small;
     font-size: .7rem;
@@ -279,20 +120,6 @@
     &:before {
       margin-right: $spacing-small;
       padding: $spacing-small;
-    }
-  }
-}
-
-@include media-breakpoint-down(sm) {
-  .left-bar {
-    .btn {
-        padding-right: $spacing-small;
-        font-size: .7rem;
-    
-        &:before {
-          margin-right: $spacing-small;
-          padding: $spacing-small;
-        }
     }
   }
 }

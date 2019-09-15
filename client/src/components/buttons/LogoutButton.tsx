@@ -1,6 +1,6 @@
 import { MouseEvent } from 'react';
-import AuthenticatedButton from './AuthenticatedButton';
 import { BaseButtonProps } from '../../states/Button';
+import AuthenticatedButton from './AuthenticatedButton';
 
 export default class LogoutButton extends AuthenticatedButton {
     constructor(props:BaseButtonProps) {
@@ -13,7 +13,7 @@ export default class LogoutButton extends AuthenticatedButton {
                 window.location.href = "/api/auth/logout";
             }),
             label: props.label || "Logout",
-            className: "btn btn-logout icon-unlock-alt"
+            className: props.className || "icon-unlock-alt"
         };
     }
 }

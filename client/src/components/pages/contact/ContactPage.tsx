@@ -22,7 +22,7 @@ export default class ContactPage extends React.Component<ContactViewProps, Conta
         }
         
         return (
-            <EmailForm />
+            <EmailForm {...this.props} />
         );
     }
 

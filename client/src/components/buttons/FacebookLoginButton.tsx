@@ -1,8 +1,8 @@
 import { MouseEvent } from 'react';
 import { BaseButtonProps } from '../../states/Button';
-import AuthenticatedButton from './AuthenticatedButton';
+import BaseButton from './BaseButton';
 
-export default class FacebookLoginButton extends AuthenticatedButton {
+export default class FacebookLoginButton extends BaseButton {
     constructor(props:BaseButtonProps) {
         super(props);
 
@@ -13,12 +13,12 @@ export default class FacebookLoginButton extends AuthenticatedButton {
                 window.location.href = "/api/auth/facebook/start";
             }),
             label: props.label || "Login with Facebook",
-            className: props.className || "btn btn-facebook icon-facebook"
+            className: props.className || "btn-facebook icon-facebook"
         };
     }
 
     public render() {
-        if(!this.props.authentication || !this.props.authentication.isAuthenticated) {
+        if(!this.state.authentication || !this.state.authentication.isAuthenticated) {
             return super.render();
         }
 

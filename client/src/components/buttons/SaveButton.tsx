@@ -8,7 +8,7 @@ export default class SaveButton extends AdminButton {
         this.state = {
             ...this.state,
             label: props.label || "Save",
-            className: props.className || "btn btn-admin icon-floppy-o"
+            className: props.className || "icon-floppy-o"
         };
     }
 }

@@ -4,27 +4,32 @@ import { STATUS } from "../components/StatusBar";
 import { ISchedule } from "../interfaces/Schedule";
 
 export default class ScheduleService {
-    public static readOne(statusHandler:ISetGlobalMessage, id:any) {
-        return HttpService.get("/api/schedule/" + id).then((response) => {
+    public static async readOne(statusHandler:ISetGlobalMessage, id:any) {
+        try {
+            let response = await HttpService.get("/api/schedule/" + id);
             return response;
-        }).catch((e) => {
+        }
+        catch(e) {
             statusHandler(STATUS.ERROR, "Failed to load event.");
             throw e;
-        });
+        }
     }
 
-    public static readAll(statusHandler:ISetGlobalMessage) {
-        return HttpService.get("/api/schedule").then((response) => {
+    public static async readAll(statusHandler:ISetGlobalMessage) {
+        try {
+            let response = await HttpService.get("/api/schedule");
             return response;
-        }).catch((e) => {
+        }
+        catch(e) {
             statusHandler(STATUS.ERROR, "Failed to load events.");
             throw e;
-        });
+        }
     }
 
-    public static readAllActive(statusHandler:ISetGlobalMessage) {
-        return HttpService.get("/api/schedule").then((json:ISchedule[]) => {
-            let items = json || [],
+    public static async readAllActive(statusHandler:ISetGlobalMessage) {
+        try { 
+            let response = await HttpService.get("/api/schedule"),
+                items:ISchedule[] = response || [],
                 today = new Date();
 
             items = items.filter((item) => {
@@ -44,20 +49,23 @@ export default class ScheduleService {
             });
 
             return items;
-        }).catch((e) => {
+        }
+        catch(e) {
             statusHandler(STATUS.ERROR, "Failed to load events.");
             throw e;
-        });
+        }
     }
 
-    public static create(statusHandler:ISetGlobalMessage, payload:any) {
-        return HttpService.post("/api/schedule", payload).then((response) => {
+    public static async create(statusHandler:ISetGlobalMessage, payload:any) {
+        try {
+            let response = await HttpService.post("/api/schedule", payload);
             statusHandler(STATUS.SUCCESS, "Event created successfully.");
             return response;
-        }).catch((e) => {
+        }
+        catch(e) {
             statusHandler(STATUS.ERROR, "Failed to create event.");
             throw e;
-        });
+        }
     }
 
     public static update(statusHandler:ISetGlobalMessage, payload:any) {

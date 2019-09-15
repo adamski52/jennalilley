@@ -9,7 +9,7 @@ export default class AccountButton extends AuthenticatedLink {
             ...this.state,
             to: props.to || "/account",
             label: props.label || "My Account",
-            className: props.className || "btn btn-account icon-lock"
+            className: props.className || "icon-lock"
         };
     }
 }

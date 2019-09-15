@@ -5,9 +5,10 @@ import DatePicker from "react-datepicker";
 export default class DateInput extends React.Component<DateInputProps, DateInputState> {
     public render() {
         return (
-            <label>
+            <label className="input-group">
                 <span>{this.props.title}</span>
                 <DatePicker
+                    className="form-control"
                     showTimeSelect
                     timeIntervals={15}
                     minDate={this.props.date ? this.props.date : new Date()}

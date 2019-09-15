@@ -1,0 +1,69 @@
+
+
+.ck-editor__editable_inline {
+    min-height: 400px;
+  }
+  
+  .rbc-calendar {
+    min-height: 100vh;
+    margin-top: $spacing-large;
+  
+    .rbc-toolbar {
+        .rbc-toolbar-label {
+            font-size: 1.5rem;
+        }
+    }
+  
+    .rbc-month-header {
+        background: #f0f0f0;
+        text-transform: uppercase;
+  
+        .rbc-header {
+            padding: 10px 0;
+        }
+    }
+  }
+  
+  .react-datepicker__time-container {
+    .react-datepicker__time {
+      .react-datepicker__time-box {
+        ul.react-datepicker__time-list {
+          li.react-datepicker__time-list-item {
+            font-size: .7rem;
+          }
+        }
+      }
+    }
+  }
+  
+  .react-datepicker-wrapper,
+  .react-datepicker__input-container {
+    width: 100%;
+    display: block;
+  }
+
+
+
+figure.image {
+    width: 100%;
+    padding: $spacing-medium 0;
+  
+    img {
+      width: 100%;
+    }
+  
+    &.image-style-align-left {
+      width: 40%;
+      min-width: 300px;
+      max-width: 600px;
+      float: left;
+    }
+    
+    &.image-style-side,
+    &.image-style-align-right {
+      width: 40%;
+      min-width: 300px;
+      max-width: 600px;
+      float: right;
+    }
+  }

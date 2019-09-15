@@ -53,7 +53,9 @@ export default class BlogsPage extends React.Component<BlogViewAllProps, BlogVie
     private renderItems() {
         if(this.state.items.length <= 0) {
             return (
-                <p>There are currently no blog postings.</p>
+                <div className="note">
+                    <p>There are currently no blog postings.</p>
+                </div>
             );
         }
 

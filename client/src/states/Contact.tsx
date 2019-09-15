@@ -23,5 +23,8 @@ export interface ContactViewState {
   item?: IContact;
 };
 
+export interface EmailFormProps extends BasePageProps {
+};
+
 export interface EmailFormState {
 };
