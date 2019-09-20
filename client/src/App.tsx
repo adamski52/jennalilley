@@ -66,7 +66,7 @@ export default class App extends React.Component<any, AppState> {
 
             this.setState({
                 authentication: {
-                    isAdmin: isAdmin,
+                    isAdmin: !!isAdmin,
                     isAuthenticated: true
                 }
             });

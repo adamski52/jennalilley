@@ -45,7 +45,7 @@ export default class HomeForm extends BaseAdminPage<HomeFormProps, HomeFormState
     catch(e) {}
   }
 
-  public render() {
+  protected renderAuthenticatedView() {
     return (
       <div>
         <h2>Home Page</h2>
