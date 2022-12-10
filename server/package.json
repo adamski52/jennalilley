@@ -10,7 +10,7 @@
     "prod": "node ./dist/index.js"
   },
   "dependencies": {
-    "express": "^4.15.3",
+    "express": "^4.17.3",
     "mongodb": "^3.2.5"
   },
   "devDependencies": {
